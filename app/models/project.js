@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    link: {type: String, required: true},
     details: { type: [String], required: true },
     tags: {type: [String], required: true},
     from: {type: Date, require: false},

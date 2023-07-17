@@ -13,8 +13,8 @@ const ProjectController = {
 
     createProject: async (req, res) => {
     try {
-        const { name, details, tags } = req.body;
-        const project = new Project({ name, details, tags });
+        const { name, link, details, tags, from, to, priority } = req.body;
+        const project = new Project({ name, link, details, tags, from, to, priority });
         await project.save();
         res.json(project);
     } catch (error) {
