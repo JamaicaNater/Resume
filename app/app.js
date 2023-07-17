@@ -1,10 +1,20 @@
 const express = require('express');
 const app = express();
+const { connectDatabase, disconnectDatabase } = require('./models/db')
 
-// Define a route
-app.get('/', (req, res) => {
-  res.send('Hello, Express!');
-});
+connectDatabase()
+
+// Import routes
+const projectRoutes = require('./routes/project');
+const homepageRoutes = require('./routes/homepage');
+
+// Middleware
+app.use(express.json());
+
+// Use routes
+app.use('/projects', projectRoutes);
+app.use('/', homepageRoutes);
+
 
 // Start the server
 app.listen(3000, () => {
