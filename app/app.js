@@ -2,12 +2,14 @@ const express = require('express');
 const app = express();
 const { connectDatabase, disconnectDatabase } = require('./models/db')
 
-connectDatabase()
+connectDatabase();
 
 // Import routes
 const homepageRoutes = require('./routes/homepage');
 const projectRoutes = require('./routes/project');
-const experineceRoutes = require('./routes/experience')
+const experineceRoutes = require('./routes/experience');
+const referenceRoutes = require('./routes/reference');
+const meRoutes = require('./routes/me');
 
 // Middleware
 app.use(express.json());
@@ -16,6 +18,8 @@ app.use(express.json());
 app.use('/', homepageRoutes);
 app.use('/projects', projectRoutes);
 app.use('/experience', experineceRoutes);
+app.use('/reference', referenceRoutes);
+app.use('/me', meRoutes);
 
 // Start the server
 app.listen(3000, () => {
