@@ -2,11 +2,14 @@ const mongoose = require('mongoose');
 
 let peopleFields = require('./peopleFields')
 
-const ReferenceScema = new mongoose.Schema({
+const ReferenceSchema = new mongoose.Schema({
     ...peopleFields,
     relationship: {type: String, required: false }
 })
 
-const Reference = mongoose.model('Reference', ReferenceScema);
+// No duplicate first AND last name
+ReferenceSchema.index({ firstName: 1, lastName: 1 }, { unique: true });
+
+const Reference = mongoose.model('Reference', ReferenceSchema);
 
 module.exports = Reference;

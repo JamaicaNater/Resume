@@ -1,7 +1,7 @@
 const peopleFields = {
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
-    phone_number: { type: String, required: false },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    phoneNumber: { type: String, required: false },
     email: { type: String, required: false }
 };
 

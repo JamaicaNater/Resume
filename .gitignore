@@ -31,3 +31,6 @@ coverage/
 # Build tools
 build/
 release/
+
+# Env
+local.env

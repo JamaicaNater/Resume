@@ -12,8 +12,8 @@ const ReferenceController = {
     },
     createReference: async (req, res) => {
         try {
-            let { first_name, last_name, phone_number, email, relationship } = req.body;
-            const reference = new Reference({ first_name, last_name, phone_number, email, relationship });
+            let { firstName, lastName, phoneNumber, email, relationship } = req.body;
+            const reference = new Reference({ firstName, lastName, phoneNumber, email, relationship });
             reference.save();
         } catch(error) {
             console.error(error);

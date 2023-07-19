@@ -3,7 +3,7 @@ const Me = require('../models/me');
 const MeController = {
     getMe: async (req, res) => {
         try {
-            const me =  Me.findOne();
+            const me = await Me.findOne();
             res.json(me);
         } catch (error) {
             console.error(error);
@@ -12,8 +12,8 @@ const MeController = {
     },
     postMe: async (req, res) => {
         try {
-            const { first_name, last_name, phone_number, email, skills, summary } = req.body;
-            const me = new Me({ first_name, last_name, phone_number, email, skills, summary });
+            const { firstName, lastName, phoneNumber, email, skills, summary } = req.body;
+            const me = new Me({ firstName, lastName, phoneNumber, email, skills, summary });
             me.save();
         } catch (error) {
             console.error(error);
