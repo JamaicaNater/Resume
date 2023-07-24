@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const DB_URL = process.env.DB_URL;
 
 async function connectDatabase() {
   try {
-    await mongoose.connect('mongodb://localhost/mydatabase', {
+    await mongoose.connect(`mongodb://${DB_URL}/mydatabase`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });

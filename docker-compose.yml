@@ -1,11 +1,31 @@
 version: '3'
 services:
-  mongodb:
+  mongo-db:
     image: mongo
     restart: always
     ports:
       - 27017:27017
     volumes:
       - mongodb-data:/data/db
+  react-app:
+    build:
+      context: ./ui
+      dockerfile: ui.Dockerfile
+    ports:
+      - 5173:5173
+    env_file:
+      - common.env
+    volumes:
+      - ./ui:/app
+  node-app:
+    build:
+      context: ./app
+      dockerfile: app.Dockerfile
+    ports:
+      - 3000:3000
+    env_file:
+      - common.env
+    volumes:
+      - ./app:/app
 volumes:
   mongodb-data:
