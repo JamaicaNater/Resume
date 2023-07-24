@@ -18,14 +18,43 @@ const experienceData = [
     { 
       companyName: 'Anaplan', 
       position: 'Associate Software Engineer', 
-      details: [""], 
-      tags: [""] 
+      details: [
+        'Enhanced the developer experience within the Developer Enablement Group by creating and managing problem-solving tools. ' + 
+        'Utilized a comprehensive tech stack including Java, Rust, Terraform, Cypress, Pact, and Kubernetes to empower developers ' + 
+        'and streamline workflows.',
+
+        'Boosted internal adoption of the team\'s Data Provisioning Tool (Java) through an impactful organization-wide demonstration, ' +
+        'showcasing its value and capabilities to the greater organization.',
+
+        'Significantly reduced errors in Splunk logs by 40% through the implementation of performance, ' +
+        'stability, and contract (Pact) tests for the tool. Collaborated with internal users to gain insights, address concerns, ' + 
+        'and align the tool with their specific needs. Expanded the associated Jenkins library, enabling seamless integration into ' + 
+        'developers\' CI/CD pipelines, further enhancing its usability and effectiveness.',
+
+        'Elevated the organization\'s test visibility by deploying a robust Rust-based web API on Amazon EKS and Aurora DB. ' +
+        'Leveraged Infrastructure as Code (IaaC) principles to provision resources with Terraform and Helm. ' +
+        'Demonstrated Agile principles by creating Jenkins pipelines for seamless containerization and integration of new code changes. ' + 
+        'Implemented Harness pipelines for efficient deployment of those changes. ' + 
+        'Introduced observability to the cluster with metrics and logging using OpenTelemetry and Grafana.',
+
+        'Enhanced front-end for the application using React and Backstage by integrating our plugin into the organizations\' ' + 
+        'existing backstage deployment.'
+      ], 
+      tags: ['Java', 'Rust', 'API', 'REST', 'AWS', 'Kubernetes', 'Docker', 'Terraform', 'Backend', 'Dev-Ops', 'Full-Stack', 'Jenkins'] 
     },
     { 
       companyName: 'HCLTech', 
       position: 'Intern Software Engineer', 
-      details: [""], 
-      tags: [""] 
+      details: [
+        'Developed and managed full-stack website services encompassing front-end, back-end, and database layers using ' + 
+        'Java, SpringBoot, OpenShift, and Angular.',
+
+        'Ensured robust web security practices with code coverage over 90%, zero code smells, and minimal cognitive complexity.',
+
+        'Successfully collaborated with a team of interns, effectively navigating a 12-hour time difference with managers. ' + 
+        'Demonstrated exceptional coordination and communication skills to ensure seamless project development and progress.'
+      ], 
+      tags: ['Java', 'SpringBoot', 'API', 'REST', 'Backend', 'Full-Stack']
     }
 ];
 
@@ -45,9 +74,7 @@ const projectData = [
       'configuring dockerfiles and docker-compose files to enable hassle-free deployment and scalability across different environments. ' +
       'This ensured platform independence and streamlined application maintenance'
     ],
-    tags: [
-      ''
-    ] 
+    tags: ['Rust', 'ReactJS', 'API', 'REST', 'Backend', 'Full-Stack', 'Frontend'] 
   },
   { 
     name: 'RocketManPSP (Video Game)', 
@@ -63,9 +90,7 @@ const projectData = [
       'Navigated the challenges of working within a limited 6MB RAM constraint (2MB stack, 4MB heap), ' + 
       'optimizing resource usage to maximize performance and deliver an immersive gaming experience on the Sony PSP platform.'
     ],
-    tags: [
-      ''
-    ] 
+    tags: ['C++', 'Game-Development'] 
   },
   { 
     name: 'Micro-C Compiler', 
@@ -81,7 +106,7 @@ const projectData = [
       'utilizing trees to enable seamless compilation processes. Mastered recursion-based functions and operations ' + 
       'to enhance performance and code optimization.'
     ],
-    tags: [""] 
+    tags: ['C', 'Compiler-Construction'] 
   },
   { 
     name: 'Red-To-You (Video Creation Tool)', 
@@ -96,7 +121,7 @@ const projectData = [
       'Optimized the tool\'s performance by implementing efficient multi-threading techniques, resulting in a substantial reduction in runtime. ' +
       'This enhancement ensures swift video generation, allowing users to enjoy their content without unnecessary delays.'
     ],
-    tags: [""] 
+    tags: ['Python'] 
   }
 ];
 
