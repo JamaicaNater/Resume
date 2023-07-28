@@ -3,10 +3,13 @@ services:
   mongo-db:
     image: mongo
     restart: always
+    env_file:
+      - local.env
     ports:
       - 27017:27017
     volumes:
       - mongodb-data:/data/db
+      - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js
   react-app:
     build:
       context: ./ui

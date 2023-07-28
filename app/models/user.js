@@ -2,15 +2,15 @@ let mongoose = require('mongoose');
 
 let peopleFields = require('./peopleFields')
 
-const meSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     ...peopleFields,
     skills: {type: [String], required: false },
     summary: {type: String, required: false }
 })
 
 // No duplicate first AND last name
-meSchema.index({ firstName: 1, lastName: 1 }, { unique: true });
+UserSchema.index({ firstName: 1, lastName: 1 }, { unique: true });
 
-const Me = mongoose.model('Me', meSchema);
+const User = mongoose.model('User', UserSchema);
 
-module.exports = Me;
+module.exports = User;

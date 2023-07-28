@@ -1,9 +1,4 @@
-const Education = require("./models/education");
-const Experience = require("./models/experience");
-const Me = require("./models/me");
-const Project = require("./models/project");
-
-const meData = [{  
+const userData = [{  
   firstName: 'Francis',
   lastName: 'Williams',
   phoneNumber: process.env.PHONE_NUMBER,
@@ -141,42 +136,68 @@ const educationData = [
   }
 ];
 
-function initData() {
-    Experience.insertMany(experienceData, {ordered: false})
-    .then((result) => {
-      const insertedCount = result.length;
-      console.log(`Inserted ${insertedCount} experience(s) successfully`);
-    })
-    .catch((error) => {
-      console.error('Error inserting experience(s):', error);
-    });
+const referenceData = [
+]
 
-    Project.insertMany(projectData, {ordered: false})
-    .then((result) => {
-      const insertedCount = result.length;
-      console.log(`Inserted ${insertedCount} projects(s) successfully`);
-    })
-    .catch((error) => {
-        console.error('Error inserting project(s):', error);
-    });
+db.createUser({
+  user: 'root',
+  pwd: 'toor',
+  roles: [
+      {
+          role: 'readWrite',
+          db: 'testDB',
+      },
+  ],
+});
 
-    Education.insertMany( educationData, {ordered: false})
-    .then((result) => {
-      const insertedCount = result.length;
-      console.log(`Inserted ${insertedCount} education(s) successfully`);
-    })
-    .catch((error) => {
-        console.error('Error inserting education(s):', error);
-    });
+// Connect to the MongoDB server
+const conn = new Mongo();
 
-    Me.insertMany( meData, {ordered: false})
-    .then((result) => {
-      const insertedCount = result.length;
-      console.log(`Inserted ${insertedCount} me(s) successfully`);
-    })
-    .catch((error) => {
-        console.error('Error inserting me(s):', error);
-    });
+// Choose the database you want to use
+const db = conn.getDB('resumedata');
+
+// Add User Data
+try {
+  db.createCollection('users');
+  db.users.insertMany(userData);
+} catch (error) {
+  console.error(error);
 }
 
-module.exports = initData;
+// Add Education Data
+try {
+  db.createCollection('educations');
+  db.educations.insertMany(educationData);
+} catch (error) {
+  console.error(error);
+}
+
+// Add Project Data
+try {
+  db.createCollection('projects');
+  db.projects.insertMany(projectData);
+} catch (error) {
+  console.error(error);
+}
+
+// Add Reference Data
+try {
+  db.createCollection('references');
+  db.references.insertMany(referenceData);
+} catch (error) {
+  console.error(error);
+}
+
+// Add Experience Data
+try {
+  db.createCollection('experiences');
+  db.experiences.insertMany(experienceData);
+} catch (error) {
+  console.error(error);
+}
+
+
+// Add any other setup tasks you need
+
+// Print a message indicating that the initialization is complete
+print('MongoDB initialization script executed successfully.');

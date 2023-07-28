@@ -36,6 +36,8 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const logo = "AdaptiveResu.me";
+
   return (
     <AppBar className={styles.responsiveappbar} position="static">
       <Container maxWidth="xl">
@@ -56,7 +58,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            {logo}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -112,7 +114,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            {logo}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

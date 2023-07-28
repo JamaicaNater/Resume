@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const DB_URL = process.env.DB_URL;
+const RESUME_DB_NAME = process.env.RESUME_DB_NAME;
 
 async function connectDatabase() {
   try {
-    await mongoose.connect(`mongodb://${DB_URL}/mydatabase`, {
+    await mongoose.connect(`mongodb://${DB_URL}/${RESUME_DB_NAME}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });

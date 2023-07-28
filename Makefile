@@ -1,5 +1,5 @@
 up-db:
-	docker compose up mongodb
+	docker compose up mongo-db
 up:
 	docker compose up --build
 clean:
