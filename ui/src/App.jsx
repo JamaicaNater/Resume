@@ -1,12 +1,17 @@
 import './App.css'
-import ResponsiveAppBar from './components/ResponsiveAppBar'
+import { useState } from 'react';
+import MiniDrawer from './components/MiniDrawer'
+import Placeholder from './pages/Placeholder'
+import Resume from './pages/Resume';
 
 function App() {
+  const [page, setPage] = useState(<Resume/>)
 
   return (
     <>
-      <ResponsiveAppBar></ResponsiveAppBar>
-
+      <MiniDrawer changePageContent={setPage}>
+        {page}
+      </MiniDrawer>
     </>
   )
 }

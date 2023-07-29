@@ -2,21 +2,27 @@ import axios from "axios";
 
 const API_BASE_URL = 'http://localhost:3000'
 
-async function getExperience() {
-    return genericGet('experience');
-}
+export const ApiController = {
+    getExperience: async () => {
+        return genericGet('experience');
+    },
 
-async function getEducation() {
-    return genericGet('education');
-}
+    getEducation: async () => {
+        return genericGet('education');
+    },
 
-async function getProjects() {
-    return genericGet('project');
-}
+    getProjects: async () => {
+        return genericGet('projects');
+    },
 
-async function getReferences() {
-    return genericGet('reference');
-}
+    getReferences: async () => {
+        return genericGet('reference');
+    },
+
+    getUsers: async () => {
+        return genericGet('user');
+    }
+};
 
 async function genericGet(endpoint) {
     try {
@@ -28,3 +34,4 @@ async function genericGet(endpoint) {
         throw error;
       }
 }
+

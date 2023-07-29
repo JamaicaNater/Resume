@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors')
+
 const app = express();
 const { connectDatabase, disconnectDatabase } = require('./models/db')
 
@@ -14,6 +16,7 @@ const userRoutes = require('./routes/user');
 
 // Middleware
 app.use(express.json());
+app.use(cors())
 
 // Use routes
 app.use('/', homepageRoutes);

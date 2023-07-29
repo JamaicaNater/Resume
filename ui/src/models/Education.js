@@ -1,0 +1,27 @@
+export default class Education {
+    constructor(
+        name,
+        degreeType,
+        major,
+        minor,
+        gpa,
+        summary,
+        enrollmentDate,
+        graduationDate,
+        city,
+        state,
+        country
+    ) {
+        this.name = name;
+        this.degreeType = degreeType;
+        this.major = major;
+        this.minor = minor;
+        this.gpa = gpa;
+        this.summary = summary;
+        this.enrollmentDate = enrollmentDate;
+        this.graduationDate = graduationDate;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+    }
+}
