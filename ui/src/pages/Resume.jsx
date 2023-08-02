@@ -1,14 +1,15 @@
 import { ResumeTemplate, Education, Project, Experience, Reference, User } from "../models";
+import CollapsibleCard from "../components/CollapsibleCard"
 import { plainToClass } from 'class-transformer';
 import { ApiController } from "../utils/api";
 import { useEffect, useState } from "react";
 
 export default function Resume() {
-    const [data, setData] = useState(0);
+    const [resumeData, setResumeData] = useState(0);
 
     useEffect(() => {
 
-        const fetchData = async () => {
+        const fetchResumeData = async () => {
             try {
                 const educationResponse = await ApiController.getEducation();
                 const education = plainToClass(Education, educationResponse[0]);
@@ -26,18 +27,21 @@ export default function Resume() {
                 const project = plainToClass(Project, projectResponse[0]);
 
                 const resumeTemplate = new ResumeTemplate(education, project, user, reference, experience)
-                console.log(resumeTemplate)
-                setData(resumeTemplate)
+                setResumeData(resumeTemplate)
+                console.log(Object.keys(resumeData))
             } catch (error) {
                 console.error(error);
             }
         }
-        fetchData()
+        fetchResumeData()
     }, []);
 
     return(
         <>
-            {JSON.stringify(data)}
+            {Object.keys(resumeData).map((resumeSection, index) => (
+                <CollapsibleCard key={index} title={resumeSection} content={JSON.stringify(resumeData[resumeSection])} hidden_content={`Expand to view ${resumeSection} data`}/>
+            ))}
+            
         </>
     );
 }
