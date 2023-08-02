@@ -1,25 +1,21 @@
 version: '3'
 services:
   mongo-db:
-    image: mongo
+    image: mongo:latest
     restart: always
     env_file:
       - local.env
     ports:
       - 27017:27017
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "'db.adminCommand('ping')'"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
     volumes:
       - mongodb-data:/data/db
       - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js
-  react-app:
-    build:
-      context: ./ui
-      dockerfile: ui.Dockerfile
-    ports:
-      - 5173:5173
-    env_file:
-      - common.env
-    volumes:
-      - ./ui:/app
+
   node-app:
     build:
       context: ./app
@@ -28,7 +24,35 @@ services:
       - 3000:3000
     env_file:
       - common.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     volumes:
       - ./app:/app
+    depends_on:
+      mongo-db:
+        condition: service_healthy
+
+  react-app:
+    build:
+      context: ./ui
+      dockerfile: ui.Dockerfile
+    ports:
+      - 5173:5173
+    env_file:
+      - common.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5173"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ./ui:/app
+    depends_on:
+      node-app:
+        condition: service_healthy
+        
 volumes:
   mongodb-data:

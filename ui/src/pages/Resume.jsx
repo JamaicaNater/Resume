@@ -23,7 +23,7 @@ export default function Resume() {
                 const user = plainToClass(User, userResponse[0]);
 
                 const projectResponse = await ApiController.getProjects();
-                const project = plainToClass(Project, educationResponse[0]);
+                const project = plainToClass(Project, projectResponse[0]);
 
                 const resumeTemplate = new ResumeTemplate(education, project, user, reference, experience)
                 console.log(resumeTemplate)
