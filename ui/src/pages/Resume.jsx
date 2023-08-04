@@ -1,5 +1,6 @@
 import { ResumeTemplate, Education, Project, Experience, Reference, User } from "../models";
 import CollapsibleCard from "../components/CollapsibleCard"
+import EducationDetails from "../utils/resumeDetails";
 import { plainToClass } from 'class-transformer';
 import { ApiController } from "../utils/api";
 import { useEffect, useState } from "react";
@@ -41,7 +42,9 @@ export default function Resume() {
             {Object.keys(resumeData).map((resumeSection, index) => (
                 <CollapsibleCard key={index} title={resumeSection} content={JSON.stringify(resumeData[resumeSection])} hidden_content={`Expand to view ${resumeSection} data`}/>
             ))}
-            
+            { resumeData &&
+                <EducationDetails education={resumeData.education}></EducationDetails>
+            }
         </>
     );
 }
