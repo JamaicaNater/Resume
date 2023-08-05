@@ -4,28 +4,28 @@ import camelCaseToCapitalizedWords from "../../utils/misc";
 import { ignoredFields } from './utils';
 import { Typography } from '@mui/material';
 
-const ExperienceDetails = ({ experience }) => {
+const ProjectDetails = ({ project }) => {
     let table = {};
 
-    Object.keys(experience).forEach((key) => {
+    Object.keys(project).forEach((key) => {
         if (ignoredFields.has(key)) {
             return;
         }
-        if (!experience[key]) {
+        if (!project[key]) {
             return;
         }
 
-        table[camelCaseToCapitalizedWords(key)] = experience[key];
+        table[camelCaseToCapitalizedWords(key)] = project[key];
     });
     
     return(
         <>
-            <NoBorderTable title={experience.name} body={table}></NoBorderTable>
-            { experience.details &&
+            <NoBorderTable title={project.name} body={table}></NoBorderTable>
+            { project.details &&
                 <>
                     <Typography>Summary</Typography>
                     {
-                        experience.details.map((detail, index) => (
+                        project.details.map((detail, index) => (
                             <p key={index}>{detail}</p>
                         ))
                     }
@@ -35,12 +35,12 @@ const ExperienceDetails = ({ experience }) => {
     );
 }
 
-ExperienceDetails.propTypes = {
-    experience: PropTypes.shape({
+ProjectDetails.propTypes = {
+    project: PropTypes.shape({
         name: PropTypes.string.isRequired, 
         details: PropTypes.array, 
     }).isRequired,
 };
   
 
-export default ExperienceDetails;
+export default ProjectDetails;

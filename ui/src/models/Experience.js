@@ -1,6 +1,6 @@
 export default class Experience {
-    constructor(companyName, logoLink, position, details, tags, from, to, priority) {
-        this.companyName = companyName;
+    constructor(name, logoLink, position, details, tags, from, to, priority) {
+        this.name = name;
         this.logoLink = logoLink;
         this.position = position;
         this.details = details;

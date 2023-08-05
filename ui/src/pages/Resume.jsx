@@ -5,6 +5,7 @@ import { plainToClass } from 'class-transformer';
 import { ApiController } from "../utils/api";
 import { useEffect, useState } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
+import ProjectDetails from "./resumeDetails/ProjectDetails";
 
 export default function Resume() {
     const [resumeData, setResumeData] = useState(0);
@@ -38,28 +39,34 @@ export default function Resume() {
 
     return(
         <>
-            {Object.keys(resumeData).map((resumeSection, index) => (
-                <CollapsibleCard key={index} title={resumeSection}>
-                    {JSON.stringify(resumeData[resumeSection])}
-                </CollapsibleCard>
-            ))}
-            { resumeData && resumeData.education &&
-                resumeData.education.map((education, index) => (
-                    <>
-                        <CollapsibleCard key={index} title="Education"> 
+            {   
+                resumeData && resumeData.education && 
+                <CollapsibleCard title="Education"> 
+                    {
+                        resumeData.education.map((education, index) => (                        
                             <EducationDetails key={index} education={education}></EducationDetails>
-                        </CollapsibleCard>
-                    </>
-                ))
+                        ))
+                    }
+                </CollapsibleCard>
             }
-            { resumeData && resumeData.experience &&
-                resumeData.experience.map((experience, index) => (
-                    <>
-                        <CollapsibleCard key={index} title="Experience"> 
+            {   resumeData && resumeData.experience && 
+                <CollapsibleCard title="Experience"> 
+                    {
+                        resumeData.experience.map((experience, index) => (                        
                             <ExperienceDetails key={index} experience={experience}></ExperienceDetails>
-                        </CollapsibleCard>
-                    </>
-                ))
+                        ))
+                    }
+                </CollapsibleCard>
+            }
+            {   
+                resumeData && resumeData.projects && 
+                <CollapsibleCard title="Projects"> 
+                    {
+                        resumeData.projects.map((project, index) => (                        
+                            <ProjectDetails key={index} project={project}></ProjectDetails>
+                        ))
+                    }
+                </CollapsibleCard>
             }
         </>
     );

@@ -5,7 +5,7 @@ export default class Education {
         major,
         minor,
         gpa,
-        summary,
+        details,
         enrollmentDate,
         graduationDate,
         city,
@@ -17,7 +17,7 @@ export default class Education {
         this.major = major;
         this.minor = minor;
         this.gpa = gpa;
-        this.summary = summary;
+        this.details = details;
         this.enrollmentDate = enrollmentDate;
         this.graduationDate = graduationDate;
         this.city = city;

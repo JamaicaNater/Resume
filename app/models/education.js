@@ -6,7 +6,7 @@ const EducationSchema = mongoose.Schema({
     major: {type: String, required: true},
     minor: {type: String, required: true},
     gpa: {type: Number, required: false},
-    summary: {type: String, required: false},
+    details: {type: String, required: false},
     enrollmentDate: {type: String, required: false},
     graduationDate: {type: String, required: false},
     city: {type: String, required: false},

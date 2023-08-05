@@ -13,8 +13,8 @@ const ExperienceController = {
 
     createExperience: async (req, res) => {
         try {
-            const { companyName, logoLink, position, details, tags, from, to, priority } = req.body
-            const experience = new Experience({ companyName, logoLink, position, details, tags, from, to, priority });
+            const { name, logoLink, position, details, tags, from, to, priority } = req.body
+            const experience = new Experience({ name, logoLink, position, details, tags, from, to, priority });
             experience.save()
         } catch(error) {
             console.error(error)

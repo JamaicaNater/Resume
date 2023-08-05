@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const experienceSchema = new mongoose.Schema({
     // TODO: Support native images
-    companyName: { type: String, required: true },
+    name: { type: String, required: true },
     logoLink: {type: String, required: false},
     position: {type: String, required: true},
     details: { type: [String], required: true },

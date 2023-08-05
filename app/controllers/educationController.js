@@ -12,8 +12,8 @@ let EducationController = {
     },
     createEducation: async (req, res) => {
         try {
-            const { name, degreeType, major, minor, gpa, summary, enrollmentDate, graduationDate, city, state, country } = req.body;
-            const education = new Education({ name, degreeType, major, minor, gpa, summary, enrollmentDate, graduationDate, city, state, country });
+            const { name, degreeType, major, minor, gpa, details, enrollmentDate, graduationDate, city, state, country } = req.body;
+            const education = new Education({ name, degreeType, major, minor, gpa, details, enrollmentDate, graduationDate, city, state, country });
             await education.save();
             res.json(education);
         } catch(error) {

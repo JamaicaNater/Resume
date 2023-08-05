@@ -20,7 +20,7 @@ const userData = [{
   lastName: 'Williams',
   phoneNumber: process.env.PHONE_NUMBER,
   email: process.env.EMAIL,
-  summary:  
+  details:  
     'I am a young professional with a passion for back-end applications, however, I love all kinds of software development. ' +
     'I am a fast learner and enjoy taking on new programming languages and frameworks to expand my skill set.',
   skills: ['']
@@ -159,7 +159,7 @@ async function addResumeData() {
         major: "Computer Science",
         minor: "Mathermatics",
         gpa: 3.73,
-        summary: null,
+        details: null,
         enrollmentDate: "2019-8",
         graduationDate: "2022-5",
         city: "San Marcos",

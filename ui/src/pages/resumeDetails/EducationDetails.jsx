@@ -1,35 +1,34 @@
 import PropTypes from 'prop-types';
 import NoBorderTable from "../../components/NoBordersTable"
 import camelCaseToCapitalizedWords from "../../utils/misc";
+import { ignoredFields } from './utils';
 import { Typography } from '@mui/material';
 
-const EducationDetails = ({education}) => {
-    const ignored = new Set(['userId', '_id', 'summary', 'name'])
-
+const EducationDetails = ({ education }) => {
     let table = {};
-    console.log(education);
-    if (education == null) {
-        console.error('Education is required');
-    } else {
-        Object.keys(education).forEach((key) => {
-            if (ignored.has(key)) {
-                return;
-            }
-            if (table[key] === null) {
-                return;
-            }
 
-            table[camelCaseToCapitalizedWords(key)] = education[key];
-        });
-    }
+    Object.keys(education).forEach((key) => {
+        if (ignoredFields.has(key)) {
+            return;
+        }
+        if (!education[key]) {
+            return;
+        }
+
+        table[camelCaseToCapitalizedWords(key)] = education[key];
+    });
     
     return(
         <>
             <NoBorderTable title={education.name} body={table}></NoBorderTable>
-            { education.summary &&
+            { education.details &&
                 <>
                     <Typography>Summary</Typography>
-                    <p>{education.summary}</p>
+                    {
+                        education.details.map((detail, index) => (
+                            <p key={index}>{detail}</p>
+                        ))
+                    }
                 </>
             }
         </>
@@ -39,7 +38,7 @@ const EducationDetails = ({education}) => {
 EducationDetails.propTypes = {
     education: PropTypes.shape({
         name: PropTypes.string.isRequired, 
-        summary: PropTypes.string, 
+        details: PropTypes.array, 
     }).isRequired,
 };
   
