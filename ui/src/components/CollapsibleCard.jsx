@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Collapse, Typography, IconButton } from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
-const CollapsibleCard = ({ title, content, hidden_content }) => {
-  const [expanded, setExpanded] = useState(false);
+const CollapsibleCard = ({ title, children, defaultExpandedState }) => {
+  const [expanded, setExpanded] = useState(defaultExpandedState ?? true);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -11,23 +11,33 @@ const CollapsibleCard = ({ title, content, hidden_content }) => {
 
   return (
     <Card>
-      <CardContent>
         <Typography variant="h5">{title}</Typography>
-        <Typography variant="body1">{content}</Typography>
-      </CardContent>
-      <IconButton
-        onClick={handleExpandClick}
-        aria-expanded={expanded}
-        aria-label="show more"
-        sx={{ marginLeft: 'auto' }}
-      >
-        <ExpandMore />
-      </IconButton>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography variant="body2">{hidden_content}</Typography>
-        </CardContent>
-      </Collapse>
+        <Collapse in={!expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+                <Typography variant="body1">Expand to view content</Typography>
+            </CardContent>
+            <IconButton
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+                sx={{ marginLeft: 'auto' }}
+            >
+                {expanded ? <ExpandLess /> : <ExpandMore />}
+            </IconButton>
+        </Collapse>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+            {children}
+            </CardContent>
+            <IconButton
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+                sx={{ marginLeft: 'auto' }}
+            >
+                {expanded ? <ExpandLess /> : <ExpandMore />}
+            </IconButton>
+        </Collapse>
     </Card>
   );
 };

@@ -12,22 +12,22 @@ export default function Resume() {
 
         const fetchResumeData = async () => {
             try {
+                const userResponse = await ApiController.getUsers();
+                const user = plainToClass(User, userResponse);
+
                 const educationResponse = await ApiController.getEducation();
-                const education = plainToClass(Education, educationResponse[0]);
+                const educations = educationResponse.map((education) => plainToClass(Education, education));
 
                 const experienceResponse = await ApiController.getExperience();
-                const experience = plainToClass(Experience, experienceResponse[0]);
+                const experience = experienceResponse.map((experience) => plainToClass(Experience, experience));
 
                 const referenceResponse = await ApiController.getReferences();
-                const reference = plainToClass(Reference, referenceResponse[0]);
-
-                const userResponse = await ApiController.getUsers();
-                const user = plainToClass(User, userResponse[0]);
+                const references = referenceResponse.map((reference) => plainToClass(Reference, reference));
 
                 const projectResponse = await ApiController.getProjects();
-                const project = plainToClass(Project, projectResponse[0]);
+                const projects = projectResponse.map((project) => plainToClass(Project, project));
 
-                const resumeTemplate = new ResumeTemplate(education, project, user, reference, experience)
+                const resumeTemplate = new ResumeTemplate(educations, projects, user, references, experience)
                 setResumeData(resumeTemplate)
                 console.log(Object.keys(resumeData))
             } catch (error) {
@@ -40,10 +40,18 @@ export default function Resume() {
     return(
         <>
             {Object.keys(resumeData).map((resumeSection, index) => (
-                <CollapsibleCard key={index} title={resumeSection} content={JSON.stringify(resumeData[resumeSection])} hidden_content={`Expand to view ${resumeSection} data`}/>
+                <CollapsibleCard key={index} title={resumeSection}>
+                    {JSON.stringify(resumeData[resumeSection])}
+                </CollapsibleCard>
             ))}
-            { resumeData &&
-                <EducationDetails education={resumeData.education}></EducationDetails>
+            { resumeData && resumeData.education &&
+                resumeData.education.map((education, index) => (
+                    <>
+                        <CollapsibleCard key={index} title="Education"> 
+                            <EducationDetails key={index} education={education}></EducationDetails>
+                        </CollapsibleCard>
+                    </>
+                ))
             }
         </>
     );
