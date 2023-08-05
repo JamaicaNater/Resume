@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import NoBorderTable from "../components/NoBordersTable"
-import camelCaseToCapitalizedWords from "./misc";
+import NoBorderTable from "../../components/NoBordersTable"
+import camelCaseToCapitalizedWords from "../../utils/misc";
 import { Typography } from '@mui/material';
 
 const EducationDetails = ({education}) => {

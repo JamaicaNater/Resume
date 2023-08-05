@@ -37,7 +37,7 @@ async function addResumeData() {
     const experienceData = [
       { 
         userId: userId,
-        companyName: 'Anaplan', 
+        name: 'Anaplan', 
         position: 'Associate Software Engineer', 
         details: [
           'Enhanced the developer experience within the Developer Enablement Group by creating and managing problem-solving tools. ' + 
@@ -65,7 +65,7 @@ async function addResumeData() {
       },
       { 
         userId: userId,
-        companyName: 'HCLTech', 
+        name: 'HCLTech', 
         position: 'Intern Software Engineer', 
         details: [
           'Developed and managed full-stack website services encompassing front-end, back-end, and database layers using ' + 
@@ -170,7 +170,7 @@ async function addResumeData() {
 
     const referenceData = [
     ];
-    
+
     db.createCollection('experiences');
     db.experiences.insertMany(experienceData);
 

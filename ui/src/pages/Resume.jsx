@@ -1,15 +1,15 @@
 import { ResumeTemplate, Education, Project, Experience, Reference, User } from "../models";
 import CollapsibleCard from "../components/CollapsibleCard"
-import EducationDetails from "../utils/resumeDetails";
+import EducationDetails from "./resumeDetails/EducationDetails";
 import { plainToClass } from 'class-transformer';
 import { ApiController } from "../utils/api";
 import { useEffect, useState } from "react";
+import ExperienceDetails from "./resumeDetails/ExperienceDetails";
 
 export default function Resume() {
     const [resumeData, setResumeData] = useState(0);
 
     useEffect(() => {
-
         const fetchResumeData = async () => {
             try {
                 const userResponse = await ApiController.getUsers();
@@ -29,7 +29,6 @@ export default function Resume() {
 
                 const resumeTemplate = new ResumeTemplate(educations, projects, user, references, experience)
                 setResumeData(resumeTemplate)
-                console.log(Object.keys(resumeData))
             } catch (error) {
                 console.error(error);
             }
@@ -49,6 +48,15 @@ export default function Resume() {
                     <>
                         <CollapsibleCard key={index} title="Education"> 
                             <EducationDetails key={index} education={education}></EducationDetails>
+                        </CollapsibleCard>
+                    </>
+                ))
+            }
+            { resumeData && resumeData.experience &&
+                resumeData.experience.map((experience, index) => (
+                    <>
+                        <CollapsibleCard key={index} title="Experience"> 
+                            <ExperienceDetails key={index} experience={experience}></ExperienceDetails>
                         </CollapsibleCard>
                     </>
                 ))
