@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from '@mui/material';
+import { PropTypes } from 'prop-types';
 
 const NoBordersTable = ({title, head, body}) => {
   const tableStyle = {
@@ -45,6 +46,12 @@ const NoBordersTable = ({title, head, body}) => {
       </Table>
     </>
   );
+};
+
+NoBordersTable.propTypes = {
+  body: PropTypes.node.isRequired,
+  head: PropTypes.node,
+  title: PropTypes.node,
 };
 
 export default NoBordersTable;

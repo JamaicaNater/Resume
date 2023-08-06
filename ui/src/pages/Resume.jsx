@@ -6,6 +6,7 @@ import { ApiController } from "../utils/api";
 import { useEffect, useState } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
 import ProjectDetails from "./resumeDetails/ProjectDetails";
+import './Resume.css';
 
 export default function Resume() {
     const [resumeData, setResumeData] = useState(0);
@@ -17,7 +18,7 @@ export default function Resume() {
                 const user = plainToClass(User, userResponse);
 
                 const educationResponse = await ApiController.getEducation();
-                const educations = educationResponse.map((education) => plainToClass(Education, education));
+                const education = educationResponse.map((education) => plainToClass(Education, education));
 
                 const experienceResponse = await ApiController.getExperience();
                 const experience = experienceResponse.map((experience) => plainToClass(Experience, experience));
@@ -28,7 +29,7 @@ export default function Resume() {
                 const projectResponse = await ApiController.getProjects();
                 const projects = projectResponse.map((project) => plainToClass(Project, project));
 
-                const resumeTemplate = new ResumeTemplate(educations, projects, user, references, experience)
+                const resumeTemplate = new ResumeTemplate(education, projects, user, references, experience)
                 setResumeData(resumeTemplate)
             } catch (error) {
                 console.error(error);
@@ -37,37 +38,43 @@ export default function Resume() {
         fetchResumeData()
     }, []);
 
-    return(
+    return (
         <>
-            {   
-                resumeData && resumeData.education && 
-                <CollapsibleCard title="Education"> 
-                    {
-                        resumeData.education.map((education, index) => (                        
-                            <EducationDetails key={index} education={education}></EducationDetails>
-                        ))
-                    }
-                </CollapsibleCard>
-            }
-            {   resumeData && resumeData.experience && 
-                <CollapsibleCard title="Experience"> 
-                    {
-                        resumeData.experience.map((experience, index) => (                        
-                            <ExperienceDetails key={index} experience={experience}></ExperienceDetails>
-                        ))
-                    }
-                </CollapsibleCard>
-            }
-            {   
-                resumeData && resumeData.projects && 
-                <CollapsibleCard title="Projects"> 
-                    {
-                        resumeData.projects.map((project, index) => (                        
-                            <ProjectDetails key={index} project={project}></ProjectDetails>
-                        ))
-                    }
-                </CollapsibleCard>
-            }
+          {   
+            resumeData && resumeData.education && 
+            <div className="card-container">
+              <CollapsibleCard title="Education" defaultExpandedState={false}> 
+                {
+                  resumeData.education.map((education, index) => (                        
+                    <EducationDetails key={index} education={education}></EducationDetails>
+                  ))
+                }
+              </CollapsibleCard>
+            </div>
+          }
+          {   resumeData && resumeData.experience && 
+            <div className="card-container">
+              <CollapsibleCard title="Experience"> 
+                {
+                  resumeData.experience.map((experience, index) => (                        
+                    <ExperienceDetails key={index} experience={experience}></ExperienceDetails>
+                  ))
+                }
+              </CollapsibleCard>
+            </div>
+          }
+          {   
+            resumeData && resumeData.projects && 
+            <div className="card-container">
+              <CollapsibleCard title="Projects"> 
+                {
+                  resumeData.projects.map((project, index) => (                        
+                    <ProjectDetails key={index} project={project}></ProjectDetails>
+                  ))
+                }
+              </CollapsibleCard>
+            </div>
+          }
         </>
-    );
+      );
 }

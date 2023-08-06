@@ -18,6 +18,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { PropTypes } from 'prop-types';
+import './MiniDrawer.css'
 
 const drawerWidth = 240;
 
@@ -86,7 +88,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer({ changePageContent, children }) {
+export default function MiniDrawer({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -179,10 +181,14 @@ export default function MiniDrawer({ changePageContent, children }) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" className='drawer-children' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {children}
       </Box>
     </Box>
   );
 }
+
+MiniDrawer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
