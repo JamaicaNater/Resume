@@ -3,15 +3,15 @@ WIP
 
 == Description
 
-The goal of this project is to solve an issue that that I am facing where-in I cannot list all the projects that I have worked on in a one page resume. Thus, I have created a smart resume application which will allow the user to select what position they are considerin my for and filter down my relevant experience.
+The goal of this project is to solve an issue that that I am facing where-in I cannot list all the projects that I have worked on in a one page resume. Thus, I have created a smart resume application which will allow the user to select what position they are considering me for and filter down my relevant experience.
 
 == Usage
 
 To use this project, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/JamaicaNater/Smart-Resume.git`
-2. Seed your resume according to my example at `/db/seed.sql`
-   1. Use the provided terraform script to deply the resources to AWS.
+2. Seed your resume according to my example at `/db/init-db.js`
+   1. Use the provided terraform script to deply the resources to AWS/GCP.
       1. View the resources on the cloud with the respective URL
    2. Or run locally using `make up`
 
