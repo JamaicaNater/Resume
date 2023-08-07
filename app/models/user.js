@@ -5,7 +5,7 @@ let peopleFields = require('./peopleFields')
 const UserSchema = new mongoose.Schema({
     ...peopleFields,
     skills: {type: [String], required: false },
-    summary: {type: String, required: false }
+    details: {type: String, required: false }
 })
 
 // No duplicate first AND last name

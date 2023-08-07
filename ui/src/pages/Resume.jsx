@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
 import ProjectDetails from "./resumeDetails/ProjectDetails";
 import './Resume.css';
+import UserDetails from "./resumeDetails/UserDetails";
+import ReferenceDetails from "./resumeDetails/ReferenceDetails";
 
 export default function Resume() {
     const [resumeData, setResumeData] = useState(0);
@@ -40,41 +42,61 @@ export default function Resume() {
 
     return (
         <>
-          {   
+        {   
+            resumeData && resumeData.user && 
+            <div className="card-container">
+                <CollapsibleCard title={`${resumeData.user.firstName} ${resumeData.user.lastName}`} defaultExpandedState={true}> 
+                    <UserDetails user={resumeData.user}></UserDetails>
+                </CollapsibleCard>
+            </div>
+        }
+        {   
             resumeData && resumeData.education && 
             <div className="card-container">
-              <CollapsibleCard title="Education" defaultExpandedState={false}> 
-                {
-                  resumeData.education.map((education, index) => (                        
-                    <EducationDetails key={index} education={education}></EducationDetails>
-                  ))
-                }
-              </CollapsibleCard>
+                <CollapsibleCard title="Education" defaultExpandedState={false}> 
+                    {
+                    resumeData.education.map((education, index) => (                        
+                        <EducationDetails key={index} education={education}></EducationDetails>
+                    ))
+                    }
+                </CollapsibleCard>
             </div>
-          }
-          {   resumeData && resumeData.experience && 
+        }
+        {   resumeData && resumeData.experience && 
             <div className="card-container">
-              <CollapsibleCard title="Experience"> 
-                {
-                  resumeData.experience.map((experience, index) => (                        
-                    <ExperienceDetails key={index} experience={experience}></ExperienceDetails>
-                  ))
-                }
-              </CollapsibleCard>
+                <CollapsibleCard title="Experience"> 
+                    {
+                    resumeData.experience.map((experience, index) => (                        
+                        <ExperienceDetails key={index} experience={experience}></ExperienceDetails>
+                    ))
+                    }
+                </CollapsibleCard>
             </div>
-          }
-          {   
+        }
+        {   
             resumeData && resumeData.projects && 
             <div className="card-container">
-              <CollapsibleCard title="Projects"> 
-                {
-                  resumeData.projects.map((project, index) => (                        
-                    <ProjectDetails key={index} project={project}></ProjectDetails>
-                  ))
-                }
-              </CollapsibleCard>
+                <CollapsibleCard title="Projects"> 
+                    {
+                    resumeData.projects.map((project, index) => (                        
+                        <ProjectDetails key={index} project={project}></ProjectDetails>
+                    ))
+                    }
+                </CollapsibleCard>
             </div>
-          }
+        }
+        {   
+            resumeData && resumeData.references && 
+            <div className="card-container">
+                <CollapsibleCard title="References" defaultExpandedState={true}> 
+                {
+                    resumeData.references.map((reference, index) => (
+                        <ReferenceDetails key={index} reference={reference}></ReferenceDetails>
+                    ))
+                }
+                </CollapsibleCard>
+            </div>
+        }
         </>
       );
 }

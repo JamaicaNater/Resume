@@ -21,9 +21,10 @@ const userData = [{
   phoneNumber: process.env.PHONE_NUMBER,
   email: process.env.EMAIL,
   details:  
-    'I am a young professional with a passion for back-end applications, however, I love all kinds of software development. ' +
-    'I am a fast learner and enjoy taking on new programming languages and frameworks to expand my skill set.',
-  skills: ['']
+    [
+      'I am a young professional with a passion for back-end applications, however, I love all kinds of software development.'
+    ],
+  skills: ['SQL', 'Java', 'Node.js', 'React.js', 'Kubernetes', 'Docker', 'C', 'C++', 'Rust', 'Spring']
 }];
 
 
@@ -169,6 +170,13 @@ async function addResumeData() {
     ];
 
     const referenceData = [
+      {
+        firstName: "John",
+        lastName: "Doe",
+        phoneNumber: "876-432-1234",
+        email: "john.doe@gmail.com",
+        relationship: "Manager"
+      }
     ];
 
     db.createCollection('experiences');
@@ -180,8 +188,8 @@ async function addResumeData() {
     db.createCollection('projects');
     db.projects.insertMany(projectData);
 
-    // db.createCollection('references');
-    // db.references.insertMany(referenceData);
+    db.createCollection('references');
+    db.references.insertMany(referenceData);
 
     print('MongoDB initialization script executed successfully.');
   } catch (error) {
