@@ -15,7 +15,8 @@ const ExperienceController = {
         try {
             const { name, logoLink, position, details, tags, from, to, priority } = req.body
             const experience = new Experience({ name, logoLink, position, details, tags, from, to, priority });
-            experience.save()
+            const resJson = await experience.save();
+            res.json(resJson);
         } catch(error) {
             console.error(error)
             res.status(500).json({ error: 'An error occurred while creating project.' });

@@ -7,17 +7,18 @@ const UserController = {
             res.json(user);
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'An error occurred while geting me object.' });
+            res.status(500).json({ error: 'An error occurred while geting user object.' });
         }
     },
     postUser: async (req, res) => {
         try {
             const { firstName, lastName, phoneNumber, email, skills, summary } = req.body;
-            const me = new User({ firstName, lastName, phoneNumber, email, skills, summary });
-            me.save();
+            const user = new User({ firstName, lastName, phoneNumber, email, skills, summary });
+            const resJson = await user.save();
+            res.json(resJson);
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'An error occurred while geting creating me object.' });
+            res.status(500).json({ error: 'An error occurred while geting creating user object.' });
         }
     }
 }

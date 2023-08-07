@@ -14,8 +14,8 @@ let EducationController = {
         try {
             const { name, degreeType, major, minor, gpa, details, enrollmentDate, graduationDate, city, state, country } = req.body;
             const education = new Education({ name, degreeType, major, minor, gpa, details, enrollmentDate, graduationDate, city, state, country });
-            await education.save();
-            res.json(education);
+            const resJson = await education.save();
+            res.json(resJson);
         } catch(error) {
             console.error(error);
             res.status(500).json({ error: 'An error occurred while creating an education.' });

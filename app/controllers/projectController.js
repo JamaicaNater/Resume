@@ -15,8 +15,8 @@ const ProjectController = {
     try {
         const { name, link, details, tags, from, to, priority } = req.body;
         const project = new Project({ name, link, details, tags, from, to, priority });
-        await project.save();
-        res.json(project);
+        const resJson = await project.save();
+        res.json(resJson);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while creating a project.' });

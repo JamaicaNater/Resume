@@ -14,7 +14,8 @@ const ReferenceController = {
         try {
             let { firstName, lastName, phoneNumber, email, relationship } = req.body;
             const reference = new Reference({ firstName, lastName, phoneNumber, email, relationship });
-            reference.save();
+            const resJson = await reference.save();
+            res.json(resJson);
         } catch(error) {
             console.error(error);
             res.status(500).json({ error: 'An error occurred while creating reference.' });
