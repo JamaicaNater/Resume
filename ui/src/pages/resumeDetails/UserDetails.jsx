@@ -3,6 +3,7 @@ import NoBorderTable from "../../components/NoBordersTable"
 import camelCaseToCapitalizedWords from "../../utils/misc";
 import { ignoredFields } from './utils';
 import { Chip, Typography } from '@mui/material';
+import './Details.css'
 
 const UserDetails = ({ user }) => {
     let table = {};
@@ -37,7 +38,7 @@ const UserDetails = ({ user }) => {
                 <>
                 {
                     user.skills.map((skill, index) => (
-                        <Chip key={index} label={skill} />
+                        <Chip className='chip' key={index} label={skill} />
                     ))
                 }
                 </>

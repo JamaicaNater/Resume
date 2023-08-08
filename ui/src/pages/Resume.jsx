@@ -9,6 +9,7 @@ import ProjectDetails from "./resumeDetails/ProjectDetails";
 import './Resume.css';
 import UserDetails from "./resumeDetails/UserDetails";
 import ReferenceDetails from "./resumeDetails/ReferenceDetails";
+import { Divider } from "@mui/material";
 
 export default function Resume() {
     const [resumeData, setResumeData] = useState(0);
@@ -46,7 +47,7 @@ export default function Resume() {
             resumeData && resumeData.user && 
             <div className="card-container">
                 <CollapsibleCard title={`${resumeData.user.firstName} ${resumeData.user.lastName}`} defaultExpandedState={true}> 
-                    <UserDetails user={resumeData.user}></UserDetails>
+                    <UserDetails user={resumeData.user}/>
                 </CollapsibleCard>
             </div>
         }
@@ -55,8 +56,16 @@ export default function Resume() {
             <div className="card-container">
                 <CollapsibleCard title="Education" defaultExpandedState={false}> 
                     {
-                    resumeData.education.map((education, index) => (                        
-                        <EducationDetails key={index} education={education}></EducationDetails>
+                    resumeData.education.map((education, index, arr) => (    
+                        <>                    
+                            <EducationDetails key={index} education={education}/>
+                        {
+                            arr.length-1 > index &&
+                            <div className="divider">
+                                <Divider/>
+                            </div>
+                        }
+                        </>
                     ))
                     }
                 </CollapsibleCard>
@@ -66,8 +75,16 @@ export default function Resume() {
             <div className="card-container">
                 <CollapsibleCard title="Experience"> 
                     {
-                    resumeData.experience.map((experience, index) => (                        
-                        <ExperienceDetails key={index} experience={experience}></ExperienceDetails>
+                    resumeData.experience.map((experience, index, arr) => (     
+                        <>                   
+                            <ExperienceDetails key={index} experience={experience}/>
+                        {
+                            arr.length-1 > index &&
+                            <div className="divider">
+                                <Divider/>
+                            </div>
+                        }
+                        </>
                     ))
                     }
                 </CollapsibleCard>
@@ -77,11 +94,20 @@ export default function Resume() {
             resumeData && resumeData.projects && 
             <div className="card-container">
                 <CollapsibleCard title="Projects"> 
-                    {
-                    resumeData.projects.map((project, index) => (                        
-                        <ProjectDetails key={index} project={project}></ProjectDetails>
+                {
+                    resumeData.projects.map((project, index, arr) => (
+                        <>
+                            <ProjectDetails key={index} project={project}/>
+                        {
+                            arr.length-1 > index &&
+                            <div className="divider">
+                                <Divider/>
+                            </div>
+                        }
+                        </>                        
+                        
                     ))
-                    }
+                }
                 </CollapsibleCard>
             </div>
         }
@@ -90,8 +116,16 @@ export default function Resume() {
             <div className="card-container">
                 <CollapsibleCard title="References" defaultExpandedState={true}> 
                 {
-                    resumeData.references.map((reference, index) => (
-                        <ReferenceDetails key={index} reference={reference}></ReferenceDetails>
+                    resumeData.references.map((reference, index, arr) => (
+                        <>
+                            <ReferenceDetails key={index} reference={reference}/>
+                        {
+                            arr.length-1 > index &&
+                            <div className="divider">
+                                <Divider/>
+                            </div>
+                        }
+                        </>
                     ))
                 }
                 </CollapsibleCard>

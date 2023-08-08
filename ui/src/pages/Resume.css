@@ -1,3 +1,8 @@
 .card-container {
-    margin-bottom: 1.5rem; /* Adjust the spacing as per your preference */
+    margin-bottom: 1.5rem;
+}
+
+.divider {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

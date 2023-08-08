@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Collapse, Typography, IconButton } from '@mui/material';
+import { Card, CardContent, Collapse, Typography, IconButton, Divider } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 const CollapsibleCard = ({ title, children, defaultExpandedState }) => {
@@ -11,7 +11,8 @@ const CollapsibleCard = ({ title, children, defaultExpandedState }) => {
 
   return (
     <Card>
-        <Typography variant="h5">{title}</Typography>
+        <Typography variant="h5" sx={{marginTop: '1rem'}}>{title}</Typography>
+        <Divider sx={{borderBottomWidth: '4px'}}></Divider>
         <Collapse in={!expanded} timeout="auto" unmountOnExit>
             <CardContent>
                 <Typography variant="body1">Expand to view content</Typography>
