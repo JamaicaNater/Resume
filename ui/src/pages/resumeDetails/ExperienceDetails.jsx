@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import NoBorderTable from "../../components/NoBordersTable"
 import camelCaseToCapitalizedWords from "../../utils/misc";
 import { ignoredFields } from './utils';
-import { Typography } from '@mui/material';
+import { Chip, Typography } from '@mui/material';
 
 const ExperienceDetails = ({ experience }) => {
     let table = {};
@@ -21,7 +21,8 @@ const ExperienceDetails = ({ experience }) => {
     return(
         <>
             <NoBorderTable title={experience.name} body={table}></NoBorderTable>
-            { experience.details &&
+            { 
+                experience.details &&
                 <>
                     <Typography>Summary</Typography>
                     {
@@ -31,6 +32,16 @@ const ExperienceDetails = ({ experience }) => {
                     }
                 </>
             }
+            {
+                experience.tags && 
+                <>
+                {
+                    experience.tags.map((tag, index) => (
+                        <Chip key={index} label={tag} />
+                    ))
+                }
+                </>
+            }
         </>
     );
 }
@@ -38,7 +49,8 @@ const ExperienceDetails = ({ experience }) => {
 ExperienceDetails.propTypes = {
     experience: PropTypes.shape({
         name: PropTypes.string.isRequired, 
-        details: PropTypes.array, 
+        details: PropTypes.arrayOf(PropTypes.string).isRequired,
+        tags: PropTypes.arrayOf(PropTypes.string).isRequired, 
     }).isRequired,
 };
   

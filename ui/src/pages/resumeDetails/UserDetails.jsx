@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import NoBorderTable from "../../components/NoBordersTable"
 import camelCaseToCapitalizedWords from "../../utils/misc";
 import { ignoredFields } from './utils';
-import { Typography } from '@mui/material';
+import { Chip, Typography } from '@mui/material';
 
 const UserDetails = ({ user }) => {
     let table = {};
@@ -21,14 +21,25 @@ const UserDetails = ({ user }) => {
     return(
         <>
             <NoBorderTable body={table}></NoBorderTable>
-            { user.details &&
+            { 
+                user.details &&
                 <>
                     <Typography>Summary</Typography>
-                    {
-                        user.details.map((detail, index) => (
-                            <p key={index}>{detail}</p>
-                        ))
-                    }
+                {
+                    user.details.map((detail, index) => (
+                        <p key={index}>{detail}</p>
+                    ))
+                }
+                </>
+            }
+            {
+                user.skills && 
+                <>
+                {
+                    user.skills.map((skill, index) => (
+                        <Chip key={index} label={skill} />
+                    ))
+                }
                 </>
             }
         </>
@@ -39,7 +50,8 @@ UserDetails.propTypes = {
     user: PropTypes.shape({
         firstName: PropTypes.string.isRequired, 
         lastName: PropTypes.string.isRequired, 
-        details: PropTypes.array.isRequired, 
+        details: PropTypes.arrayOf(PropTypes.string).isRequired,
+        skills: PropTypes.arrayOf(PropTypes.string).isRequired,
     }).isRequired,
 };
   

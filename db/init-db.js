@@ -98,7 +98,7 @@ async function addResumeData() {
           'configuring dockerfiles and docker-compose files to enable hassle-free deployment and scalability across different environments. ' +
           'This ensured platform independence and streamlined application maintenance'
         ],
-        tags: ['Rust', 'ReactJS', 'API', 'REST', 'Backend', 'Full-Stack', 'Frontend'] 
+        tags: ['Rust', 'ReactJS', 'API', 'REST', 'Backend', 'Full-Stack', 'Frontend', 'React.js', 'Node.js', 'Express.js'] 
       },
       { 
         userId: userId,
