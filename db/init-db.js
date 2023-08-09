@@ -24,7 +24,7 @@ const userData = [{
     [
       'I am a young professional with a passion for back-end applications, however, I love all kinds of software development.'
     ],
-  skills: ['SQL', 'Java', 'Node.js', 'React.js', 'Kubernetes', 'Docker', 'C', 'C++', 'Rust', 'Spring']
+  skills: ['sql', 'java', 'node.js', 'react.js', 'kubernetes', 'docker', 'c', 'c++', 'rust', 'spring']
 }];
 
 
@@ -62,7 +62,7 @@ async function addResumeData() {
           'Enhanced front-end for the application using React and Backstage by integrating our plugin into the organizations\' ' + 
           'existing backstage deployment.'
         ], 
-        tags: ['Java', 'Rust', 'API', 'REST', 'AWS', 'Kubernetes', 'Docker', 'Terraform', 'Backend', 'Dev-Ops', 'Full-Stack', 'Jenkins'] 
+        tags: ['java', 'rust', 'rest-apis', 'aws', 'kubernetes', 'docker', 'terraform', 'backend', 'dev-ops', 'full-stack', 'jenkins'] 
       },
       { 
         userId: userId,
@@ -77,7 +77,7 @@ async function addResumeData() {
           'Successfully collaborated with a team of interns, effectively navigating a 12-hour time difference with managers. ' + 
           'Demonstrated exceptional coordination and communication skills to ensure seamless project development and progress.'
         ], 
-        tags: ['Java', 'SpringBoot', 'API', 'REST', 'Backend', 'Full-Stack']
+        tags: ['java', 'springBoot', 'rest-apis', 'backend', 'full-stack']
       }
     ];
   
@@ -98,7 +98,7 @@ async function addResumeData() {
           'configuring dockerfiles and docker-compose files to enable hassle-free deployment and scalability across different environments. ' +
           'This ensured platform independence and streamlined application maintenance'
         ],
-        tags: ['Rust', 'ReactJS', 'API', 'REST', 'Backend', 'Full-Stack', 'Frontend', 'React.js', 'Node.js', 'Express.js'] 
+        tags: ['rust', 'rest-apis', 'backend', 'full-stack', 'frontend', 'react.js', 'node.js', 'express.js'] 
       },
       { 
         userId: userId,
@@ -115,7 +115,7 @@ async function addResumeData() {
           'Navigated the challenges of working within a limited 6MB RAM constraint (2MB stack, 4MB heap), ' + 
           'optimizing resource usage to maximize performance and deliver an immersive gaming experience on the Sony PSP platform.'
         ],
-        tags: ['C++', 'Game-Development'] 
+        tags: ['c++', 'game-development'] 
       },
       { 
         userId: userId,
@@ -132,7 +132,7 @@ async function addResumeData() {
           'utilizing trees to enable seamless compilation processes. Mastered recursion-based functions and operations ' + 
           'to enhance performance and code optimization.'
         ],
-        tags: ['C', 'Compiler-Construction'] 
+        tags: ['c', 'compiler-construction'] 
       },
       { 
         userId: userId,
@@ -148,7 +148,7 @@ async function addResumeData() {
           'Optimized the tool\'s performance by implementing efficient multi-threading techniques, resulting in a substantial reduction in runtime. ' +
           'This enhancement ensures swift video generation, allowing users to enjoy their content without unnecessary delays.'
         ],
-        tags: ['Python'] 
+        tags: ['python'] 
       }
     ];
     
@@ -179,6 +179,33 @@ async function addResumeData() {
       }
     ];
 
+    const tagData = [
+      { "name": "c++" },
+      { "name": "game-development" },
+      { "name": "python" },
+      { "name": "compiler-construction" },
+      { "name": "react.js" },
+      { "name": "backend" },
+      { "name": "full-stack" },
+      { "name": "frontend" },
+      { "name": "express.js" },
+      { "name": "java" },
+      { "name": "spring-boot" },
+      { "name": "rest-apis" },
+      { "name": "aws" },
+      { "name": "terraform" },
+      { "name": "dev-ops" },
+      { "name": "jenkins" },
+      { "name": "sql" },
+      { "name": "node.js" },
+      { "name": "react.js" },
+      { "name": "kubernetes" },
+      { "name": "docker" },
+      { "name": "c" },
+      { "name": "rust" },
+      { "name": "spring" }
+    ];
+
     db.createCollection('experiences');
     db.experiences.insertMany(experienceData);
 
@@ -190,6 +217,10 @@ async function addResumeData() {
 
     db.createCollection('references');
     db.references.insertMany(referenceData);
+
+    db.createCollection('tags');
+    db.tags.createIndex({ name: 1 }, { unique: true });
+    db.tags.insertMany(tagData);
 
     print('MongoDB initialization script executed successfully.');
   } catch (error) {
