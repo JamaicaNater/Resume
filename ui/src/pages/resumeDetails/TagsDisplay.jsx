@@ -11,7 +11,7 @@ const SkillsDisplay = ({ skills }) => {
             ))
         }
         </>
-    )
+    );
 }
 SkillsDisplay.propTypes = {
     skills: PropTypes.arrayOf(PropTypes.string).isRequired

@@ -1,24 +1,10 @@
 import PropTypes from 'prop-types';
-import camelCaseToCapitalizedWords from "../../utils/misc";
-import { ignoredFields } from './utils';
 import { Typography } from '@mui/material';
 import './Details.css'
 import SkillsDisplay from './TagsDisplay';
+import DetailsDisplay from './DetailsDisplay';
 
-const UserDetails = ({ user }) => {
-    let table = {};
-
-    Object.keys(user).forEach((key) => {
-        if (ignoredFields.has(key)) {
-            return;
-        }
-        if (!user[key]) {
-            return;
-        }
-
-        table[camelCaseToCapitalizedWords(key)] = user[key];
-    });
-    
+const UserDetails = ({ user }) => {   
     return(
         <>
             <Typography variant='body1'>
@@ -38,14 +24,7 @@ const UserDetails = ({ user }) => {
 
             { 
                 user.details &&
-                <>
-                    <Typography>Summary</Typography>
-                {
-                    user.details.map((detail, index) => (
-                        <p key={index}>{detail}</p>
-                    ))
-                }
-                </>
+                <DetailsDisplay details={user.details} />
             }
             {
                 user.skills && 

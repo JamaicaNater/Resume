@@ -1,47 +1,24 @@
 import PropTypes from 'prop-types';
-import camelCaseToCapitalizedWords from "../../utils/misc";
-import { ignoredFields } from './utils';
 import { Typography } from '@mui/material';
 import './Details.css'
 import SkillsDisplay from './TagsDisplay';
+import DetailsDisplay from './DetailsDisplay';
 
 const ExperienceDetails = ({ experience }) => {
-    let table = {};
-
-    Object.keys(experience).forEach((key) => {
-        if (ignoredFields.has(key)) {
-            return;
-        }
-        if (!experience[key]) {
-            return;
-        }
-
-        table[camelCaseToCapitalizedWords(key)] = experience[key];
-    });
-    
     return(
         <>
             <Typography variant='h5' gutterBottom>
                 {experience.name}
-            </Typography>
-            <Typography variant='body1'>
             {
                 experience.position && (
-                <Typography>
+                <Typography sx = {{fontStyle: 'italic',}}>
                 {experience.position}
                 </Typography>
             )}
             </Typography>
             { 
                 experience.details &&
-                <>
-                    <Typography>Summary</Typography>
-                    {
-                        experience.details.map((detail, index) => (
-                            <p key={index}>{detail}</p>
-                        ))
-                    }
-                </>
+                <DetailsDisplay details={experience.details} />
             }
             {
                 experience.tags && 

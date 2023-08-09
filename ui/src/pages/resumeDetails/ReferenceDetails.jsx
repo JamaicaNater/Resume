@@ -1,22 +1,7 @@
 import PropTypes from 'prop-types';
-import camelCaseToCapitalizedWords from "../../utils/misc";
-import { ignoredFields } from './utils';
 import { Typography } from '@mui/material';
 
-const ReferenceDetails = ({ reference }) => {
-    let table = {};
-
-    Object.keys(reference).forEach((key) => {
-        if (ignoredFields.has(key)) {
-            return;
-        }
-        if (!reference[key]) {
-            return;
-        }
-
-        table[camelCaseToCapitalizedWords(key)] = reference[key];
-    });
-    
+const ReferenceDetails = ({ reference }) => {    
     return(
         <>
             <Typography variant='body1'>

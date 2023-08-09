@@ -1,22 +1,8 @@
 import PropTypes from 'prop-types';
-import camelCaseToCapitalizedWords from "../../utils/misc";
-import { ignoredFields } from './utils';
 import { Typography } from '@mui/material';
+import DetailsDisplay from './DetailsDisplay';
 
-const EducationDetails = ({ education }) => {
-    let table = {};
-
-    Object.keys(education).forEach((key) => {
-        if (ignoredFields.has(key)) {
-            return;
-        }
-        if (!education[key]) {
-            return;
-        }
-
-        table[camelCaseToCapitalizedWords(key)] = education[key];
-    });
-    
+const EducationDetails = ({ education }) => {   
     return(
         <>
             <Typography variant="body1">
@@ -39,14 +25,7 @@ const EducationDetails = ({ education }) => {
                 `}
             </Typography>
             { education.details &&
-                <>
-                    <Typography>Summary</Typography>
-                    {
-                        education.details.map((detail, index) => (
-                            <p key={index}>{detail}</p>
-                        ))
-                    }
-                </>
+                <DetailsDisplay details={education.details} />
             }
         </>
     );
