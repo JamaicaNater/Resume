@@ -9,10 +9,10 @@ The goal of this project is to solve an issue that that I am facing where-in I c
 
 To use this project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/JamaicaNater/Smart-Resume.git`
-2. Seed your resume according to my example at `/db/init-db.js`
-   1. Use the provided terraform script to deploy the resources to AWS/GCP.
-      1. View the resources on the cloud with the respective URL
-   2. Or run locally using `make up`
-      * From there, you can access the UI (http://localhost:5173) API (http://localhost:3000) and DB (mongodb://localhost:27017).
+* Clone the repository: `git clone https://github.com/JamaicaNater/Smart-Resume.git`
+* Seed your resume according to my example at `/db/init-db.js`
+   ** Use the provided terraform script to deploy the resources to AWS/GCP.
+      *** View the resources on the cloud with the respective URL
+   ** Or run locally using `make up`
+      *** From there, you can access the UI (http://localhost:5173) API (http://localhost:3000) and DB (mongodb://localhost:27017).
 
