@@ -1,6 +1,6 @@
 import { Chip } from "@mui/material"
 import { PropTypes } from "prop-types"
-import './SkillsDisplay.css'
+import './TagsDisplay.css'
 
 const SkillsDisplay = ({ skills }) => {
     return (

@@ -3,7 +3,7 @@ import camelCaseToCapitalizedWords from "../../utils/misc";
 import { ignoredFields } from './utils';
 import { Typography } from '@mui/material';
 import './Details.css'
-import SkillsDisplay from '../../components/SKillsDisplay';
+import SkillsDisplay from './TagsDisplay';
 
 const ExperienceDetails = ({ experience }) => {
     let table = {};
