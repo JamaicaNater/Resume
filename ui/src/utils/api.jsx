@@ -21,6 +21,10 @@ export const ApiController = {
 
     getUsers: async () => {
         return genericGet('user');
+    }, 
+
+    getTags: async () => {
+        return genericGet('tag');
     }
 };
 

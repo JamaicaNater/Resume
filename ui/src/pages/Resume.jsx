@@ -3,48 +3,90 @@ import CollapsibleCard from "../components/CollapsibleCard"
 import EducationDetails from "./resumeDetails/EducationDetails";
 import { plainToClass } from 'class-transformer';
 import { ApiController } from "../utils/api";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
 import ProjectDetails from "./resumeDetails/ProjectDetails";
 import './Resume.css';
 import UserDetails from "./resumeDetails/UserDetails";
 import ReferenceDetails from "./resumeDetails/ReferenceDetails";
-import { Divider } from "@mui/material";
+import { Card, CircularProgress, Divider, Typography } from "@mui/material";
+import TagsDisplay from "./resumeDetails/TagsDisplay";
+
+
+const tagReducer = (state, action) => {
+    switch (action.type) {
+      case 'SET_LOADING':
+        return { ...state, loading: action.payload };
+      case 'SET_DATA':
+        return { ...state, data: action.payload, loading: false };
+      case 'SET_ERROR':
+        return { ...state, error: action.payload, loading: false };
+      default:
+        return state;
+    }
+}
 
 export default function Resume() {
     const [resumeData, setResumeData] = useState(0);
+    const [tagState, tagsDispatch] = useReducer(tagReducer, {
+        loading: true,
+        data: null,
+        error: null,
+    })
+    const [loadingResumeData, setLoadingResumeData] = useState(true);
 
     useEffect(() => {
-        const fetchResumeData = async () => {
-            try {
-                const userResponse = await ApiController.getUsers();
-                const user = plainToClass(User, userResponse);
-
-                const educationResponse = await ApiController.getEducation();
-                const education = educationResponse.map((education) => plainToClass(Education, education));
-
-                const experienceResponse = await ApiController.getExperience();
-                const experience = experienceResponse.map((experience) => plainToClass(Experience, experience));
-
-                const referenceResponse = await ApiController.getReferences();
-                const references = referenceResponse.map((reference) => plainToClass(Reference, reference));
-
-                const projectResponse = await ApiController.getProjects();
-                const projects = projectResponse.map((project) => plainToClass(Project, project));
-
-                const resumeTemplate = new ResumeTemplate(education, projects, user, references, experience)
-                setResumeData(resumeTemplate)
-            } catch (error) {
-                console.error(error);
-            }
-        }
+        setLoadingResumeData(true);
         fetchResumeData()
+            .then(data => {
+                setResumeData(data);
+                setLoadingResumeData(false);
+            })
+            .catch(error => console.error(error))
+        ApiController.getTags()
+            .then(data => tagsDispatch({type: 'SET_DATA', payload: data}))
+            .catch(error => tagsDispatch({type: 'SET_ERROR', payload: error}))
     }, []);
 
+    const fetchResumeData = async () => {
+        try {
+            const userResponse = await ApiController.getUsers();
+            const user = plainToClass(User, userResponse);
+
+            const educationResponse = await ApiController.getEducation();
+            const education = educationResponse.map((education) => plainToClass(Education, education));
+
+            const experienceResponse = await ApiController.getExperience();
+            const experience = experienceResponse.map((experience) => plainToClass(Experience, experience));
+
+            const referenceResponse = await ApiController.getReferences();
+            const references = referenceResponse.map((reference) => plainToClass(Reference, reference));
+
+            const projectResponse = await ApiController.getProjects();
+            const projects = projectResponse.map((project) => plainToClass(Project, project));
+
+            const resumeTemplate = new ResumeTemplate(education, projects, user, references, experience)
+            return resumeTemplate
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
+        loadingResumeData && <CircularProgress/> ||
+        resumeData && 
         <>
+        {
+            tagState.data &&
+            <div className="card-container">
+                <Card>
+                    <Typography variant="body1" sx={{marginTop: '1rem'}}>Filter by skill</Typography>
+                    <TagsDisplay skills={tagState.data.map(tag => tag.name)}/>
+                </Card>
+            </div>
+        }
         {   
-            resumeData && resumeData.user && 
+            resumeData.user && 
             <div className="card-container">
                 <CollapsibleCard title={`${resumeData.user.firstName} ${resumeData.user.lastName}`} defaultExpandedState={true}> 
                     <UserDetails user={resumeData.user}/>
@@ -52,7 +94,7 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeData && resumeData.education && 
+            resumeData.education && 
             <div className="card-container">
                 <CollapsibleCard title="Education" defaultExpandedState={false}> 
                     {
@@ -71,7 +113,7 @@ export default function Resume() {
                 </CollapsibleCard>
             </div>
         }
-        {   resumeData && resumeData.experience && 
+        {   resumeData.experience && 
             <div className="card-container">
                 <CollapsibleCard title="Experience"> 
                     {
@@ -91,7 +133,7 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeData && resumeData.projects && 
+            resumeData.projects && 
             <div className="card-container">
                 <CollapsibleCard title="Projects"> 
                 {
@@ -112,7 +154,7 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeData && resumeData.references && 
+            resumeData.references && 
             <div className="card-container">
                 <CollapsibleCard title="References" defaultExpandedState={true}> 
                 {

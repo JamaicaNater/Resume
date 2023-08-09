@@ -2,7 +2,7 @@ import { Chip } from "@mui/material"
 import { PropTypes } from "prop-types"
 
 
-const SkillsDisplay = ({ skills }) => {
+const TagsDisplay = ({ skills }) => {
     const formatTag = (input) => {
         const wordsArray = input.split(/-/);
     
@@ -21,6 +21,7 @@ const SkillsDisplay = ({ skills }) => {
             skills.map((skill, index) => (
                 <Chip className='chip' key={index} label={formatTag(skill)} onClick={() => handleClipClick(skill)} 
                 sx={{
+                    marginTop: '1rem',
                     marginBottom: '1rem',
                     marginRight: '.5rem'
                 }}
@@ -31,8 +32,8 @@ const SkillsDisplay = ({ skills }) => {
     );
 }
 
-SkillsDisplay.propTypes = {
+TagsDisplay.propTypes = {
     skills: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
-export default SkillsDisplay
+export default TagsDisplay

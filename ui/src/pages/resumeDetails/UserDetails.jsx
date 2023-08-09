@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import './Details.css'
-import SkillsDisplay from './TagsDisplay';
+import TagsDisplay from './TagsDisplay';
 import DetailsDisplay from './DetailsDisplay';
 
 const UserDetails = ({ user }) => {   
@@ -28,7 +28,7 @@ const UserDetails = ({ user }) => {
             }
             {
                 user.skills && 
-                <SkillsDisplay skills={user.skills} ></SkillsDisplay>
+                <TagsDisplay skills={user.skills} ></TagsDisplay>
             }
         </>
     );
