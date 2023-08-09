@@ -40,7 +40,7 @@ UserDetails.propTypes = {
         lastName: PropTypes.string.isRequired,
         phoneNumber: PropTypes.string,
         email: PropTypes.string,
-        details: PropTypes.arrayOf(PropTypes.string).isRequired,
+        details: PropTypes.arrayOf(PropTypes.string),
         skills: PropTypes.arrayOf(PropTypes.string).isRequired,
     }).isRequired,
 };
