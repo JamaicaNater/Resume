@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import NoBorderTable from "../../components/NoBordersTable"
 import camelCaseToCapitalizedWords from "../../utils/misc";
 import { ignoredFields } from './utils';
-import { Chip, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import './Details.css'
+import SkillsDisplay from '../../components/SKillsDisplay';
 
 const UserDetails = ({ user }) => {
     let table = {};
@@ -21,7 +21,21 @@ const UserDetails = ({ user }) => {
     
     return(
         <>
-            <NoBorderTable body={table}></NoBorderTable>
+            <Typography variant='body1'>
+            {
+                user.phoneNumber && (
+                <Typography>
+                Phone: {user.phoneNumber}
+                </Typography>
+            )}
+            {
+                user.email && (
+                <Typography>
+                Email: {user.email}
+                </Typography>
+            )}
+            </Typography>
+
             { 
                 user.details &&
                 <>
@@ -35,13 +49,7 @@ const UserDetails = ({ user }) => {
             }
             {
                 user.skills && 
-                <>
-                {
-                    user.skills.map((skill, index) => (
-                        <Chip className='chip' key={index} label={skill} />
-                    ))
-                }
-                </>
+                <SkillsDisplay skills={user.skills} ></SkillsDisplay>
             }
         </>
     );
@@ -50,7 +58,9 @@ const UserDetails = ({ user }) => {
 UserDetails.propTypes = {
     user: PropTypes.shape({
         firstName: PropTypes.string.isRequired, 
-        lastName: PropTypes.string.isRequired, 
+        lastName: PropTypes.string.isRequired,
+        phoneNumber: PropTypes.string,
+        email: PropTypes.string,
         details: PropTypes.arrayOf(PropTypes.string).isRequired,
         skills: PropTypes.arrayOf(PropTypes.string).isRequired,
     }).isRequired,

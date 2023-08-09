@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { PropTypes } from 'prop-types';
+import { Card, CardContent, CardMedia } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -99,8 +100,6 @@ export default function MiniDrawer({ children, changePageContent }) {
     setOpen(false);
   };
 
-  const logo = 'AdaptiveResu.me'
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -118,9 +117,14 @@ export default function MiniDrawer({ children, changePageContent }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {logo}
-          </Typography>
+          <Card>
+            <CardMedia
+              component="img"
+              height="50" 
+              image={'/logo/DynamicResumeLogoWithWords.png'} 
+              alt="Logo" 
+            />
+          </Card>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

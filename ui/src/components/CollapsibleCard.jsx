@@ -12,7 +12,7 @@ const CollapsibleCard = ({ title, children, defaultExpandedState }) => {
   return (
     <Card>
         <Typography variant="h5" sx={{marginTop: '1rem'}}>{title}</Typography>
-        <Divider sx={{borderBottomWidth: '4px'}}></Divider>
+        {expanded && <Divider sx={{borderBottomWidth: '2px', backgroundColor: '#C0C0C0'}}></Divider>}
         <Collapse in={!expanded} timeout="auto" unmountOnExit>
             <CardContent>
                 <Typography variant="body1">Expand to view content</Typography>

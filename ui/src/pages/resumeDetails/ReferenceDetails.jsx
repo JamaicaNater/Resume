@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import NoBorderTable from "../../components/NoBordersTable"
 import camelCaseToCapitalizedWords from "../../utils/misc";
 import { ignoredFields } from './utils';
+import { Typography } from '@mui/material';
 
 const ReferenceDetails = ({ reference }) => {
     let table = {};
@@ -18,14 +18,38 @@ const ReferenceDetails = ({ reference }) => {
     });
     
     return(
-        <NoBorderTable body={table}></NoBorderTable>
+        <>
+            <Typography variant='body1'>
+            {
+                reference.phoneNumber && (
+                <Typography>
+                Phone: {reference.phoneNumber}
+                </Typography>
+            )}
+            {
+                reference.email && (
+                <Typography>
+                Email: {reference.email}
+                </Typography>
+            )}
+            {
+                reference.relationship && (
+                <Typography>
+                Relationship: {reference.relationship}
+                </Typography>
+            )}
+            </Typography>
+        </>
     );
 }
 
 ReferenceDetails.propTypes = {
     reference: PropTypes.shape({
         firstName: PropTypes.string.isRequired, 
-        lastName: PropTypes.string.isRequired, 
+        lastName: PropTypes.string.isRequired,
+        phoneNumber: PropTypes.string,
+        email: PropTypes.string,
+        relationship: PropTypes.string,
     }).isRequired,
 };
   

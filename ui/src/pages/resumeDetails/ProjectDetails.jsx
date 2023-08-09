@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import NoBorderTable from "../../components/NoBordersTable"
 import camelCaseToCapitalizedWords from "../../utils/misc";
 import { ignoredFields } from './utils';
-import { Chip, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import './Details.css'
+import SkillsDisplay from '../../components/SKillsDisplay';
 
 const ProjectDetails = ({ project }) => {
     let table = {};
@@ -21,7 +21,16 @@ const ProjectDetails = ({ project }) => {
     
     return(
         <>
-            <NoBorderTable title={project.name} body={table}></NoBorderTable>
+            <Typography variant='h5'>
+            {
+                project.link ? (
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                    {project.name}
+                </a>
+            ) : (
+                project.name
+            )}
+            </Typography>
             { 
                 project.details &&
                 <>
@@ -35,13 +44,7 @@ const ProjectDetails = ({ project }) => {
             }
             {
                 project.tags && 
-                <>
-                {
-                    project.tags.map((tag, index) => (
-                        <Chip className='chip' key={index} label={tag} />
-                    ))
-                }
-                </>
+                <SkillsDisplay skills={project.tags} ></SkillsDisplay>
             }
         </>
     );
@@ -50,6 +53,7 @@ const ProjectDetails = ({ project }) => {
 ProjectDetails.propTypes = {
     project: PropTypes.shape({
         name: PropTypes.string.isRequired, 
+        link: PropTypes.string,
         details: PropTypes.arrayOf(PropTypes.string).isRequired, 
         tags: PropTypes.arrayOf(PropTypes.string).isRequired, 
     }).isRequired,
