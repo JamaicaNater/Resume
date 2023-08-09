@@ -11,24 +11,11 @@ import UserDetails from "./resumeDetails/UserDetails";
 import ReferenceDetails from "./resumeDetails/ReferenceDetails";
 import { Card, CircularProgress, Divider, Typography } from "@mui/material";
 import TagsDisplay from "./resumeDetails/TagsDisplay";
-
-
-const tagReducer = (state, action) => {
-    switch (action.type) {
-      case 'SET_LOADING':
-        return { ...state, loading: action.payload };
-      case 'SET_DATA':
-        return { ...state, data: action.payload, loading: false };
-      case 'SET_ERROR':
-        return { ...state, error: action.payload, loading: false };
-      default:
-        return state;
-    }
-}
+import { RequestReducer } from "../utils/requestReducer";
 
 export default function Resume() {
     const [resumeData, setResumeData] = useState(0);
-    const [tagState, tagsDispatch] = useReducer(tagReducer, {
+    const [tagState, tagsDispatch] = useReducer(RequestReducer.reducer, {
         loading: true,
         data: null,
         error: null,
@@ -44,8 +31,8 @@ export default function Resume() {
             })
             .catch(error => console.error(error))
         ApiController.getTags()
-            .then(data => tagsDispatch({type: 'SET_DATA', payload: data}))
-            .catch(error => tagsDispatch({type: 'SET_ERROR', payload: error}))
+            .then(data => tagsDispatch(RequestReducer.setData(data)))
+            .catch(error => tagsDispatch(RequestReducer.setError(error)))
     }, []);
 
     const fetchResumeData = async () => {
