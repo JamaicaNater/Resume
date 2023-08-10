@@ -3,7 +3,7 @@ import CollapsibleCard from "../components/CollapsibleCard"
 import EducationDetails from "./resumeDetails/EducationDetails";
 import { plainToClass } from 'class-transformer';
 import { ApiController } from "../utils/api";
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
 import ProjectDetails from "./resumeDetails/ProjectDetails";
 import './Resume.css';
@@ -27,7 +27,7 @@ export default function Resume() {
         error: null,
     })
 
-    const resumeContextData = { tagFilters: new Set() };
+    const { resumeContextData, setResumeContextData } = useContext(ResumeContext);
 
     useEffect(() => {
         resumeDispatch(RequestReducer.setLoading(true))
@@ -69,7 +69,7 @@ export default function Resume() {
     return (
         resumeState.loading && <CircularProgress/> ||
         resumeState && resumeState.data &&
-        <ResumeContext.Provider value={resumeContextData}>
+        <>
         {
             tagState.data &&
             <div className="card-container">
@@ -107,11 +107,14 @@ export default function Resume() {
                 </CollapsibleCard>
             </div>
         }
-        {   resumeState.data.experience && 
+        {   
+            resumeState.data.experience && 
             <div className="card-container">
                 <CollapsibleCard title="Experience"> 
                     {
-                    resumeState.data.experience.map((experience, index, arr) => (     
+                    resumeState.data.experience
+                    .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
+                    .map((experience, index, arr) => (     
                         <>                   
                             <ExperienceDetails key={index} experience={experience}/>
                         {
@@ -129,9 +132,12 @@ export default function Resume() {
         {   
             resumeState.data.projects && 
             <div className="card-container">
+                <Typography>{resumeContextData.tagFilters}</Typography>
                 <CollapsibleCard title="Projects"> 
                 {
-                    resumeState.data.projects.map((project, index, arr) => (
+                    resumeState.data.projects
+                    .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
+                    .map((project, index, arr) => (
                         <>
                             <ProjectDetails key={index} project={project}/>
                         {
@@ -167,6 +173,6 @@ export default function Resume() {
                 </CollapsibleCard>
             </div>
         }
-        </ResumeContext.Provider>
+        </>
       );
 }

@@ -5,7 +5,7 @@ import ResumeContext from "../ResumeContext"
 
 
 const TagsDisplay = ({ skills }) => {
-    const resumeContextData = useContext(ResumeContext)
+    const { resumeContextData, setResumeContextData } = useContext(ResumeContext);
 
     const formatTag = (input) => {
         const wordsArray = input.split(/-/);
@@ -15,22 +15,49 @@ const TagsDisplay = ({ skills }) => {
         return capitalizedWords;
     }
 
+    const tagSelected = (tag) => {
+        return resumeContextData.tagFilters.includes(tag)
+    }
+
+    const addTagToFilter = (tag) => {
+        const newTagFilters = [...resumeContextData.tagFilters, tag];
+        setResumeContextData((prevData) => ({
+            ...prevData,
+            tagFilters: newTagFilters,
+        }));
+    }
+
+    const removeTagFromFilter = (removed_tag) => {
+        const newTagFilters = resumeContextData.tagFilters.filter((tag) => tag !== removed_tag);
+        setResumeContextData((prevData) => ({
+          ...prevData,
+          tagFilters: newTagFilters,
+        }));
+    };
+
     const handleClipClick = (tag) => {
-        resumeContextData.tagFilters.add(tag);
-        console.log("Chip clicked ");
-        console.log(resumeContextData.tagFilters);
+        if (tagSelected(tag)) {
+            removeTagFromFilter(tag)
+        } else {
+            addTagToFilter(tag);
+        }
     }
 
     return (
         <>
         {
             skills.map((skill, index) => (
-                <Chip className='chip' key={index} label={formatTag(skill)} onClick={() => handleClipClick(skill)} 
-                sx={{
-                    marginTop: '1rem',
-                    marginBottom: '1rem',
-                    marginRight: '.5rem'
-                }}
+                <Chip 
+                        className='chip' 
+                        key={index} 
+                        label={formatTag(skill)} 
+                        variant={ tagSelected(skill) ? "filled": "outlined" } 
+                        onClick={() => handleClipClick(skill)} 
+                        sx={{
+                            marginTop: '1rem',
+                            marginBottom: '1rem',
+                            marginRight: '.5rem'
+                        }}
                 />
             ))
         }

@@ -1,15 +1,16 @@
 import './App.css'
-import { useState } from 'react';
 import MiniDrawer from './components/MiniDrawer'
 import Resume from './pages/Resume';
+import ResumeProvider from './pages/ResumeProvider';
 
 function App() {
-  const [page, setPage] = useState(<Resume/>)
 
   return (
     <>
-      <MiniDrawer changePageContent={setPage}>
-        {page}
+      <MiniDrawer>
+        <ResumeProvider>
+          <Resume/>
+        </ResumeProvider>
       </MiniDrawer>
     </>
   )
