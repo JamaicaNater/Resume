@@ -24,6 +24,7 @@ services:
       - 3000:3000
     env_file:
       - common.env
+      - node.env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
       interval: 10s

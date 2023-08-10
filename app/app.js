@@ -15,6 +15,7 @@ const educationRoutes = require('./routes/education');
 const userRoutes = require('./routes/user');
 const jobRoutes = require('./routes/job');
 const tagRoutes = require('./routes/tag');
+const authRoutes = require('./routes/auth');
 
 // Middleware
 app.use(express.json());
@@ -29,6 +30,7 @@ app.use('/education', educationRoutes);
 app.use('/user', userRoutes);
 app.use('/job', jobRoutes);
 app.use('/tag', tagRoutes);
+app.use('/auth', authRoutes);
 
 // Start the server
 app.listen(3000, () => {
