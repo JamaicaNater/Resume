@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 const initialState = {
     tagFilters: [],
+    mustConatainAllTags: true,
 };
 
 const ResumeProvider = ({ children }) => {

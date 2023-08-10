@@ -9,7 +9,7 @@ import ProjectDetails from "./resumeDetails/ProjectDetails";
 import './Resume.css';
 import UserDetails from "./resumeDetails/UserDetails";
 import ReferenceDetails from "./resumeDetails/ReferenceDetails";
-import { Card, CircularProgress, Divider, Typography } from "@mui/material";
+import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../utils/requestReducer";
 import ResumeContext from "./ResumeContext";
@@ -74,6 +74,20 @@ export default function Resume() {
             tagState.data &&
             <div className="card-container">
                 <Card>
+                    <FormControl fullWidth >
+                    <InputLabel margin='normal' id="demo-simple-select-label" >Age</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            // value={age}
+                            label="Age"
+                            // onChange={handleChange}
+                        >
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
                     <Typography variant="body1" sx={{marginTop: '1rem'}}>Filter by skill</Typography>
                     <TagsDisplay skills={tagState.data.map(tag => tag.name)}/>
                 </Card>
