@@ -1,8 +1,12 @@
 import { Chip } from "@mui/material"
 import { PropTypes } from "prop-types"
+import { useContext } from "react"
+import ResumeContext from "../ResumeContext"
 
 
 const TagsDisplay = ({ skills }) => {
+    const resumeContextData = useContext(ResumeContext)
+
     const formatTag = (input) => {
         const wordsArray = input.split(/-/);
     
@@ -12,7 +16,9 @@ const TagsDisplay = ({ skills }) => {
     }
 
     const handleClipClick = (tag) => {
-        console.log("Chip clicked " + tag);
+        resumeContextData.tagFilters.add(tag);
+        console.log("Chip clicked ");
+        console.log(resumeContextData.tagFilters);
     }
 
     return (

@@ -3,7 +3,7 @@ import CollapsibleCard from "../components/CollapsibleCard"
 import EducationDetails from "./resumeDetails/EducationDetails";
 import { plainToClass } from 'class-transformer';
 import { ApiController } from "../utils/api";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
 import ProjectDetails from "./resumeDetails/ProjectDetails";
 import './Resume.css';
@@ -12,22 +12,29 @@ import ReferenceDetails from "./resumeDetails/ReferenceDetails";
 import { Card, CircularProgress, Divider, Typography } from "@mui/material";
 import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../utils/requestReducer";
+import ResumeContext from "./ResumeContext";
 
 export default function Resume() {
-    const [resumeData, setResumeData] = useState(0);
     const [tagState, tagsDispatch] = useReducer(RequestReducer.reducer, {
         loading: true,
         data: null,
         error: null,
     })
-    const [loadingResumeData, setLoadingResumeData] = useState(true);
+
+    const [resumeState, resumeDispatch] = useReducer(RequestReducer.reducer, {
+        loading: true,
+        data: null,
+        error: null,
+    })
+
+    const resumeContextData = { tagFilters: new Set() };
 
     useEffect(() => {
-        setLoadingResumeData(true);
+        resumeDispatch(RequestReducer.setLoading(true))
         fetchResumeData()
             .then(data => {
-                setResumeData(data);
-                setLoadingResumeData(false);
+                resumeDispatch(RequestReducer.setData(data))
+                resumeDispatch(RequestReducer.setLoading(false))
             })
             .catch(error => console.error(error))
         ApiController.getTags()
@@ -60,9 +67,9 @@ export default function Resume() {
     }
 
     return (
-        loadingResumeData && <CircularProgress/> ||
-        resumeData && 
-        <>
+        resumeState.loading && <CircularProgress/> ||
+        resumeState && resumeState.data &&
+        <ResumeContext.Provider value={resumeContextData}>
         {
             tagState.data &&
             <div className="card-container">
@@ -73,19 +80,19 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeData.user && 
+            resumeState.data.user && 
             <div className="card-container">
-                <CollapsibleCard title={`${resumeData.user.firstName} ${resumeData.user.lastName}`} defaultExpandedState={true}> 
-                    <UserDetails user={resumeData.user}/>
+                <CollapsibleCard title={`${resumeState.data.user.firstName} ${resumeState.data.user.lastName}`} defaultExpandedState={true}> 
+                    <UserDetails user={resumeState.data.user}/>
                 </CollapsibleCard>
             </div>
         }
         {   
-            resumeData.education && 
+            resumeState.data.education && 
             <div className="card-container">
                 <CollapsibleCard title="Education" defaultExpandedState={false}> 
                     {
-                    resumeData.education.map((education, index, arr) => (    
+                    resumeState.data.education.map((education, index, arr) => (    
                         <>                    
                             <EducationDetails key={index} education={education}/>
                         {
@@ -100,11 +107,11 @@ export default function Resume() {
                 </CollapsibleCard>
             </div>
         }
-        {   resumeData.experience && 
+        {   resumeState.data.experience && 
             <div className="card-container">
                 <CollapsibleCard title="Experience"> 
                     {
-                    resumeData.experience.map((experience, index, arr) => (     
+                    resumeState.data.experience.map((experience, index, arr) => (     
                         <>                   
                             <ExperienceDetails key={index} experience={experience}/>
                         {
@@ -120,11 +127,11 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeData.projects && 
+            resumeState.data.projects && 
             <div className="card-container">
                 <CollapsibleCard title="Projects"> 
                 {
-                    resumeData.projects.map((project, index, arr) => (
+                    resumeState.data.projects.map((project, index, arr) => (
                         <>
                             <ProjectDetails key={index} project={project}/>
                         {
@@ -141,11 +148,11 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeData.references && 
+            resumeState.data.references && 
             <div className="card-container">
                 <CollapsibleCard title="References" defaultExpandedState={true}> 
                 {
-                    resumeData.references.map((reference, index, arr) => (
+                    resumeState.data.references.map((reference, index, arr) => (
                         <>
                             <ReferenceDetails key={index} reference={reference}/>
                         {
@@ -160,6 +167,6 @@ export default function Resume() {
                 </CollapsibleCard>
             </div>
         }
-        </>
+        </ResumeContext.Provider>
       );
 }
