@@ -32,5 +32,9 @@ coverage/
 build/
 release/
 
+# Local only
+*.crt
+*.key
+
 *.env
 !common.env
