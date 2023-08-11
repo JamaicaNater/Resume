@@ -6,7 +6,6 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -19,7 +18,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { PropTypes } from 'prop-types';
-import { Card, CardContent, CardMedia } from '@mui/material';
+import { Card, CardMedia } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -187,6 +187,7 @@ export default function MiniDrawer({ children, changePageContent }) {
       <Box component="main" className='drawer-children' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {children}
+        <Outlet context={{hello: "world"}}/>
       </Box>
     </Box>
   );
