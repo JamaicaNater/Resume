@@ -14,5 +14,5 @@ To use this project, follow these steps:
    ** Use the provided terraform script to deploy the resources to AWS/GCP.
       *** View the resources on the cloud with the respective URL
    ** Or run locally using `make up`
-      *** From there, you can access the UI (http://localhost:5173) API (http://localhost:3000) and DB (mongodb://localhost:27017).
+      *** From there, you can access the UI (https://localhost) (http://localhost:5173) API (https://localhost/api) (http://localhost:3000) and DB (mongodb://localhost:27017).
 

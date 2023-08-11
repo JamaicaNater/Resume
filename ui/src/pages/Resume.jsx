@@ -146,7 +146,6 @@ export default function Resume() {
         {   
             resumeState.data.projects && 
             <div className="card-container">
-                <Typography>{resumeContextData.tagFilters}</Typography>
                 <CollapsibleCard title="Projects"> 
                 {
                     resumeState.data.projects

@@ -68,8 +68,8 @@ services:
     depends_on:
       node-app:
         condition: service_healthy
-      # react-app:
-      #   condition: service_healthy
+      react-app:
+        condition: service_healthy
         
 volumes:
   mongodb-data:
