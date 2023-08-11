@@ -19,7 +19,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { PropTypes } from 'prop-types';
 import { Card, CardMedia } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -118,12 +118,14 @@ export default function MiniDrawer({ children, changePageContent }) {
             <MenuIcon />
           </IconButton>
           <Card>
-            <CardMedia
-              component="img"
-              height="50" 
-              image={'/logo/DynamicResumeLogoWithWords.png'} 
-              alt="Logo" 
-            />
+            <Link to="/">
+              <CardMedia
+                component="img"
+                height="50"
+                image={'/logo/DynamicResumeLogoWithWords.png'}
+                alt="Logo"
+              />
+            </Link>
           </Card>
         </Toolbar>
       </AppBar>
@@ -186,7 +188,6 @@ export default function MiniDrawer({ children, changePageContent }) {
       </Drawer>
       <Box component="main" className='drawer-children' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {children}
         <Outlet context={{hello: "world"}}/>
       </Box>
     </Box>
