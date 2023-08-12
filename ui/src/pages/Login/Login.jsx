@@ -2,22 +2,37 @@ import { Button, Card, CardContent, CardMedia, Typography } from "@mui/material"
 import { Link, useLocation } from 'react-router-dom';
 import "./Login.css"
 import { ApiController } from "../../utils/api";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
+import { RequestReducer } from "../../utils/requestReducer";
 
 const Login = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
 
+    const [userState, userDispatch] = useReducer(RequestReducer.reducer, {
+        loading: true,
+        data: null,
+        error: null,
+    })
+
     const [user, setUser] = useState(null);
 
     useEffect(() => {
         if (queryParams.get('code') && !user) {
+            userDispatch(RequestReducer.setLoading(true))
             authenticate().then((returnedUser) => {
                 setUser(returnedUser)
                 console.log(returnedUser)
+                userDispatch(RequestReducer.setData(returnedUser))
             })
             .catch((error) => {
-                console.error(error)
+                userDispatch(RequestReducer.setError(error))
+                if (error.response) {
+                    console.log('Error Status:', error.response.status);
+                    console.log('Error Data:', error.response.data);
+                } else {
+                    console.log('Error:', error.message);
+                }
             })
         }
     }, [])
@@ -48,7 +63,7 @@ const Login = () => {
                             variant="contained" 
                             component={Link} 
                             to='/resume'
-                            target="_blank">
+                        >
                             Continue to site
                         </Button>
                     </CardContent>

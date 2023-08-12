@@ -52,11 +52,16 @@ const AuthController = {
             const token = await authenticate(req.query.code, req.query.redirect_uri);
             console.log('Authorizing request')
             const user = await authorize(token.accessToken);
+            req.session.user = user;
             res.json(user)
         } catch (error) {
             console.error(error)
             res.status(500).json("Failed to autheticate")
         }
+    },
+    logout: (req, res) => {
+        req.session.user = null
+        res.status(200).json("Logged out sucessfully")
     }
 }
 

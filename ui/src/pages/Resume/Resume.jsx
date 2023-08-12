@@ -55,9 +55,9 @@ export default function Resume() {
             .catch(error => tagsDispatch(RequestReducer.setError(error)))
         
         jobDispatch(RequestReducer.setLoading(true))
-        ApiController.getJobs()
-            .then(data => jobDispatch(RequestReducer.setData(data)))
-            .catch(error => jobDispatch(RequestReducer.setError(error)))
+                ApiController.getJobs()
+                .then(data => jobDispatch(RequestReducer.setData(data)))
+                .catch(error => jobDispatch(RequestReducer.setError(error)))
     }, []);
 
     const fetchResumeData = async () => {
@@ -106,8 +106,8 @@ export default function Resume() {
                         </Select>
                     </FormControl>
                     {
-                        selectedFilterOption == 'skill' && <TagsDisplay skills={tagState.data.map(tag => tag.name)}/> ||
-                        selectedFilterOption == 'job' && <TagsDisplay skills={jobState.data.map(tag => tag.name)}/>
+                        selectedFilterOption == 'skill' && (tagState.data && <TagsDisplay skills={tagState.data.map(tag => tag.name)}/> || <Typography>Failed to get tag data</Typography>) ||
+                        selectedFilterOption == 'job' && (jobState.data && <TagsDisplay skills={jobState.data.map(tag => tag.name)}/> || <Typography>Failed to get job data</Typography>)
                     }
                 </Card>
             </div>

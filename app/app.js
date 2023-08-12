@@ -1,5 +1,7 @@
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors')
+const requireAuth = require('./middleware/requireAuth')
 
 const app = express();
 const { connectDatabase, disconnectDatabase } = require('./models/db')
@@ -18,8 +20,26 @@ const tagRoutes = require('./routes/tag');
 const authRoutes = require('./routes/auth');
 
 // Middleware
+app.use(session({
+  secret: process.env.API_SESSION_KEY,
+  resave: false,
+  saveUninitialized: true,
+}));
+// Apply requireAuth middleware for all routes except /auth
+app.use(requireAuth.unless({
+  path : [
+    '/',
+    '/auth',
+    '/auth/'
+  ]
+}));
+
 app.use(express.json());
-app.use(cors())
+
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://localhost'],
+  credentials: true,
+}));
 
 // Use routes
 app.use('/', homepageRoutes);

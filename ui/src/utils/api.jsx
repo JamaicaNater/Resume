@@ -1,6 +1,9 @@
 import axios from "axios"; 
 
-const API_BASE_URL = 'http://localhost:3000'
+const instance = axios.create({
+    baseURL: 'http://localhost:3000',
+    withCredentials: true, // Include cookies in the request
+});
 
 export const ApiController = {
     authenticate: async (code, redirect_uri) => {
@@ -50,7 +53,7 @@ async function genericGet(endpoint, queryParams) {
             console.log(params);
         }
 
-        const response = await axios.get(`${API_BASE_URL}/${endpoint}${params ?? ''}`);
+        const response = await instance.get(`/${endpoint}${params ?? ''}`);
         return response.data;
       } catch (error) {
         console.error(error);
