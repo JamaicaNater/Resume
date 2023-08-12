@@ -1,8 +1,8 @@
-import { ResumeTemplate, Education, Project, Experience, Reference, User } from "../models";
-import CollapsibleCard from "../components/CollapsibleCard"
+import { ResumeTemplate, Education, Project, Experience, Reference, User } from "../../models";
+import CollapsibleCard from "../../components/CollapsibleCard"
 import EducationDetails from "./resumeDetails/EducationDetails";
 import { plainToClass } from 'class-transformer';
-import { ApiController } from "../utils/api";
+import { ApiController } from "../../utils/api";
 import { useContext, useEffect, useReducer } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
 import ProjectDetails from "./resumeDetails/ProjectDetails";
@@ -11,7 +11,7 @@ import UserDetails from "./resumeDetails/UserDetails";
 import ReferenceDetails from "./resumeDetails/ReferenceDetails";
 import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import TagsDisplay from "./resumeDetails/TagsDisplay";
-import { RequestReducer } from "../utils/requestReducer";
+import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "./ResumeContext";
 
 export default function Resume() {

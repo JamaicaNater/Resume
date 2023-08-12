@@ -1,10 +1,10 @@
 import './App.css'
 import MiniDrawer from './components/MiniDrawer'
-import Resume from './pages/Resume';
-import ResumeProvider from './pages/ResumeProvider';
+import Resume from './pages/Resume/Resume';
+import ResumeProvider from './pages/Resume/ResumeProvider';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import Login from './pages/Login/Login';
 
 function App() {

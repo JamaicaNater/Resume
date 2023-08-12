@@ -68,7 +68,7 @@ const Login = () => {
                                 'client_id=851224273053-5p8dg1psgjf5ts80aqgq62crjtm4g3i1.apps.googleusercontent.com&' +
                                 'redirect_uri=https://localhost:443/login&response_type=code&' +
                                 'scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline&prompt=consent'} 
-                            target="_blank">
+                            >
                             Login
                         </Button>
                     </CardContent>
