@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, Collapse, Typography, IconButton, Divider } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
-const CollapsibleCard = ({ title, children, defaultExpandedState }) => {
+const CollapsibleCard = ({ title, children, defaultExpandedState, className }) => {
   const [expanded, setExpanded] = useState(defaultExpandedState ?? true);
 
   const handleExpandClick = () => {
@@ -10,7 +10,7 @@ const CollapsibleCard = ({ title, children, defaultExpandedState }) => {
   };
 
   return (
-    <Card>
+    <Card className={className}>
         <Typography variant="h5" sx={{marginTop: '1rem'}}>{title}</Typography>
         {expanded && <Divider sx={{borderBottomWidth: '2px', backgroundColor: '#C0C0C0'}}></Divider>}
         <Collapse in={!expanded} timeout="auto" unmountOnExit>

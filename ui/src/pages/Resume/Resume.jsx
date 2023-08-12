@@ -3,7 +3,7 @@ import CollapsibleCard from "../../components/CollapsibleCard"
 import EducationDetails from "./resumeDetails/EducationDetails";
 import { plainToClass } from 'class-transformer';
 import { ApiController } from "../../utils/api";
-import { useContext, useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
 import ProjectDetails from "./resumeDetails/ProjectDetails";
 import './Resume.css';
@@ -28,6 +28,14 @@ export default function Resume() {
     })
 
     const { resumeContextData, setResumeContextData } = useContext(ResumeContext);
+
+    const [selectedFilterOption, setSelectedFilterOption] = useState('skill');
+
+    const handleFilterOptionChange = (event) => {
+      const value = event.target.value;
+      setSelectedFilterOption(value);
+      console.log(`Selected option: ${value}`);
+    };
 
     useEffect(() => {
         resumeDispatch(RequestReducer.setLoading(true))
@@ -73,22 +81,20 @@ export default function Resume() {
         {
             tagState.data &&
             <div className="card-container">
-                <Card>
+                <Card className="card">
                     <FormControl fullWidth >
-                    <InputLabel margin='normal' id="demo-simple-select-label" >Age</InputLabel>
+                    <InputLabel margin='dense' id="demo-simple-select-label">Select a Filter</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            // value={age}
-                            label="Age"
-                            // onChange={handleChange}
+                            value={selectedFilterOption}
+                            label="Filter"
+                            onChange={handleFilterOptionChange}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            <MenuItem key='skill' value='skill'>Filter by Skill</MenuItem>
+                            <MenuItem key='job' value='job'>Filter by Job</MenuItem>
                         </Select>
                     </FormControl>
-                    <Typography variant="body1" sx={{marginTop: '1rem'}}>Filter by skill</Typography>
                     <TagsDisplay skills={tagState.data.map(tag => tag.name)}/>
                 </Card>
             </div>
@@ -96,7 +102,7 @@ export default function Resume() {
         {   
             resumeState.data.user && 
             <div className="card-container">
-                <CollapsibleCard title={`${resumeState.data.user.firstName} ${resumeState.data.user.lastName}`} defaultExpandedState={true}> 
+                <CollapsibleCard className="card" title={`${resumeState.data.user.firstName} ${resumeState.data.user.lastName}`} defaultExpandedState={true}> 
                     <UserDetails user={resumeState.data.user}/>
                 </CollapsibleCard>
             </div>
@@ -104,7 +110,7 @@ export default function Resume() {
         {   
             resumeState.data.education && 
             <div className="card-container">
-                <CollapsibleCard title="Education" defaultExpandedState={false}> 
+                <CollapsibleCard className="card" title="Education" defaultExpandedState={false}> 
                     {
                     resumeState.data.education.map((education, index, arr) => (    
                         <>                    
@@ -124,7 +130,7 @@ export default function Resume() {
         {   
             resumeState.data.experience && 
             <div className="card-container">
-                <CollapsibleCard title="Experience"> 
+                <CollapsibleCard className="card" title="Experience"> 
                     {
                     resumeState.data.experience
                     .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
@@ -146,7 +152,7 @@ export default function Resume() {
         {   
             resumeState.data.projects && 
             <div className="card-container">
-                <CollapsibleCard title="Projects"> 
+                <CollapsibleCard className="card" title="Projects"> 
                 {
                     resumeState.data.projects
                     .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
@@ -169,7 +175,7 @@ export default function Resume() {
         {   
             resumeState.data.references && 
             <div className="card-container">
-                <CollapsibleCard title="References" defaultExpandedState={true}> 
+                <CollapsibleCard className="card" title="References" defaultExpandedState={true}> 
                 {
                     resumeState.data.references.map((reference, index, arr) => (
                         <>

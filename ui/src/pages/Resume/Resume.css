@@ -2,6 +2,10 @@
     margin-bottom: 1.5rem;
 }
 
+.card {
+    padding: 1rem;
+}
+
 .divider {
     margin-top: 1rem;
     margin-bottom: 1rem;
