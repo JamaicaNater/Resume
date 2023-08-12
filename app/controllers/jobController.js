@@ -3,7 +3,7 @@ const Job = require('../models/job');
 const JobController = {
     getJob: async (req, res) => {
         try {
-            const job = await Job.findOne();
+            const job = await Job.find();
             res.json(job);
         } catch (error) {
             console.error(error);

@@ -84,6 +84,19 @@ async function addResumeData() {
     const projectData = [
       { 
         userId: userId,
+        name: 'Smart Resume', 
+        link: 'https://github.com/JamaicaNater/Smart-Resume', 
+        details: [
+          'Utilized MongoDB, Express.js, React.js, and Node.js to architect and engineer a containerized full-stack web application. ' +
+          'This innovative platform empowers users to seamlessly input their job experiences, project details, educational background, and more. ' +
+          'The application dynamically tailors its presentation to align with various desired positions, offering a personalized and engaging experience.',
+
+          'Implemented Google-based OpenID login functionality.'
+        ],
+        tags: ['javascript', 'rest-apis', 'backend', 'full-stack', 'frontend', 'react.js', 'node.js', 'express.js', 'mongodb', 'nosql'] 
+      },      
+      { 
+        userId: userId,
         name: 'Method Payment Dashboard (Full Stack Site)', 
         link: 'https://github.com/JamaicaNater/Method-Payment-Dashboard', 
         details: [
@@ -98,17 +111,27 @@ async function addResumeData() {
           'configuring dockerfiles and docker-compose files to enable hassle-free deployment and scalability across different environments. ' +
           'This ensured platform independence and streamlined application maintenance'
         ],
-        tags: ['rust', 'rest-apis', 'backend', 'full-stack', 'frontend', 'react.js', 'node.js', 'express.js'] 
+        tags: ['rust', 'rest-apis', 'backend', 'full-stack', 'frontend', 'react.js', 'sql'] 
+      },
+      { 
+        userId: userId,
+        name: 'RocketEngine (Game Engine)', 
+        link: 'https://github.com/JamaicaNater/RocketEngine', 
+        details: [
+          'Spearheaded the development of a robust C++ game engine for the Sony PlayStation Portable (2005) from scratch, ' +
+          'encompassing key features such as a user input, image loading and rendering, ' + 
+          'physics simulations, collision detection, and logging.',
+    
+          'Utilized industry best pratices to architect a framework for GUI for menus which involved use of funtions pointers to ' +
+          'handle various even such as component selection, click and open',
+        ],
+        tags: ['c++', 'game-development'] 
       },
       { 
         userId: userId,
         name: 'RocketManPSP (Video Game)', 
         link: 'https://github.com/JamaicaNater/RocketManPSP', 
-        details: [
-          'Spearheaded the development of a robust C++ game engine for the Sony PlayStation Portable (2005) from scratch, ' +
-          'encompassing key features such as a graphic user interface, user input, image loading and rendering, ' + 
-          'physics simulations, collision detection, and logging.',
-    
+        details: [   
           'Employed object-oriented design principles to architect game components, ' +
           'leveraging industry best practices to create an easily  maintainable codebase.',
     
@@ -180,31 +203,58 @@ async function addResumeData() {
     ];
 
     const tagData = [
-      { "name": "c++" },
-      { "name": "game-development" },
-      { "name": "python" },
-      { "name": "compiler-construction" },
-      { "name": "react.js" },
-      { "name": "backend" },
-      { "name": "full-stack" },
-      { "name": "frontend" },
-      { "name": "express.js" },
-      { "name": "java" },
-      { "name": "spring-boot" },
-      { "name": "rest-apis" },
-      { "name": "aws" },
-      { "name": "terraform" },
-      { "name": "dev-ops" },
-      { "name": "jenkins" },
-      { "name": "sql" },
-      { "name": "node.js" },
-      { "name": "react.js" },
-      { "name": "kubernetes" },
-      { "name": "docker" },
-      { "name": "c" },
-      { "name": "rust" },
-      { "name": "spring" }
+      { name: "c++" },
+      { name: "game-development" },
+      { name: "python" },
+      { name: "compiler-construction" },
+      { name: "react.js" },
+      { name: "backend" },
+      { name: "full-stack" },
+      { name: "frontend" },
+      { name: "express.js" },
+      { name: "java" },
+      { name: "spring-boot" },
+      { name: "rest-apis" },
+      { name: "aws" },
+      { name: "terraform" },
+      { name: "dev-ops" },
+      { name: "jenkins" },
+      { name: "sql" },
+      { name: "node.js" },
+      { name: "kubernetes" },
+      { name: "docker" },
+      { name: "c" },
+      { name: "rust" },
+      { name: "spring" },
+      { name: "angular" },
+      { name: "django" },
+      { name: ".net" },
+      { name: "c#" },
+      { name: "web-assembly" },
+      { name: "vue.js" },
+      { name: "mongo-db" },
+      { name: "nosql" },
+      { name: "mysql" },
     ];
+
+    const jobData = [
+      { 
+        name: "Backend Developer", 
+        tags: ["rust", "java", "sql", "spring", "rest-apis", "djanjo", "node.js", "express.js", ".net", "c#", "backend", "fullstack"] 
+      },
+      {
+        name: "Frontend Developer",
+        tags: ["javascript", "web-assembly", "react.js", "angular", "vue.js", "typescript", "frontend", "fullstack"]
+      },
+      {
+        name: "Low-Level Developer",
+        tags: ["rust", "compiler-construction", "c++", "c", "zig", "assembly"]
+      },
+      {
+        name: "Dev-ops", 
+        tags: ["docker", "jenkins", "ci/cd", "terraform", "aws", "gcp", "dev-ops", "kubernetes"]
+      }
+    ]
 
     db.createCollection('experiences');
     db.experiences.insertMany(experienceData);
@@ -221,6 +271,10 @@ async function addResumeData() {
     db.createCollection('tags');
     db.tags.createIndex({ name: 1 }, { unique: true });
     db.tags.insertMany(tagData);
+
+    db.createCollection('jobs');
+    db.jobs.createIndex({ name: 1 }, { unique: true });
+    db.jobs.insertMany(jobData);
 
     print('MongoDB initialization script executed successfully.');
   } catch (error) {

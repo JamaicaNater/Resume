@@ -21,6 +21,12 @@ export default function Resume() {
         error: null,
     })
 
+    const [jobState, jobDispatch] = useReducer(RequestReducer.reducer, {
+        loading: true,
+        data: null,
+        error: null,
+    })
+
     const [resumeState, resumeDispatch] = useReducer(RequestReducer.reducer, {
         loading: true,
         data: null,
@@ -40,14 +46,18 @@ export default function Resume() {
     useEffect(() => {
         resumeDispatch(RequestReducer.setLoading(true))
         fetchResumeData()
-            .then(data => {
-                resumeDispatch(RequestReducer.setData(data))
-                resumeDispatch(RequestReducer.setLoading(false))
-            })
+            .then(data => resumeDispatch(RequestReducer.setData(data)))
             .catch(error => console.error(error))
+        
+            tagsDispatch(RequestReducer.setLoading(true))
         ApiController.getTags()
             .then(data => tagsDispatch(RequestReducer.setData(data)))
             .catch(error => tagsDispatch(RequestReducer.setError(error)))
+        
+        jobDispatch(RequestReducer.setLoading(true))
+        ApiController.getJobs()
+            .then(data => jobDispatch(RequestReducer.setData(data)))
+            .catch(error => jobDispatch(RequestReducer.setError(error)))
     }, []);
 
     const fetchResumeData = async () => {
@@ -95,7 +105,10 @@ export default function Resume() {
                             <MenuItem key='job' value='job'>Filter by Job</MenuItem>
                         </Select>
                     </FormControl>
-                    <TagsDisplay skills={tagState.data.map(tag => tag.name)}/>
+                    {
+                        selectedFilterOption == 'skill' && <TagsDisplay skills={tagState.data.map(tag => tag.name)}/> ||
+                        selectedFilterOption == 'job' && <TagsDisplay skills={jobState.data.map(tag => tag.name)}/>
+                    }
                 </Card>
             </div>
         }
