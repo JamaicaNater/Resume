@@ -1,13 +1,13 @@
 const axios = require('axios');
 
-async function authenticate(authCode) {
+async function authenticate(authCode, redirectUri) {
     const tokenEndpoint = 'https://oauth2.googleapis.com/token';
 
     const tokenParams = new URLSearchParams();
     tokenParams.append('code', authCode);
     tokenParams.append('client_id', process.env.CLIENT_ID);
     tokenParams.append('client_secret', process.env.CLIENT_SECRET);
-    tokenParams.append('redirect_uri', process.env.REDIRECT_URI);
+    tokenParams.append('redirect_uri', redirectUri);
     tokenParams.append('grant_type', 'authorization_code');
     tokenParams.append('scope', '');
 
@@ -48,9 +48,11 @@ async function authorize(accessToken) {
 const AuthController = {
     authenticate: async (req, res) => {
         try {
-            const token = await authenticate(req.query.code);
+            console.log('Authenticating request')
+            const token = await authenticate(req.query.code, req.query.redirect_uri);
+            console.log('Authorizing request')
             const user = await authorize(token.accessToken);
-            res.json(`Welcome ${user.name}`)
+            res.json(user)
         } catch (error) {
             console.error(error)
             res.status(500).json("Failed to autheticate")

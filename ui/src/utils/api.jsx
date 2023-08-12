@@ -3,6 +3,10 @@ import axios from "axios";
 const API_BASE_URL = 'http://localhost:3000'
 
 export const ApiController = {
+    authenticate: async (code, redirect_uri) => {
+        return genericGet('auth', {code: code, redirect_uri: redirect_uri});
+    }, 
+
     getExperience: async () => {
         return genericGet('experience');
     },
@@ -28,10 +32,21 @@ export const ApiController = {
     }
 };
 
-async function genericGet(endpoint) {
+async function genericGet(endpoint, queryParams) {
     try {
-        // Send a GET request to the API
-        const response = await axios.get(`${API_BASE_URL}/${endpoint}`);
+        let params = undefined;
+        if (queryParams) {
+            params = []
+            params.push('?');
+            const paramStrings = Object.keys(queryParams).map((param) => {
+                return `${param}=${queryParams[param]}`;
+            });
+            params.push(paramStrings.join('&'));
+            params = params.join('')
+            console.log(params);
+        }
+
+        const response = await axios.get(`${API_BASE_URL}/${endpoint}${params ?? ''}`);
         return response.data;
       } catch (error) {
         console.error(error);

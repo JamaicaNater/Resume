@@ -17,7 +17,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { PropTypes } from 'prop-types';
 import { Card, CardMedia } from '@mui/material';
 import { Link, Outlet } from 'react-router-dom';
 
@@ -88,7 +87,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer({ children, changePageContent }) {
+export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -193,7 +192,3 @@ export default function MiniDrawer({ children, changePageContent }) {
     </Box>
   );
 }
-
-MiniDrawer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
