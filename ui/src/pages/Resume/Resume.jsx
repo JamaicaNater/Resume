@@ -33,6 +33,7 @@ export default function Resume() {
         error: null,
     })
 
+    
     const { resumeContextData, setResumeContextData } = useContext(ResumeContext);
 
     const [selectedFilterOption, setSelectedFilterOption] = useState('skill');

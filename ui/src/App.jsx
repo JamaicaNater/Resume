@@ -6,15 +6,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage/HomePage';
 import Login from './pages/Login/Login';
-import AuthContext from './context/AuthContext';
-import { useAuth } from './hooks/auth/useAuth'; 
+import { AuthContextProvider } from './context/AuthContextProvider';
 
 function App() {
-  const { user, login, logout } = useAuth();
-
   return (
     <>
-      <AuthContext.Provider value={{user, login, logout }}>
+      <AuthContextProvider>
         <BrowserRouter>
             <Routes>
               <Route path="/" element={<HomePage/>} />
@@ -25,7 +22,7 @@ function App() {
             </Routes>
             <Footer/>
           </BrowserRouter>
-      </AuthContext.Provider>
+      </AuthContextProvider>
     </>
   )
 }

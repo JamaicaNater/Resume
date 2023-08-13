@@ -2,8 +2,9 @@ import { Button, Card, CardContent, CardMedia, CircularProgress, Typography } fr
 import { Link, useLocation } from 'react-router-dom';
 import "./Login.css"
 import { ApiController } from "../../utils/api";
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import { RequestReducer } from "../../utils/requestReducer";
+import AuthContext from "../../context/AuthContext";
 
 const Login = () => {
     const location = useLocation();
@@ -15,12 +16,14 @@ const Login = () => {
         error: null,
     })
 
+    const { user, login, logout } = useContext(AuthContext);
+
     useEffect(() => {
         if (queryParams.get('code') && !userState.data) {
             userDispatch(RequestReducer.setLoading(true))
             authenticate().then((returnedUser) => {
-                console.log(returnedUser)
                 userDispatch(RequestReducer.setData(returnedUser))
+                login(returnedUser)
             })
             .catch((error) => {
                 userDispatch(RequestReducer.setError(error))
@@ -84,10 +87,10 @@ const Login = () => {
                             height: "auto",
                             borderRadius: "50%", 
                             }}
-                            image={userState.data.picture}
+                            image={user.picture}
                             alt="User Avatar"
                         />
-                        <Typography variant="h6">Welcome {userState.data.name}</Typography>
+                        <Typography variant="h6">Welcome {user.name}</Typography>
                         <Button 
                             variant="contained" 
                             component={Link} 

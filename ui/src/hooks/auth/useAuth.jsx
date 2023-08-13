@@ -1,14 +1,13 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useState } from "react";
 import {useLocalStorage} from "../../utils/useLocalStorage";
-import AuthContext from "../../context/AuthContext";
 
 export const useUser = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const [ user, setUser ] = useState(null);
   const { setItem } = useLocalStorage();
 
-  const addUser = (user) => {
-    setUser(user);
-    setItem("user", JSON.stringify(user));
+  const addUser = (userToLogin) => {
+    setItem("user", JSON.stringify(userToLogin));
+    setUser(userToLogin);
   };
 
   const removeUser = () => {
@@ -25,19 +24,20 @@ export const useAuth = () => {
   const { getItem } = useLocalStorage();
 
   useEffect(() => {
-    const user = getItem("user");
-    if (user) {
-      addUser(JSON.parse(user));
+    const storedUser = getItem("user");
+    if (storedUser) {
+      let parsedUser = JSON.parse(storedUser)
+      addUser(parsedUser);
     }
   }, []);
 
-  const login = (user) => {
-    addUser(user);
+  const login = (userToLogin) => {
+    addUser(userToLogin);
   };
 
   const logout = () => {
     removeUser();
   };
 
-  return { user, login, logout };
+  return { user, login, logout,  };
 };
