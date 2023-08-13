@@ -1,16 +1,19 @@
 import { Outlet } from 'react-router-dom';
-import useRequireAuth from '../hooks/auth/useRequireAuth';
 import { CircularProgress } from '@mui/material';
 import { PropTypes } from 'prop-types';
+import useLoginRedirect from '../hooks/auth/useLoginRedirect';
 
 const AuthRoutes = ({ children }) => {
-  const { loadingUser } = useRequireAuth()
+  const user = useLoginRedirect()
 
   return (
     <>
+    {console.log(user)}
     {
-            loadingUser && <CircularProgress/> ||
-            (children ?? <Outlet />)
+        !user && <CircularProgress/>
+    }
+    {
+        user && (children ?? <Outlet />)
     }
     </>
     )
