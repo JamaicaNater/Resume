@@ -4,16 +4,16 @@ import { PropTypes } from 'prop-types';
 import useLoginRedirect from '../hooks/auth/useLoginRedirect';
 
 const AuthRoutes = ({ children }) => {
-  const user = useLoginRedirect()
+  const redirecting = useLoginRedirect()
 
   return (
     <>
-    {console.log(user)}
+    {console.log(redirecting)}
     {
-        !user && <CircularProgress/>
+        redirecting && <CircularProgress/>
     }
     {
-        user && (children ?? <Outlet />)
+        !redirecting && (children ?? <Outlet />)
     }
     </>
     )

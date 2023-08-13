@@ -6,11 +6,11 @@ const useLoginRedirect = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
-  const [ redirecting, setRedirecting ] = useState(user ? true : false)
+  const [ redirecting, setRedirecting ] = useState(user ? false : true)
 
 
   useEffect(() => {
-    setRedirecting(user ? true : false)
+    setRedirecting(user ? false : true)
     const timeoutId = setTimeout(() => {
       if (!user) {
         navigate("/login");
