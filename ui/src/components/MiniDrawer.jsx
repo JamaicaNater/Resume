@@ -20,6 +20,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Avatar, Card, CardMedia, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import { Link, Outlet } from 'react-router-dom';
 import "./MiniDrawer.css"
+import AuthContext from '../context/AuthContext/AuthContext';
 
 const drawerWidth = 240;
 
@@ -89,12 +90,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const { user, logout } = React.useContext(AuthContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -110,6 +111,22 @@ export default function MiniDrawer() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const settingsMap = {
+    'Profile': () => {
+      handleCloseUserMenu();
+    }, 
+    'Account': () => {
+      handleCloseUserMenu();
+    }, 
+    'Dashboard': () => {
+      handleCloseUserMenu();
+    }, 
+    'Logout': () => {
+      logout();
+      handleCloseUserMenu();
+    }
   };
 
   return (
@@ -142,7 +159,7 @@ export default function MiniDrawer() {
           <Box className="drawer-container">
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={user?.picture ?? "/static/images/avatar/2.jpg"} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -161,8 +178,8 @@ export default function MiniDrawer() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {Object.keys(settingsMap).map((setting) => (
+                <MenuItem key={setting} onClick={settingsMap[setting]}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
