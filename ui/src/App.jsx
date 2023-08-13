@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage/HomePage';
 import Login from './pages/Login/Login';
 import { AuthContextProvider } from './context/AuthContext/AuthContextProvider';
 import AuthRoutes from './components/AuthenticatedRoutes';
+import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route Component={MiniDrawer}> 
                 <Route element={<AuthRoutes/>}>
                   <Route path="/resume" element={<ResumeProvider><Resume /></ResumeProvider>} />
+                  <Route path="/profile" element={<Profile/>} />
                 </Route>
               </Route>
             </Routes>

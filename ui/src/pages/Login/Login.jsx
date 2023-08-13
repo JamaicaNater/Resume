@@ -1,6 +1,6 @@
 import { Button, Card, CardContent, CardMedia, CircularProgress, Typography } from "@mui/material"
 import { Link, useLocation } from 'react-router-dom';
-import "./Login.css"
+import "../pages.css"
 import { ApiController } from "../../utils/api";
 import { useContext, useEffect, useReducer } from "react";
 import { RequestReducer } from "../../utils/requestReducer";

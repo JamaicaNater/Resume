@@ -18,7 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Avatar, Card, CardMedia, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import "./MiniDrawer.css"
 import AuthContext from '../context/AuthContext/AuthContext';
 
@@ -91,6 +91,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 
 export default function MiniDrawer() {
+  const navigate = useNavigate()
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -115,6 +116,7 @@ export default function MiniDrawer() {
 
   const settingsMap = {
     'Profile': () => {
+      navigate('/profile')
       handleCloseUserMenu();
     }, 
     'Account': () => {

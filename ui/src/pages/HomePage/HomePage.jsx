@@ -1,6 +1,7 @@
 // Home.js
 import { Button, Card, CardContent, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import "../pages.css"
 
 const HomePage = () => {
   return (
@@ -11,7 +12,7 @@ const HomePage = () => {
                     <Button 
                         variant="contained" 
                         component={Link} 
-                        to='/login'
+                        to='/resume'
                     >
                         Get Started
                     </Button>
