@@ -1,0 +1,12 @@
+.drawer-container {
+    display: flex;
+    justify-content: flex-end; 
+    flex-grow: 1;
+  }
+  
+.box {
+    width: 100px;
+    height: 100px;
+    background-color: lightgray;
+    margin: 5px;
+}
