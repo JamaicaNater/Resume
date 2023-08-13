@@ -10,7 +10,7 @@ const Login = () => {
     const queryParams = new URLSearchParams(location.search);
 
     const [userState, userDispatch] = useReducer(RequestReducer.reducer, {
-        loading: true,
+        loading: false,
         data: null,
         error: null,
     })
@@ -31,7 +31,8 @@ const Login = () => {
                     console.log('Error:', error.message);
                 }
             })
-        }
+        } 
+        console.log(userState)
     }, [])
 
     const authenticate = async () => {
@@ -45,7 +46,7 @@ const Login = () => {
             <div className="centered-container">
                 <Card sx={{padding: '1.5rem'}}>
                     <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-                        <Typography variant="h6">You must login to continue</Typography>
+                        <Typography variant="h6">Logging in</Typography>
                         <CircularProgress/>
                     </CardContent>
                 </Card>

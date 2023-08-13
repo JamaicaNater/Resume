@@ -6,20 +6,26 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage/HomePage';
 import Login from './pages/Login/Login';
+import AuthContext from './context/AuthContext';
+import { useAuth } from './hooks/auth/useAuth'; 
 
 function App() {
+  const { user, login, logout } = useAuth();
+
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route Component={MiniDrawer}> 
-            <Route path="/resume" element={<ResumeProvider><Resume /></ResumeProvider>} />
-          </Route>
-        </Routes>
-        <Footer/>
-      </BrowserRouter>
+      <AuthContext.Provider value={{user, login, logout }}>
+        <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<HomePage/>} />
+              <Route path="/login" element={<Login/>} />
+              <Route Component={MiniDrawer}> 
+                <Route path="/resume" element={<ResumeProvider><Resume /></ResumeProvider>} />
+              </Route>
+            </Routes>
+            <Footer/>
+          </BrowserRouter>
+      </AuthContext.Provider>
     </>
   )
 }

@@ -85,7 +85,7 @@ export default function Resume() {
     }
 
     return (
-        resumeState.loading && <CircularProgress/> ||
+        resumeState.loading && <><Typography>Loading resume</Typography> <CircularProgress/></> ||
         resumeState && resumeState.data &&
         <>
         {
