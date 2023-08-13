@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {useLocalStorage} from "../../utils/useLocalStorage";
+import { ApiController } from "../../utils/api";
 
 export const useUser = () => {
   const [ user, setUser ] = useState(null);
@@ -37,6 +38,7 @@ export const useAuth = () => {
 
   const logout = () => {
     removeUser();
+    ApiController.logout()
   };
 
   return { user, login, logout,  };

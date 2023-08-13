@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage/HomePage';
 import Login from './pages/Login/Login';
 import { AuthContextProvider } from './context/AuthContext/AuthContextProvider';
+import AuthRoutes from './components/AuthenticatedRoutes';
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
               <Route path="/" element={<HomePage/>} />
               <Route path="/login" element={<Login/>} />
               <Route Component={MiniDrawer}> 
-                <Route path="/resume" element={<ResumeProvider><Resume /></ResumeProvider>} />
+                <Route element={<AuthRoutes/>}>
+                  <Route path="/resume" element={<ResumeProvider><Resume /></ResumeProvider>} />
+                </Route>
               </Route>
             </Routes>
             <Footer/>

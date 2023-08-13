@@ -10,6 +10,10 @@ export const ApiController = {
         return genericGet('auth', {code: code, redirect_uri: redirect_uri});
     }, 
 
+    logout: async () => {
+        return genericGet('auth/logout');
+    }, 
+
     getExperience: async () => {
         return genericGet('experience');
     },
