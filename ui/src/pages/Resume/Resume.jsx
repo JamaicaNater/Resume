@@ -12,7 +12,7 @@ import ReferenceDetails from "./resumeDetails/ReferenceDetails";
 import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../../utils/requestReducer";
-import ResumeContext from "./ResumeContext";
+import ResumeContext from "../../context/ResumeContext/ResumeContext";
 
 export default function Resume() {
     const [tagState, tagsDispatch] = useReducer(RequestReducer.reducer, {
@@ -34,7 +34,7 @@ export default function Resume() {
     })
 
     
-    const { resumeContextData, setResumeContextData } = useContext(ResumeContext);
+    const { resumeContextData } = useContext(ResumeContext);
 
     const [selectedFilterOption, setSelectedFilterOption] = useState('skill');
 

@@ -1,12 +1,12 @@
 import './App.css'
 import MiniDrawer from './components/MiniDrawer'
 import Resume from './pages/Resume/Resume';
-import ResumeProvider from './pages/Resume/ResumeProvider';
+import ResumeProvider from './context/ResumeContext/ResumeProvider';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage/HomePage';
 import Login from './pages/Login/Login';
-import { AuthContextProvider } from './context/AuthContextProvider';
+import { AuthContextProvider } from './context/AuthContext/AuthContextProvider';
 
 function App() {
   return (

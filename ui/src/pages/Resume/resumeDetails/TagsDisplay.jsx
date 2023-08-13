@@ -1,7 +1,7 @@
 import { Chip } from "@mui/material"
 import { PropTypes } from "prop-types"
 import { useContext } from "react"
-import ResumeContext from "../ResumeContext"
+import ResumeContext from "../../../context/ResumeContext/ResumeContext"
 
 
 const TagsDisplay = ({ skills }) => {

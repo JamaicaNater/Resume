@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, Collapse, Typography, IconButton, Divider } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { PropTypes } from 'prop-types';
 
 const CollapsibleCard = ({ title, children, defaultExpandedState, className }) => {
   const [expanded, setExpanded] = useState(defaultExpandedState ?? true);
@@ -42,5 +43,12 @@ const CollapsibleCard = ({ title, children, defaultExpandedState, className }) =
     </Card>
   );
 };
+
+CollapsibleCard.propTypes = {
+    children : PropTypes.node.isRequired,
+    className: PropTypes.string,
+    defaultExpandedState: PropTypes.bool,
+    title: PropTypes.string
+}
 
 export default CollapsibleCard;

@@ -4,7 +4,7 @@ import "./Login.css"
 import { ApiController } from "../../utils/api";
 import { useContext, useEffect, useReducer } from "react";
 import { RequestReducer } from "../../utils/requestReducer";
-import AuthContext from "../../context/AuthContext";
+import AuthContext from "../../context/AuthContext/AuthContext";
 
 const Login = () => {
     const location = useLocation();
@@ -16,7 +16,7 @@ const Login = () => {
         error: null,
     })
 
-    const { user, login, logout } = useContext(AuthContext);
+    const { user, login } = useContext(AuthContext);
 
     useEffect(() => {
         if (queryParams.get('code') && !userState.data) {
