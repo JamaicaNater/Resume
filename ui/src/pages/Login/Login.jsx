@@ -1,14 +1,17 @@
-import { Button, Card, CardContent, CardMedia, CircularProgress, Typography } from "@mui/material"
+import { Button, Card, CardContent, CardMedia, CircularProgress, Container, Typography } from "@mui/material"
 import { Link, useLocation } from 'react-router-dom';
 import "../pages.css"
 import { ApiController } from "../../utils/api";
 import { useContext, useEffect, useReducer } from "react";
 import { RequestReducer } from "../../utils/requestReducer";
 import AuthContext from "../../context/AuthContext/AuthContext";
+import useRedirectFromLogin from "../../hooks/auth/useRedirectFromLogin";
 
 const Login = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
+
+    const redirecting = useRedirectFromLogin('/resume');
 
     const [userState, userDispatch] = useReducer(RequestReducer.reducer, {
         loading: false,
@@ -76,7 +79,7 @@ const Login = () => {
             </div>
         }
         {
-            userState.data && 
+            redirecting && 
             <div className="centered-container">
                 <Card sx={{padding: '1.5rem'}}>
                     <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
@@ -91,13 +94,10 @@ const Login = () => {
                             alt="User Avatar"
                         />
                         <Typography variant="h6">Welcome {user.name}</Typography>
-                        <Button 
-                            variant="contained" 
-                            component={Link} 
-                            to='/resume'
-                        >
-                            Continue to site
-                        </Button>
+                        <Container>
+                            <Typography variant="h6">Redirecting to site</Typography>
+                            <CircularProgress/>
+                        </Container>
                     </CardContent>
                 </Card>
             </div>
