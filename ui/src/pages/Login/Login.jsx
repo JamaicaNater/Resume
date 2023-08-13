@@ -38,7 +38,6 @@ const Login = () => {
                 }
             })
         } 
-        console.log(userState)
     }, [])
 
     const authenticate = async () => {

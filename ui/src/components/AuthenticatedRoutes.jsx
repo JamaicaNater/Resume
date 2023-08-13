@@ -8,7 +8,6 @@ const AuthRoutes = ({ children }) => {
 
   return (
     <>
-    {console.log(redirecting)}
     {
         redirecting && <CircularProgress/>
     }

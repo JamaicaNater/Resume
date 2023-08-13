@@ -1,4 +1,3 @@
-import React from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from '@mui/material';
 import { PropTypes } from 'prop-types';
 

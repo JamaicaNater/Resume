@@ -54,7 +54,6 @@ async function genericGet(endpoint, queryParams) {
             });
             params.push(paramStrings.join('&'));
             params = params.join('')
-            console.log(params);
         }
 
         const response = await instance.get(`/${endpoint}${params ?? ''}`);
