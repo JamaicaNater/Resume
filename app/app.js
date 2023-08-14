@@ -1,5 +1,7 @@
 const express = require('express');
 const session = require('express-session');
+// const RedisStore = require('connect-redis')(session);
+
 const cors = require('cors')
 const requireAuth = require('./middleware/requireAuth')
 
@@ -20,6 +22,22 @@ const tagRoutes = require('./routes/tag');
 const authRoutes = require('./routes/auth');
 
 // Middleware
+// const options = {
+//   host: 'localhost',
+//   port: 6379,
+//   pass: 'your-redis-password', 
+//   prefix: 'myapp:', 
+//   ttl: 3600, // Session expiration in seconds (1 hour)
+//   db: 0,
+// };
+
+// app.use(session({
+//   store: new RedisStore(options),
+//   secret: process.env.API_SESSION_KEY,
+//   resave: false,
+//   saveUninitialized: true,
+// }));
+
 app.use(session({
   secret: process.env.API_SESSION_KEY,
   resave: false,
