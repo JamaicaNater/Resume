@@ -8,8 +8,7 @@ const UserSchema = new mongoose.Schema({
     details: {type: String, required: false }
 })
 
-// No duplicate first AND last name
-UserSchema.index({ firstName: 1, lastName: 1 }, { unique: true });
+UserSchema.index({ email: 1 }, { unique: true });
 
 const User = mongoose.model('User', UserSchema);
 

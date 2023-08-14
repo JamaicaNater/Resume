@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, CardMedia, CircularProgress, Container, Typography } from "@mui/material"
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "../pages.css"
 import { ApiController } from "../../utils/api";
 import { useContext, useEffect, useReducer } from "react";
@@ -9,9 +9,12 @@ import useRedirectFromLogin from "../../hooks/auth/useRedirectFromLogin";
 
 const Login = () => {
     const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
 
     const redirecting = useRedirectFromLogin('/resume');
+
+    const navigate = useNavigate();
+
+    const queryParams = new URLSearchParams(location.search);
 
     const [userState, userDispatch] = useReducer(RequestReducer.reducer, {
         loading: false,
@@ -33,6 +36,11 @@ const Login = () => {
                 if (error.response) {
                     console.log('Error Status:', error.response.status);
                     console.log('Error Data:', error.response.data);
+                    // TODO make reusable
+                    if (error.response.status == 404) {
+                        login(error.response.data)
+                        navigate('/register')
+                    }
                 } else {
                     console.log('Error:', error.message);
                 }

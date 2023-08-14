@@ -9,6 +9,7 @@ import Login from './pages/Login/Login';
 import { AuthContextProvider } from './context/AuthContext/AuthContextProvider';
 import AuthRoutes from './components/AuthenticatedRoutes';
 import Profile from './pages/Profile/Profile';
+import Register from './pages/Register/Register';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage/>} />
               <Route path="/login" element={<Login/>} />
+              <Route path="/register" element={<Register/>} />
               <Route Component={MiniDrawer}> 
                 <Route element={<AuthRoutes/>}>
                   <Route path="/resume" element={<ResumeProvider><Resume /></ResumeProvider>} />

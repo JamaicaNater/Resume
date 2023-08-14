@@ -34,6 +34,11 @@ export const ApiController = {
         return genericGet('user');
     }, 
 
+    createUser: async (user) => {
+        console.log(user)
+        return genericPost('user', user);
+    }, 
+
     getTags: async () => {
         return genericGet('tag');
     },
@@ -45,18 +50,40 @@ export const ApiController = {
 
 async function genericGet(endpoint, queryParams) {
     try {
-        let params = undefined;
+        let params = '';
         if (queryParams) {
-            params = []
-            params.push('?');
             const paramStrings = Object.keys(queryParams).map((param) => {
                 return `${param}=${queryParams[param]}`;
             });
-            params.push(paramStrings.join('&'));
-            params = params.join('')
+            params = '?' + paramStrings.join('&');
         }
 
         const response = await instance.get(`/${endpoint}${params ?? ''}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+async function genericPost(endpoint, payload, queryParams) {
+    try {
+        let params = '';
+        if (queryParams) {
+            const paramStrings = Object.keys(queryParams).map((param) => {
+                return `${param}=${queryParams[param]}`;
+            });
+            params = '?' + paramStrings.join('&');
+        }
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': payload.length,
+            },
+        };
+
+        const response = await instance.post(`/${endpoint}${params ?? ''}`, payload, config);
         return response.data;
       } catch (error) {
         console.error(error);

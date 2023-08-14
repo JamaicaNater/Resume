@@ -31,15 +31,20 @@ app.use(requireAuth.unless({
     '/',
     '/auth',
     '/auth/'
-  ]
+  ],
+  method: ['OPTIONS']
 }));
 
 app.use(express.json());
 
-app.use(cors({
+const corsOptions = {
   origin: ['http://localhost:5173', 'https://localhost'],
   credentials: true,
-}));
+}
+
+app.options('*', cors(corsOptions));
+
+app.use(cors(corsOptions));
 
 // Use routes
 app.use('/', homepageRoutes);
