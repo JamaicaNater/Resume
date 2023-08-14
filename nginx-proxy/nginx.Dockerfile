@@ -1,4 +1,4 @@
-FROM nginx:1.25.1-bookworm
+FROM nginx:1.25.1
 
 RUN mkdir /etc/nginx/ssl
 

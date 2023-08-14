@@ -5,3 +5,4 @@ up:
 clean:
 	docker compose down
 	docker volume rm resume_mongodb-data
+	docker volume rm resume_redis-data
