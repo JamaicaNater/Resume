@@ -1,4 +1,6 @@
+const { email } = require('../models/peopleFields');
 const User = require('../models/user');
+const { handleError } = require('./helpers')
 
 const UserController = {
     getMe: async (req, res) => {
@@ -26,11 +28,8 @@ const UserController = {
             const resJson = await user.save();
             res.json(resJson);
         } catch (error) {
-            if (error.name === "MongoServerError" && error.code === 11000) {
-                return res.status(409).json({ error: "Duplicate key error" });
-            }
             console.error(error);
-            res.status(500).json({ error: 'An error occurred while geting creating user object.' });
+            return handleError(res, error, 'user', 'email')
         }
     }
 }

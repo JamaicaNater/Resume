@@ -1,17 +1,25 @@
-import { useReducer, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { TextField, Button, Typography, CircularProgress } from "@mui/material"; // Using Material-UI components
 import { ApiController } from "../../utils/api";
 import { RequestReducer } from "../../utils/requestReducer";
+import AuthContext from "../../context/AuthContext/AuthContext";
+import useLoginRedirect from "../../hooks/auth/useLoginRedirect";
 
 const RegistrationForm = () => {
-  const debug = async () => {
-    try {
-      await ApiController.getUsers(formData)
-    } catch (error) {
-        console.error(error.message)
-    }   
-  }
+   const { user } = useContext(AuthContext)
+  
+  // This page should only be access by an authenticated User
+  const redirecting = useLoginRedirect()
+
+  useEffect(() => {
+    if (user) {
+      setFormData((prevData) => ({
+        ...prevData,
+        email: user.email,
+      }));
+    }
+  }, [user])
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -80,6 +88,7 @@ const RegistrationForm = () => {
         value={formData.email}
         onChange={handleChange}
         required
+        disabled
       />
       {
         createdUserState.loading && <CircularProgress/> ||
@@ -87,9 +96,6 @@ const RegistrationForm = () => {
           Create Account
         </Button>
       }
-      <Button variant="contained" onClick={debug} color="primary" sx={{marginTop: '1rem'}}>
-          debug
-        </Button>
       {
         createdUserState.error && 
         <>
