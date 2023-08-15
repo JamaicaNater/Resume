@@ -29,6 +29,11 @@ app.use(session({
   secret: process.env.API_SESSION_KEY ?? '',
   resave: false,
   saveUninitialized: true,
+  cookie: {
+    maxAge: 3600000, // Session expiration in milliseconds (1 hour)
+    httpOnly: true,
+    path: '/',
+  },
 }));
 
 // Apply requireAuth middleware for all routes except /auth

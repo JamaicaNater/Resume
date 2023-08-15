@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-let peopleFields = require('./peopleFields')
+import { peopleFields } from './peopleFields';
 
 const ReferenceSchema = new mongoose.Schema({
     ...peopleFields,

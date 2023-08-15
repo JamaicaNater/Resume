@@ -83,7 +83,7 @@ const AuthController = {
             const account = await User.findOne({ email: user.email });
 
             if (account) {
-              user = { ...user, id: account._id };
+              user = { ...user, id: account._id.toString() };
             }
             
             req.session.user = user;

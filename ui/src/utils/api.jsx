@@ -65,10 +65,10 @@ async function genericGet(endpoint, queryParams) {
         const response = await instance.get(`/${endpoint}${params ?? ''}`);
         return response.data;
     } catch (error) {
-        console.error(error);
-        throw error;
+            console.error(error);
+            throw error;
+        }
     }
-}
 
 async function genericPost(endpoint, payload, queryParams) {
     try {
@@ -90,8 +90,8 @@ async function genericPost(endpoint, payload, queryParams) {
         const response = await instance.post(`/${endpoint}${params ?? ''}`, payload, config);
         return response.data;
       } catch (error) {
-        console.error(error);
-        throw error;
+            console.error(error);
+            throw error;
+        }
       }
-}
 

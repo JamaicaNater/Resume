@@ -18,7 +18,7 @@ export const connectRedis = async () => {
 
 const options = {
   client: redisClient,
-  prefix: 'myapp:',
+  prefix: 'resume-api:',
   ttl: 3600, // Session expiration in seconds (1 hour)
   db: 0,
 };

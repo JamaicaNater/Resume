@@ -1,6 +1,12 @@
 import mongoose from 'mongoose';
 
-let peopleFields = require('./peopleFields')
+import { peopleFields, IPeopleFields } from './peopleFields';
+
+// Todo make for all types
+interface IUser extends Document, IPeopleFields {
+    skills?: string[];
+    details?: string;
+}
 
 const UserSchema = new mongoose.Schema({
     ...peopleFields,
@@ -10,6 +16,6 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.index({ email: 1 }, { unique: true });
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model<IUser>('User', UserSchema);
 
 export default User;
