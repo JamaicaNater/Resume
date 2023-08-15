@@ -75,11 +75,11 @@ app.use(cors(corsOptions));
 app.use('/', homepageRoutes);
 app.use('/projects', projectRoutes);
 app.use('/experience', experineceRoutes);
-app.use('/reference', referenceRoutes);
+app.use('/references', referenceRoutes);
 app.use('/education', educationRoutes);
-app.use('/user', userRoutes);
-app.use('/job', jobRoutes);
-app.use('/tag', tagRoutes);
+app.use('/users', userRoutes);
+app.use('/jobs', jobRoutes);
+app.use('/tags', tagRoutes);
 app.use('/auth', authRoutes);
 
 // Start the server

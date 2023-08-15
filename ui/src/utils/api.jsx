@@ -27,28 +27,28 @@ export const ApiController = {
     },
 
     getReferences: async () => {
-        return genericGet('reference');
+        return genericGet('references');
     },
 
     getMe: async () => {
-        return genericGet('user/me');
+        return genericGet('users/me');
     }, 
 
     getUsers: async () => {
-        return genericGet('user');
+        return genericGet('users');
     }, 
 
     createUser: async (user) => {
         console.log(user)
-        return genericPost('user', user);
+        return genericPost('users', user);
     }, 
 
     getTags: async () => {
-        return genericGet('tag');
+        return genericGet('tags');
     },
 
     getJobs: async () => {
-        return genericGet('job');
+        return genericGet('jobs');
     }
 };
 
