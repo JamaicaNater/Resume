@@ -7,4 +7,4 @@ import JobController from '../controllers/jobController';
 router.get('/', JobController.getJob);
 router.post('/', JobController.postJob)
 
-module.exports = router;
+export default router;

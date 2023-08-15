@@ -7,4 +7,4 @@ import ReferenceController from '../controllers/referenceController';
 router.get('/', ReferenceController.getAllReferences);
 router.post('/', ReferenceController.createReference);
 
-module.exports = router;
+export default router;

@@ -7,4 +7,4 @@ import ProjectController from '../controllers/projectController';
 router.get('/', ProjectController.getAllProjects);
 router.post('/', ProjectController.createProject);
 
-module.exports = router;
+export default router;

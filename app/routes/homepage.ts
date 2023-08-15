@@ -6,4 +6,4 @@ import HomepageController from '../controllers/homepageController';
 
 router.get('/', HomepageController.displayHomepage);
 
-module.exports = router;
+export default router;

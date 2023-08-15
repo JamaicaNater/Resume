@@ -8,4 +8,4 @@ router.get('/', UserController.getUsers);
 router.get('/me', UserController.getMe);
 router.post('/', UserController.postUser);
 
-module.exports = router;
+export default router;

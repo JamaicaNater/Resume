@@ -7,4 +7,4 @@ import experienceController from '../controllers/experienceController';
 router.get('/', experienceController.getAllExperience);
 router.post('/', experienceController.createExperience);
 
-module.exports = router;
+export default router;

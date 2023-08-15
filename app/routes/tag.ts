@@ -7,4 +7,4 @@ import TagController from '../controllers/tagController';
 router.get('/', TagController.getTags);
 router.post('/', TagController.createTag);
 
-module.exports = router;
+export default router;

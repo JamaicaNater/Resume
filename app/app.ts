@@ -12,15 +12,15 @@ connectDatabase();
 connectRedis();
 
 // Import routes
-const homepageRoutes = require('./routes/homepage');
-const projectRoutes = require('./routes/project');
-const experineceRoutes = require('./routes/experience');
-const referenceRoutes = require('./routes/reference');
-const educationRoutes = require('./routes/education');
-const userRoutes = require('./routes/user');
-const jobRoutes = require('./routes/job');
-const tagRoutes = require('./routes/tag');
-const authRoutes = require('./routes/auth');
+import homepageRoutes from './routes/homepage';
+import projectRoutes from './routes/project';
+import experineceRoutes from './routes/experience';
+import referenceRoutes from './routes/reference';
+import educationRoutes from './routes/education';
+import userRoutes from './routes/user';
+import jobRoutes from './routes/job';
+import tagRoutes from './routes/tag';
+import authRoutes from './routes/auth';
 
 //Middleware
 // Todo throw error
