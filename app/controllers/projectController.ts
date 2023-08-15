@@ -1,7 +1,8 @@
-const Project = require('../models/project');
+import type { Request, Response } from 'express';
+import Project from '../models/project';
 
-const ProjectController = {
-    getAllProjects: async (req, res) => {
+export const ProjectController = {
+    getAllProjects: async (req: Request, res: Response) => {
         try {
           const projects = await Project.find();
           res.json(projects);
@@ -11,7 +12,7 @@ const ProjectController = {
         }
       },
 
-    createProject: async (req, res) => {
+    createProject: async (req: Request, res: Response) => {
     try {
         const { name, link, details, tags, from, to, priority } = req.body;
         const project = new Project({ name, link, details, tags, from, to, priority });
@@ -24,4 +25,4 @@ const ProjectController = {
     },
 };
 
-module.exports = ProjectController;
+export default ProjectController;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 let peopleFields = require('./peopleFields')
 
@@ -12,4 +12,4 @@ ReferenceSchema.index({ firstName: 1, lastName: 1 }, { unique: true });
 
 const Reference = mongoose.model('Reference', ReferenceSchema);
 
-module.exports = Reference;
+export default Reference;

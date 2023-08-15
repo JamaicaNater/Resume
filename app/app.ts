@@ -1,10 +1,10 @@
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors')
-const requireAuth = require('./middleware/requireAuth')
+import requireAuth from './middleware/requireAuth';
 
-const { connectDatabase, disconnectDatabase } = require('./models/db')
-const { redisStore, connectRedis } = require('./redis')
+import { connectDatabase } from './models/db';
+import { redisStore, connectRedis } from './redis'
 
 const app = express();
 

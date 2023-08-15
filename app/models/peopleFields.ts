@@ -5,4 +5,4 @@ const peopleFields = {
     email: { type: String, required: true }
 };
 
-module.exports = peopleFields;
+export default peopleFields;

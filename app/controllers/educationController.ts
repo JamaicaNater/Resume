@@ -1,7 +1,8 @@
-let Education = require('../models/education');
+import type { Request, Response } from 'express';
+import Education from '../models/education';
 
-let EducationController = {
-    getAllEducation: async (req, res) => {
+const EducationController = {
+    getAllEducation: async (req: Request, res: Response) => {
         try {
             const education = await Education.find();
             res.json(education);
@@ -10,7 +11,7 @@ let EducationController = {
             res.status(500).json({ error: 'An error occurred while fetching education.' });
         }
     },
-    createEducation: async (req, res) => {
+    createEducation: async (req: Request, res: Response) => {
         try {
             const { name, degreeType, major, minor, gpa, details, enrollmentDate, graduationDate, city, state, country } = req.body;
             const education = new Education({ name, degreeType, major, minor, gpa, details, enrollmentDate, graduationDate, city, state, country });
@@ -23,4 +24,4 @@ let EducationController = {
     }
 };
 
-module.exports = EducationController;
+export default EducationController;

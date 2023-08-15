@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
-const ReferenceController = require('../controllers/referenceController');
+import ReferenceController from '../controllers/referenceController';
 
 router.get('/', ReferenceController.getAllReferences);
 router.post('/', ReferenceController.createReference);

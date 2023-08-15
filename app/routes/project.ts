@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
-const ProjectController = require('../controllers/projectController');
+import ProjectController from '../controllers/projectController';
 
 router.get('/', ProjectController.getAllProjects);
 router.post('/', ProjectController.createProject);

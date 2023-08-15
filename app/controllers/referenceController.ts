@@ -1,7 +1,8 @@
-let Reference = require('../models/reference');
+import type { Request, Response } from 'express';
+import Reference from '../models/reference';
 
 const ReferenceController = {
-    getAllReferences: async (req, res) => {
+    getAllReferences: async (req: Request, res: Response) => {
         try {
             const references = await Reference.find();
             res.json(references);
@@ -10,7 +11,7 @@ const ReferenceController = {
             res.status(500).json({ error: 'An error occurred while fetching references.' });
         }
     },
-    createReference: async (req, res) => {
+    createReference: async (req: Request, res: Response) => {
         try {
             let { firstName, lastName, phoneNumber, email, relationship } = req.body;
             const reference = new Reference({ firstName, lastName, phoneNumber, email, relationship });
@@ -23,4 +24,4 @@ const ReferenceController = {
     }
 };
 
-module.exports = ReferenceController;
+export default ReferenceController;
