@@ -1,6 +1,6 @@
-const express = require('express');
-const session = require('express-session');
-const cors = require('cors')
+import express from 'express';
+import session from 'express-session';
+import cors from 'cors';
 import requireAuth from './middleware/requireAuth';
 
 import { connectDatabase } from './models/db';
@@ -23,9 +23,10 @@ const tagRoutes = require('./routes/tag');
 const authRoutes = require('./routes/auth');
 
 //Middleware
+// Todo throw error
 app.use(session({
   store: redisStore,
-  secret: process.env.API_SESSION_KEY,
+  secret: process.env.API_SESSION_KEY ?? '',
   resave: false,
   saveUninitialized: true,
 }));
