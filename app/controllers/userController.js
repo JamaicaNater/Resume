@@ -5,10 +5,10 @@ const { handleError } = require('./helpers')
 const UserController = {
     getMe: async (req, res) => {
         try {
-            const user = await User.findOne({userId: req.session.user.id});
+            const user = await User.findById(req.session.user.id);
             res.json(user);
         } catch (error) {
-            console.error(err)                
+            console.error(error)                
             return res.status(500).json({ error: 'An error occurred while geting user object.' });
         }
     },

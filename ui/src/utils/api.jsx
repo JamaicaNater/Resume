@@ -30,6 +30,10 @@ export const ApiController = {
         return genericGet('reference');
     },
 
+    getMe: async () => {
+        return genericGet('user/me');
+    }, 
+
     getUsers: async () => {
         return genericGet('user');
     }, 

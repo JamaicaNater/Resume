@@ -62,7 +62,8 @@ export default function Resume() {
 
     const fetchResumeData = async () => {
         try {
-            const userResponse = await ApiController.getUsers();
+            const userResponse = await ApiController.getMe();
+            console.log(userResponse)
             const user = plainToClass(User, userResponse);
 
             const educationResponse = await ApiController.getEducation();
