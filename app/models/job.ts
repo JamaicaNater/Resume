@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const JobSchema = mongoose.Schema({
+const JobSchema = new mongoose.Schema({
     name: {type: String, required: true},
     tags: {type: [String], required: true},
 });
@@ -10,4 +10,4 @@ JobSchema.index({ name: 1 }, { unique: true });
 
 const Job = mongoose.model('Job', JobSchema);
 
-module.exports = Job;
+export default Job;

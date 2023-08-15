@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
-const TagController = require('../controllers/tagController');
+import TagController from '../controllers/tagController';
 
 router.get('/', TagController.getTags);
 router.post('/', TagController.createTag);

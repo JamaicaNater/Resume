@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const DB_URL = process.env.DB_URL;
 const RESUME_DB_NAME = process.env.RESUME_DB_NAME;
 
-async function connectDatabase() {
+export async function connectDatabase() {
   try {
     await mongoose.connect(`mongodb://${DB_URL}/${RESUME_DB_NAME}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true
     });
     console.log('Connected to MongoDB');
   } catch (error) {
@@ -15,7 +15,7 @@ async function connectDatabase() {
   }
 }
 
-async function disconnectDatabase() {
+export async function disconnectDatabase() {
   try {
     await mongoose.disconnect();
     console.log('Disconnected from MongoDB');
@@ -25,7 +25,3 @@ async function disconnectDatabase() {
   }
 }
 
-module.exports = {
-  connectDatabase, 
-  disconnectDatabase
-};

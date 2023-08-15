@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
-const JobController = require('../controllers/jobController');
+import JobController from '../controllers/jobController';
 
 router.get('/', JobController.getJob);
 router.post('/', JobController.postJob)

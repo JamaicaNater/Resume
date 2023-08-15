@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
-const experienceController = require('../controllers/experienceController');
+import experienceController from '../controllers/experienceController';
 
 router.get('/', experienceController.getAllExperience);
 router.post('/', experienceController.createExperience);

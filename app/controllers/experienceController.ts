@@ -1,7 +1,8 @@
-const Experience = require('../models/experience');
+import type { Request, Response } from 'express';
+import Experience from '../models/experience';
 
 const ExperienceController = {
-    getAllExperience: async (req, res) => {
+    getAllExperience: async (req: Request, res: Response) => {
         try {
             const experince = await Experience.find();
             res.json(experince);
@@ -11,7 +12,7 @@ const ExperienceController = {
         }
     },
 
-    createExperience: async (req, res) => {
+    createExperience: async (req: Request, res: Response) => {
         try {
             const { name, logoLink, position, details, tags, from, to, priority } = req.body
             const experience = new Experience({ name, logoLink, position, details, tags, from, to, priority });
@@ -24,4 +25,4 @@ const ExperienceController = {
     }
 };
 
-module.exports = ExperienceController; 
+export default ExperienceController;

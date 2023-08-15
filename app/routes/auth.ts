@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const AuthController = require('../controllers/authController');
+import AuthController from '../controllers/authController';
 
 router.get('/', AuthController.authenticate);
 router.get('/logout', AuthController.logout);

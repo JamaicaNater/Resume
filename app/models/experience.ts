@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const experienceSchema = new mongoose.Schema({
     // TODO: Support native images
@@ -17,4 +17,4 @@ experienceSchema.index({ companyName: 1, position: 1 }, { unique: true });
 
 const Experience = mongoose.model('Experience', experienceSchema);
 
-module.exports = Experience;
+export default Experience;

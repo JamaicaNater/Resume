@@ -1,7 +1,8 @@
-const Tag = require('../models/tag')
+import type { Request, Response } from 'express';
+import Tag from '../models/tag';
 
 const TagController = {
-    getTags: async (req, res) => {
+    getTags: async (req: Request, res: Response) => {
         try {
             const tags = await Tag.find();
             res.json(tags);
@@ -10,7 +11,7 @@ const TagController = {
             res.status(500).json({ error: 'An error occurred while fetching tags.' });
         }
     },
-    createTag: async (req, res) => {
+    createTag: async (req: Request, res: Response) => {
         try {
             let { name } = req.body;
             const tag = new Tag({ name });
@@ -23,4 +24,4 @@ const TagController = {
     }
 }
 
-module.exports = TagController
+export default TagController;

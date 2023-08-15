@@ -1,32 +1,26 @@
-import RedisStore from "connect-redis"
-import {createClient} from "redis"
+import RedisStore from 'connect-redis';
+import { createClient } from 'redis';
 
-let redisClient = createClient({
+const redisClient = createClient({
   url: 'redis://redis:6379',
-  // pass: 'your-redis-password', 
-})
+  // pass: 'your-redis-password',
+});
 
-const connectRedis = () => {
-    try {
-        redisClient.connect()
-        console.log('Connected to Redis')
-    } catch (error) {
-        console.error(error)
-        console.error('Failed to connect to Redis')
-        console.error(error)
-    }
-}
+export const connectRedis = async () => {
+  try {
+    await redisClient.connect();
+    console.log('Connected to Redis');
+  } catch (error) {
+    console.error('Failed to connect to Redis');
+    console.error(error);
+  }
+};
 
 const options = {
   client: redisClient,
-  prefix: 'myapp:', 
+  prefix: 'myapp:',
   ttl: 3600, // Session expiration in seconds (1 hour)
   db: 0,
 };
 
-let redisStore = new RedisStore(options)
-
-module.exports = {
-    connectRedis,
-    redisStore,
-}
+export const redisStore = new RedisStore(options);

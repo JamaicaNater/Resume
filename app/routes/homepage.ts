@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
-const HomepageController = require('../controllers/homepageController');
+import HomepageController from '../controllers/homepageController';
 
 router.get('/', HomepageController.displayHomepage);
 

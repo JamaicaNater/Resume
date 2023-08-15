@@ -1,4 +1,4 @@
-let mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 let peopleFields = require('./peopleFields')
 
@@ -12,4 +12,4 @@ UserSchema.index({ email: 1 }, { unique: true });
 
 const User = mongoose.model('User', UserSchema);
 
-module.exports = User;
+export default User;
