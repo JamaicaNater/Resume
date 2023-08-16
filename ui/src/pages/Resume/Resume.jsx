@@ -74,7 +74,7 @@ export default function Resume() {
     const fetchResumeData = async () => {
         try {
             const params = resumeCreator ? {username: resumeCreator} : undefined;
-
+            
             const userResponse = await ApiController.getUsers(params);
             const user = plainToClass(User, userResponse[0]);
 

@@ -10,6 +10,14 @@ export const ErrorHandler = {
         if (error.name === "MongoServerError" && error.code === 11000) {
             return res.status(409).json({ error: `${modelName} already exists` });
         }
+
+        if (error.name === "ValidationError") {
+            const validationErrors = Object.keys(error.errors).map(field => ({
+                field,
+                message: error.errors[field].message
+            }));
+            return res.status(400).json({ error: "Validation failed", validationErrors });
+        }
     
         return res.status(500).json({ error: `An error occurred while creating ${modelName} object.` });
     }

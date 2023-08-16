@@ -1,17 +1,12 @@
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
-import { TextField, Button, Typography, CircularProgress } from "@mui/material"; // Using Material-UI components
+import { Typography } from "@mui/material"; // Using Material-UI components
 import { ApiController } from "../../utils/api";
-import { RequestReducer } from "../../utils/requestReducer";
 import AuthContext from "../../context/AuthContext/AuthContext";
-import useLoginRedirect from "../../hooks/auth/useLoginRedirect";
-import useRequestReducer from "../../hooks/auth/useRequestReducer";
+import InputForm from "../../components/InputForm";
 
 const RegistrationForm = () => {
    const { user } = useContext(AuthContext)
-  
-  // This page should only be access by an authenticated User
-  const redirecting = useLoginRedirect()
 
   useEffect(() => {
     if (user) {
@@ -29,89 +24,20 @@ const RegistrationForm = () => {
     username: "",
   });
 
-  const [createdUserState, createdUserDispatch] = useReducer(RequestReducer.reducer, {
-    data: null,
-    loading: null,
-    error: null
-  })
-
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const createUser = async () => {
-    try {
-        createdUserDispatch(RequestReducer.setLoading(true))
-        let createdUser = await ApiController.createUser(formData)
-        createdUserDispatch(RequestReducer.setData(createdUser))
-        navigate('/resume')
-    } catch (error) {
-        createdUserDispatch(RequestReducer.setError(error))
-        console.error(error.message)
-    }   
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    try {
-      createUser()
-    } catch (error) {
-      console.error(error)
-    }
-  };
-
   return (
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
+    <>
       <Typography variant="h5">Create an Account</Typography>
-      <TextField
-        label="First Name"
-        name="firstName"
-        value={formData.firstName}
-        onChange={handleChange}
-        required
+      <InputForm 
+        formData={formData} 
+        setFormData={setFormData} 
+        apiRequest={ApiController.createUser}
+        onSucessfulSubmission = {() => navigate('/resume')}
+        disabledFields={new Set(['email'])}
+        requiredFields={new Set(Object.keys(formData))}
       />
-      <TextField
-        label="Last Name"
-        name="lastName"
-        value={formData.lastName}
-        onChange={handleChange}
-        required
-      />
-      <TextField
-        label="Username"
-        name="username"
-        value={formData.username}
-        onChange={handleChange}
-        required
-      />
-      <TextField
-        label="Email"
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-        disabled
-      />
-      {
-        createdUserState.loading && <CircularProgress/> ||
-        <Button type="submit" variant="contained" color="primary" sx={{marginTop: '1rem'}}>
-          Create Account
-        </Button>
-      }
-      {
-        createdUserState.error && 
-        <>
-          <Typography color={'red'}>Error: {createdUserState.error?.response?.data?.error}</Typography>
-        </>
-      }
-    </form>
+    </>
   );
 };
 

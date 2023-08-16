@@ -1,12 +1,11 @@
 import { useReducer } from "react";
 import { TextField, Button, Typography, CircularProgress } from "@mui/material"; // Using Material-UI components
-import { ApiController } from "../utils/api";
 import { RequestReducer } from "../utils/requestReducer";
 import { camelCaseToCapitalizedWords } from "../utils/formatting";
 import { PropTypes } from "prop-types";
 
-const InputForm = ({formData, setFormData, requiredFields, disabledFields}) => {
-  const [createdUserState, createdUserDispatch] = useReducer(RequestReducer.reducer, {
+const InputForm = ({formData, setFormData, apiRequest, requiredFields, disabledFields, ignoredFields, onSucessfulSubmission, onFailedSubmission}) => {
+  const [createdDataState, createdDataDispatch] = useReducer(RequestReducer.reducer, {
     data: null,
     loading: null,
     error: null
@@ -20,21 +19,22 @@ const InputForm = ({formData, setFormData, requiredFields, disabledFields}) => {
     }));
   };
 
-  const createUser = async () => {
+  const createData = async () => {
     try {
-        createdUserDispatch(RequestReducer.setLoading(true))
-        let createdUser = await ApiController.createUser(formData)
-        createdUserDispatch(RequestReducer.setData(createdUser))
+        createdDataDispatch(RequestReducer.setLoading(true))
+        let createdData = await apiRequest(formData);
+        createdDataDispatch(RequestReducer.setData(createdData))
+        onSucessfulSubmission && onSucessfulSubmission();
     } catch (error) {
-        createdUserDispatch(RequestReducer.setError(error))
-        console.error(error.message)
+        createdDataDispatch(RequestReducer.setError(error));
+        onFailedSubmission && onFailedSubmission();
     }   
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      createUser()
+      createData()
     } catch (error) {
       console.error(error)
     }
@@ -43,28 +43,34 @@ const InputForm = ({formData, setFormData, requiredFields, disabledFields}) => {
   return (
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
       {
-        Object.keys(formData).map((key, index) => (
-          <TextField 
-            key={index}
-            label={camelCaseToCapitalizedWords(key)}
-            name={key}
-            value={formData[key]}
-            onChange={handleChange}
-            required = {requiredFields && requiredFields.contains(key)}
-            disabled = {disabledFields && disabledFields.contains(key)}
-          />
-        ))
+        Object.keys(formData).map((key, index) => {
+          if (ignoredFields && ignoredFields.has(key)) {
+            return null;
+          }
+
+          return (
+            <TextField 
+              key={index}
+              label={camelCaseToCapitalizedWords(key)}
+              name={key}
+              value={formData[key]}
+              onChange={handleChange}
+              required={requiredFields && requiredFields.has(key)}
+              disabled={disabledFields && disabledFields.has(key)}
+            />
+          );
+        })
       }
       {
-        createdUserState.loading && <CircularProgress/> ||
+        createdDataState.loading && <CircularProgress/> ||
         <Button type="submit" variant="contained" color="primary" sx={{marginTop: '1rem'}}>
           Submit
         </Button>
       }
       {
-        createdUserState.error && 
+        createdDataState.error && 
         <>
-          <Typography color={'red'}>Error: {createdUserState.error?.response?.data?.error}</Typography>
+          <Typography color={'red'}>Error: {createdDataState.error?.response?.data?.error}</Typography>
         </>
       }
     </form>
@@ -76,6 +82,10 @@ InputForm.propTypes = {
   setFormData: PropTypes.func.isRequired,
   requiredFields: PropTypes.instanceOf(Set),
   disabledFields: PropTypes.instanceOf(Set),
+  ignoredFields: PropTypes.instanceOf(Set),
+  apiRequest: PropTypes.func.isRequired,
+  onSucessfulSubmission: PropTypes.func.isRequired,
+  onFailedSubmission: PropTypes.func.isRequired,
 };
 
 export default InputForm;
