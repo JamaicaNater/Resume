@@ -8,47 +8,46 @@ const instance = axios.create({
 export const ApiController = {
     authenticate: async (code, redirect_uri) => {
         return genericGet('auth', {code: code, redirect_uri: redirect_uri});
-    }, 
-
-    logout: async () => {
-        return genericGet('auth/logout');
-    }, 
-
-    getExperience: async () => {
-        return genericGet('experience');
     },
-
-    getEducation: async () => {
-        return genericGet('education');
+    
+    logout: async (queryParams) => {
+        return genericGet('auth/logout', queryParams);
     },
-
-    getProjects: async () => {
-        return genericGet('projects');
+    
+    getExperience: async (queryParams) => {
+        return genericGet('experience', queryParams);
     },
-
-    getReferences: async () => {
-        return genericGet('references');
+    
+    getEducation: async (queryParams) => {
+        return genericGet('education', queryParams);
     },
-
-    getMe: async () => {
-        return genericGet('users/me');
-    }, 
-
-    getUsers: async () => {
-        return genericGet('users');
-    }, 
-
-    createUser: async (user) => {
-        console.log(user)
-        return genericPost('users', user);
-    }, 
-
-    getTags: async () => {
-        return genericGet('tags');
+    
+    getProjects: async (queryParams) => {
+        return genericGet('projects', queryParams);
     },
-
-    getJobs: async () => {
-        return genericGet('jobs');
+    
+    getReferences: async (queryParams) => {
+        return genericGet('references', queryParams);
+    },
+    
+    getMe: async (queryParams) => {
+        return genericGet('users/me', queryParams);
+    },
+    
+    getUsers: async (queryParams) => {
+        return genericGet('users', queryParams);
+    },
+    
+    createUser: async (user, queryParams) => {
+        return genericPost('users', user, queryParams);
+    },
+    
+    getTags: async (queryParams) => {
+        return genericGet('tags', queryParams);
+    },
+    
+    getJobs: async (queryParams) => {
+        return genericGet('jobs', queryParams);
     }
 };
 
@@ -65,10 +64,10 @@ async function genericGet(endpoint, queryParams) {
         const response = await instance.get(`/${endpoint}${params ?? ''}`);
         return response.data;
     } catch (error) {
-            console.error(error);
-            throw error;
-        }
+        console.error(error);
+        throw error;
     }
+}
 
 async function genericPost(endpoint, payload, queryParams) {
     try {
@@ -89,9 +88,8 @@ async function genericPost(endpoint, payload, queryParams) {
 
         const response = await instance.post(`/${endpoint}${params ?? ''}`, payload, config);
         return response.data;
-      } catch (error) {
-            console.error(error);
-            throw error;
-        }
-      }
-
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
