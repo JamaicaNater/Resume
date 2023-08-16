@@ -1,4 +1,5 @@
 import { ResumeTemplate, Education, Project, Experience, Reference, User } from "../../models";
+import { useParams } from 'react-router-dom'
 import CollapsibleCard from "../../components/CollapsibleCard"
 import EducationDetails from "./resumeDetails/EducationDetails";
 import { plainToClass } from 'class-transformer';
@@ -15,6 +16,8 @@ import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
 
 export default function Resume() {
+    const { resumeCreator } = useParams();
+
     const [tagState, tagsDispatch] = useReducer(RequestReducer.reducer, {
         loading: true,
         data: null,
@@ -66,16 +69,16 @@ export default function Resume() {
             console.log(userResponse)
             const user = plainToClass(User, userResponse);
 
-            const educationResponse = await ApiController.getEducation();
+            const educationResponse = await ApiController.getEducation(resumeCreator ? {userEmail: resumeCreator}: undefined);
             const education = educationResponse.map((education) => plainToClass(Education, education));
 
-            const experienceResponse = await ApiController.getExperience();
+            const experienceResponse = await ApiController.getExperience(resumeCreator ? {userEmail: resumeCreator}: undefined);
             const experience = experienceResponse.map((experience) => plainToClass(Experience, experience));
 
-            const referenceResponse = await ApiController.getReferences();
+            const referenceResponse = await ApiController.getReferences(resumeCreator ? {userEmail: resumeCreator}: undefined);
             const references = referenceResponse.map((reference) => plainToClass(Reference, reference));
 
-            const projectResponse = await ApiController.getProjects();
+            const projectResponse = await ApiController.getProjects(resumeCreator ? {userEmail: resumeCreator}: undefined);
             const projects = projectResponse.map((project) => plainToClass(Project, project));
 
             const resumeTemplate = new ResumeTemplate(education, projects, user, references, experience)
