@@ -46,6 +46,14 @@ export default function Resume() {
       console.log(`Selected option: ${value}`);
     };
 
+    var nextCardNumber = 0;
+    const getAnimationDelay = () => {
+        const prev = nextCardNumber;
+        nextCardNumber = nextCardNumber + 1;
+
+        return `${prev * 0.2}s`
+    }
+ 
     useEffect(() => {
         resumeDispatch(RequestReducer.setLoading(true))
         fetchResumeData()
@@ -96,7 +104,7 @@ export default function Resume() {
         {
             tagState.data &&
             <div className="card-container">
-                <Card className="card">
+                <Card className="card" style={{animationDelay: getAnimationDelay()}}>
                     <FormControl fullWidth >
                     <InputLabel margin='dense' id="demo-simple-select-label">Select a Filter</InputLabel>
                         <Select
@@ -120,7 +128,7 @@ export default function Resume() {
         {   
             resumeState.data.user && 
             <div className="card-container">
-                <CollapsibleCard className="card" title={`${resumeState.data.user.firstName} ${resumeState.data.user.lastName}`} defaultExpandedState={true}> 
+                <CollapsibleCard className="card" title={`${resumeState.data.user.firstName} ${resumeState.data.user.lastName}`} defaultExpandedState={true} style={{animationDelay: getAnimationDelay()}}> 
                     <UserDetails user={resumeState.data.user}/>
                 </CollapsibleCard>
             </div>
@@ -128,7 +136,7 @@ export default function Resume() {
         {   
             resumeState.data.education && 
             <div className="card-container">
-                <CollapsibleCard className="card" title="Education" defaultExpandedState={false}> 
+                <CollapsibleCard className="card" title="Education" defaultExpandedState={false} style={{animationDelay: getAnimationDelay()}}> 
                     {
                     resumeState.data.education.map((education, index, arr) => (    
                         <>                    
@@ -148,7 +156,7 @@ export default function Resume() {
         {   
             resumeState.data.experience && 
             <div className="card-container">
-                <CollapsibleCard className="card" title="Experience"> 
+                <CollapsibleCard className="card" title="Experience" style={{animationDelay: getAnimationDelay()}}> 
                     {
                     resumeState.data.experience
                     .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
@@ -170,7 +178,7 @@ export default function Resume() {
         {   
             resumeState.data.projects && 
             <div className="card-container">
-                <CollapsibleCard className="card" title="Projects"> 
+                <CollapsibleCard className="card" title="Projects" style={{animationDelay: getAnimationDelay()}}> 
                 {
                     resumeState.data.projects
                     .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
@@ -193,7 +201,7 @@ export default function Resume() {
         {   
             resumeState.data.references && 
             <div className="card-container">
-                <CollapsibleCard className="card" title="References" defaultExpandedState={true}> 
+                <CollapsibleCard className="card" title="References" defaultExpandedState={true} style={{animationDelay: getAnimationDelay()}}> 
                 {
                     resumeState.data.references.map((reference, index, arr) => (
                         <>
