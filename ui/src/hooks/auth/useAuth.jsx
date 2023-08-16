@@ -41,5 +41,5 @@ export const useAuth = () => {
     ApiController.logout()
   };
 
-  return { user, login, logout,  };
+  return { user, login, logout };
 };
