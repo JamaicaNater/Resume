@@ -4,6 +4,7 @@ import { peopleFields, IPeopleFields } from './peopleFields';
 
 // Todo make for all types
 interface IUser extends Document, IPeopleFields {
+    username: string,
     skills?: string[];
     details?: string;
 }

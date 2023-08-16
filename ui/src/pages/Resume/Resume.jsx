@@ -14,6 +14,7 @@ import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Sel
 import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
+import DelayedComponent from "../../components/DelayedComponent";
 
 export default function Resume() {
     const { resumeCreator } = useParams();
@@ -98,7 +99,13 @@ export default function Resume() {
     }
 
     return (
-        resumeState.loading && <><Typography>Loading resume</Typography> <CircularProgress/></> ||
+        resumeState.loading && 
+        <>
+            <DelayedComponent>
+                <Typography>Loading resume</Typography> 
+                <CircularProgress/>
+            </DelayedComponent>
+        </> ||
         resumeState && resumeState.data &&
         <>
         {
