@@ -65,20 +65,21 @@ export default function Resume() {
 
     const fetchResumeData = async () => {
         try {
-            const userResponse = await ApiController.getMe();
-            console.log(userResponse)
-            const user = plainToClass(User, userResponse);
+            const params = resumeCreator ? {username: resumeCreator} : undefined;
 
-            const educationResponse = await ApiController.getEducation(resumeCreator ? {userEmail: resumeCreator}: undefined);
+            const userResponse = await ApiController.getUsers(params);
+            const user = plainToClass(User, userResponse[0]);
+
+            const educationResponse = await ApiController.getEducation(params);
             const education = educationResponse.map((education) => plainToClass(Education, education));
 
-            const experienceResponse = await ApiController.getExperience(resumeCreator ? {userEmail: resumeCreator}: undefined);
+            const experienceResponse = await ApiController.getExperience(params);
             const experience = experienceResponse.map((experience) => plainToClass(Experience, experience));
 
-            const referenceResponse = await ApiController.getReferences(resumeCreator ? {userEmail: resumeCreator}: undefined);
+            const referenceResponse = await ApiController.getReferences(params);
             const references = referenceResponse.map((reference) => plainToClass(Reference, reference));
 
-            const projectResponse = await ApiController.getProjects(resumeCreator ? {userEmail: resumeCreator}: undefined);
+            const projectResponse = await ApiController.getProjects(params);
             const projects = projectResponse.map((project) => plainToClass(Project, project));
 
             const resumeTemplate = new ResumeTemplate(education, projects, user, references, experience)

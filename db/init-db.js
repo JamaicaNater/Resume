@@ -16,6 +16,7 @@ const conn = new Mongo();
 const db = conn.getDB('resumedata');
 
 const userData = [{  
+  username: 'franciswilliams1999',
   firstName: 'Francis',
   lastName: 'Williams',
   phoneNumber: process.env.PHONE_NUMBER,

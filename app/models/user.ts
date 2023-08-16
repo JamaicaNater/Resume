@@ -10,6 +10,7 @@ interface IUser extends Document, IPeopleFields {
 
 const UserSchema = new mongoose.Schema({
     ...peopleFields,
+    username: {type: String, required: true, unique: true },
     skills: {type: [String], required: false },
     details: {type: String, required: false }
 })

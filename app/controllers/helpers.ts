@@ -16,12 +16,12 @@ export const ErrorHandler = {
 }
 
 export const mongoQueryFromQueryParams = async (query: Request['query']) => {
-    let mongoQuery: any = {};
-    if (query.userEmail) {
-        const email = query.userEmail;
-        const user = await User.findOne({email: email});
+    let mongoQuery: any = {...query, username: undefined};
+    if (query.username) {
+        const username = query.username;
+        const user = await User.findOne({username: username});
         if (!user) {
-            console.log(`User with email: ${email} not found`);
+            console.log(`User with username: ${username} not found`);
         }
         mongoQuery['userId'] = user?._id;
     }

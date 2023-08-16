@@ -14,7 +14,7 @@ const UserController = {
     },
     getUsers: async (req: Request, res: Response) => {
         try {
-            const params = await mongoQueryFromQueryParams(req.query);
+            const params = {...req.query};
             const users = await User.find(params);
             return res.json(users);
         } catch (error) {
