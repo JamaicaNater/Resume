@@ -25,6 +25,7 @@ const RegistrationForm = () => {
     firstName: "",
     lastName: "",
     email: "",
+    username: "",
   });
 
   const [createdUserState, createdUserDispatch] = useReducer(RequestReducer.reducer, {
@@ -78,6 +79,13 @@ const RegistrationForm = () => {
         label="Last Name"
         name="lastName"
         value={formData.lastName}
+        onChange={handleChange}
+        required
+      />
+      <TextField
+        label="Username"
+        name="username"
+        value={formData.username}
         onChange={handleChange}
         required
       />

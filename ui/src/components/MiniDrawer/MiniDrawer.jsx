@@ -188,7 +188,7 @@ export default function MiniDrawer() {
       </Drawer>
       <Box component="main" className='drawer-children' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Outlet context={{}}/>
+        <Outlet context={{hello: "world"}}/>
       </Box>
     </Box>
   );

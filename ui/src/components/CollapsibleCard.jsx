@@ -3,7 +3,7 @@ import { Card, CardContent, Collapse, Typography, IconButton, Divider } from '@m
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { PropTypes } from 'prop-types';
 
-const CollapsibleCard = ({ title, children, defaultExpandedState, className }) => {
+const CollapsibleCard = ({ title, children, defaultExpandedState, className, style }) => {
   const [expanded, setExpanded] = useState(defaultExpandedState ?? true);
 
   const handleExpandClick = () => {
@@ -11,7 +11,7 @@ const CollapsibleCard = ({ title, children, defaultExpandedState, className }) =
   };
 
   return (
-    <Card className={className}>
+    <Card className={className} style={style}>
         <Typography variant="h5" sx={{marginTop: '1rem'}}>{title}</Typography>
         {expanded && <Divider sx={{borderBottomWidth: '2px', backgroundColor: '#C0C0C0'}}></Divider>}
         <Collapse in={!expanded} timeout="auto" unmountOnExit>
