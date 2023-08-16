@@ -1,11 +1,12 @@
 import type { Request, Response } from 'express';
 import Project from '../models/project';
-import { ErrorHandler } from './helpers';
+import { ErrorHandler, mongoQueryFromQueryParams } from './helpers';
 
 export const ProjectController = {
     getAllProjects: async (req: Request, res: Response) => {
         try {
-          const projects = await Project.find();
+          const params = await mongoQueryFromQueryParams(req.query);
+          const projects = await Project.find(params);
           return res.json(projects);
         } catch (error) {
           console.error(error);

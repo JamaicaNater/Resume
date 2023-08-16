@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import User from '../models/user'; // Import IUser interface as well
-import { ErrorHandler } from './helpers';
+import User from '../models/user';
+import { ErrorHandler, mongoQueryFromQueryParams } from './helpers';
 
 const UserController = {
     getMe: async (req: Request, res: Response) => {
@@ -14,7 +14,8 @@ const UserController = {
     },
     getUsers: async (req: Request, res: Response) => {
         try {
-            const users = await User.find();
+            const params = await mongoQueryFromQueryParams(req.query);
+            const users = await User.find(params);
             return res.json(users);
         } catch (error) {
             console.error(error);

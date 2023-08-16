@@ -1,11 +1,12 @@
 import type { Request, Response } from 'express';
 import Reference from '../models/reference';
-import { ErrorHandler } from './helpers';
+import { ErrorHandler, mongoQueryFromQueryParams } from './helpers';
 
 const ReferenceController = {
     getAllReferences: async (req: Request, res: Response) => {
         try {
-            const references = await Reference.find();
+            const params = await mongoQueryFromQueryParams(req.query);
+            const references = await Reference.find(params);
             return res.json(references);
         } catch (error) {
             console.error(error);

@@ -1,11 +1,12 @@
 import type { Request, Response } from 'express';
 import Experience from '../models/experience';
-import { ErrorHandler } from './helpers';
+import { ErrorHandler, mongoQueryFromQueryParams } from './helpers';
 
 const ExperienceController = {
     getAllExperience: async (req: Request, res: Response) => {
         try {
-            const experince = await Experience.find();
+            const params = await mongoQueryFromQueryParams(req.query);
+            const experince = await Experience.find(params);
             return res.json(experince);
         } catch(error) {
             console.error(error)

@@ -1,11 +1,12 @@
 import type { Request, Response } from 'express';
 import Tag from '../models/tag';
-import { ErrorHandler } from './helpers';
+import { ErrorHandler, mongoQueryFromQueryParams } from './helpers';
 
 const TagController = {
     getTags: async (req: Request, res: Response) => {
         try {
-            const tags = await Tag.find();
+            const params = await mongoQueryFromQueryParams(req.query);
+            const tags = await Tag.find(params);
             return res.json(tags);
         } catch (error) {
             console.error(error);

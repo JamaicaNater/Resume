@@ -1,11 +1,12 @@
 import type { Request, Response } from 'express';
 import Job from '../models/job';
-import { ErrorHandler } from './helpers';
+import { ErrorHandler, mongoQueryFromQueryParams } from './helpers';
 
 const JobController = {
     getJob: async (req: Request, res: Response) => {
         try {
-            const job = await Job.find();
+            const params = await mongoQueryFromQueryParams(req.query);
+            const job = await Job.find(params);
             return res.json(job);
         } catch (error) {
             console.error(error);

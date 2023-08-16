@@ -1,4 +1,5 @@
 import type { Response, Request } from 'express';
+import User from '../models/user';
 
 export const ErrorHandler = {
     get: (res: Response, error: any, modelName: string) => {    
@@ -14,8 +15,16 @@ export const ErrorHandler = {
     }
 }
 
-export const mongoQueryFromQueryParams = (userId: string, query: Request['query']) => {
-    let mongoQuery = { userId: userId };
+export const mongoQueryFromQueryParams = async (query: Request['query']) => {
+    let mongoQuery: any = {};
+    if (query.userEmail) {
+        const email = query.userEmail;
+        const user = await User.findOne({email: email});
+        if (!user) {
+            console.log(`User with email: ${email} not found`);
+        }
+        mongoQuery['userId'] = user?._id;
+    }
 
     return mongoQuery;
 }

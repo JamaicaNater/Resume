@@ -1,11 +1,12 @@
 import type { Request, Response } from 'express';
 import Education from '../models/education';
-import { ErrorHandler } from './helpers';
+import { ErrorHandler, mongoQueryFromQueryParams } from './helpers';
 
 const EducationController = {
     getAllEducation: async (req: Request, res: Response) => {
         try {
-            const education = await Education.find();
+            const params = await mongoQueryFromQueryParams(req.query);
+            const education = await Education.find(params);
             return res.json(education);
         } catch (error) {
             console.error(error)
