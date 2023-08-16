@@ -5,6 +5,7 @@ import { ApiController } from "../../utils/api";
 import { RequestReducer } from "../../utils/requestReducer";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import useLoginRedirect from "../../hooks/auth/useLoginRedirect";
+import useRequestReducer from "../../hooks/auth/useRequestReducer";
 
 const RegistrationForm = () => {
    const { user } = useContext(AuthContext)
