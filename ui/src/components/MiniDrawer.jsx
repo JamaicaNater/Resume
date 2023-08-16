@@ -15,8 +15,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
+import PersonIcon from '@mui/icons-material/Person';
 import { Avatar, Card, CardMedia, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import "./MiniDrawer.css"
@@ -114,6 +114,23 @@ export default function MiniDrawer() {
     setAnchorElUser(null);
   };
 
+  const barList = [
+    {
+      name: 'Resume',
+      onClick: () => {
+        navigate('/resume')
+      },
+      icon: <ContactPageIcon />
+    },
+    {
+      name: 'Profile',
+      onClick: () => {
+        navigate('/profile')
+      },
+      icon: <PersonIcon />
+    }
+  ]
+
   const settingsMap = {
     'Profile': () => {
       navigate('/profile')
@@ -197,9 +214,10 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {barList.map((item, index) => (
+            <ListItem key={item.name} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
+                onClick={item.onClick}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -213,34 +231,9 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
