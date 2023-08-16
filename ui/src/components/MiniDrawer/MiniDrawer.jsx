@@ -17,10 +17,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import PersonIcon from '@mui/icons-material/Person';
-import { Avatar, Card, CardMedia, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
+import { Card, CardMedia } from '@mui/material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import "./MiniDrawer.css"
-import AuthContext from '../context/AuthContext/AuthContext';
+import ProfileMenu from './ProfileMenu';
 
 const drawerWidth = 240;
 
@@ -94,9 +94,6 @@ export default function MiniDrawer() {
   const navigate = useNavigate()
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const { user, logout } = React.useContext(AuthContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -105,14 +102,7 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   const barList = [
     {
@@ -130,23 +120,6 @@ export default function MiniDrawer() {
       icon: <PersonIcon />
     }
   ]
-
-  const settingsMap = {
-    'Profile': () => {
-      navigate('/profile')
-      handleCloseUserMenu();
-    }, 
-    'Account': () => {
-      handleCloseUserMenu();
-    }, 
-    'Dashboard': () => {
-      handleCloseUserMenu();
-    }, 
-    'Logout': () => {
-      logout();
-      handleCloseUserMenu();
-    }
-  };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -176,33 +149,7 @@ export default function MiniDrawer() {
             </Link>
           </Card>
           <Box className="drawer-container">
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={user?.picture ?? "/static/images/avatar/2.jpg"} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {Object.keys(settingsMap).map((setting) => (
-                <MenuItem key={setting} onClick={settingsMap[setting]}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            <ProfileMenu></ProfileMenu>
           </Box>
         </Toolbar>
       </AppBar>
@@ -241,7 +188,7 @@ export default function MiniDrawer() {
       </Drawer>
       <Box component="main" className='drawer-children' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Outlet context={{hello: "world"}}/>
+        <Outlet context={{}}/>
       </Box>
     </Box>
   );

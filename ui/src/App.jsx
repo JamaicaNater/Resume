@@ -1,5 +1,5 @@
 import './App.css'
-import MiniDrawer from './components/MiniDrawer'
+import MiniDrawer from './components/MiniDrawer/MiniDrawer'
 import Resume from './pages/Resume/Resume';
 import ResumeProvider from './context/ResumeContext/ResumeProvider';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
