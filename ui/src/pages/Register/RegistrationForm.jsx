@@ -66,7 +66,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
       <Typography variant="h5">Create an Account</Typography>
       <TextField
         label="First Name"
