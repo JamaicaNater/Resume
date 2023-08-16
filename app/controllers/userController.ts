@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import User from '../models/user'; // Import IUser interface as well
-import { handleError } from './helpers';
+import { ErrorHandler } from './helpers';
 
 const UserController = {
     getMe: async (req: Request, res: Response) => {
@@ -29,7 +29,7 @@ const UserController = {
             res.json(resJson);
         } catch (error) {
             console.error(error);
-            return handleError(res, error, "User"); 
+            return ErrorHandler.post(res, error, "User"); 
         }
     }
 };

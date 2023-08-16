@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import Experience from '../models/experience';
+import { ErrorHandler } from './helpers';
 
 const ExperienceController = {
     getAllExperience: async (req: Request, res: Response) => {
@@ -20,7 +21,7 @@ const ExperienceController = {
             return res.json(resJson);
         } catch(error) {
             console.error(error)
-            return res.status(500).json({ error: 'An error occurred while creating project.' });
+            return ErrorHandler.post(res, error, "Expereince");
         }
     }
 };

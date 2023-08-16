@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import Job from '../models/job';
+import { ErrorHandler } from './helpers';
 
 const JobController = {
     getJob: async (req: Request, res: Response) => {
@@ -19,7 +20,7 @@ const JobController = {
             return res.json(resJson);
         } catch (error) {
             console.error(error);
-            return res.status(500).json({ error: 'An error occurred while geting creating job object.' });
+            return ErrorHandler.post(res, error, "Job");
         }
     }
 }

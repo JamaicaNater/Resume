@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import Tag from '../models/tag';
+import { ErrorHandler } from './helpers';
 
 const TagController = {
     getTags: async (req: Request, res: Response) => {
@@ -19,7 +20,7 @@ const TagController = {
             return res.json(resJson);
         } catch(error) {
             console.error(error);
-            return res.status(500).json({ error: 'An error occurred while creating tag.' });
+            return ErrorHandler.post(res, error, "Tag");
         }
     }
 }

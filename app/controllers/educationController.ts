@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import Education from '../models/education';
+import { ErrorHandler } from './helpers';
 
 const EducationController = {
     getAllEducation: async (req: Request, res: Response) => {
@@ -19,7 +20,7 @@ const EducationController = {
             return res.json(resJson);
         } catch(error) {
             console.error(error);
-            return res.status(500).json({ error: 'An error occurred while creating an education.' });
+            return ErrorHandler.post(res, error, "Education");
         }
     }
 };

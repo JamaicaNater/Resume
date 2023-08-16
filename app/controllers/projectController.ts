@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import Project from '../models/project';
+import { ErrorHandler } from './helpers';
 
 export const ProjectController = {
     getAllProjects: async (req: Request, res: Response) => {
@@ -20,7 +21,7 @@ export const ProjectController = {
         return res.json(resJson);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ error: 'An error occurred while creating a project.' });
+        return ErrorHandler.post(res, error, "Project");
     }
     },
 };

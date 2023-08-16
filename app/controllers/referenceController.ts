@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import Reference from '../models/reference';
+import { ErrorHandler } from './helpers';
 
 const ReferenceController = {
     getAllReferences: async (req: Request, res: Response) => {
@@ -19,7 +20,7 @@ const ReferenceController = {
             return res.json(resJson);
         } catch(error) {
             console.error(error);
-            return res.status(500).json({ error: 'An error occurred while creating reference.' });
+            return ErrorHandler.post(res, error, "Reference");
         }
     }
 };
