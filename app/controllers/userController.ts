@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import User from '../models/user';
+import User from '../models/user'; // Import IUser interface as well
 import { handleError } from './helpers';
 
 const UserController = {
@@ -8,17 +8,17 @@ const UserController = {
             const user = await User.findById(req.session.user?.id);
             res.json(user);
         } catch (error) {
-            console.error(error)                
-            return res.status(500).json({ error: 'An error occurred while geting user object.' });
+            console.error(error);
+            return res.status(500).json({ error: 'An error occurred while getting user object.' });
         }
     },
     getUsers: async (req: Request, res: Response) => {
         try {
-            const user = await User.find();
-            return res.json(user);
+            const users = await User.find();
+            return res.json(users);
         } catch (error) {
             console.error(error);
-            return res.status(500).json({ error: 'An error occurred while geting user object.' });
+            return res.status(500).json({ error: 'An error occurred while getting user objects.' });
         }
     },
     postUser: async (req: Request, res: Response) => {
@@ -29,9 +29,9 @@ const UserController = {
             res.json(resJson);
         } catch (error) {
             console.error(error);
-            return handleError(res, error, 'user', 'email')
+            return handleError(res, error, "User"); 
         }
     }
-}
+};
 
 export default UserController;
