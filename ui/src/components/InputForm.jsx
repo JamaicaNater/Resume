@@ -24,10 +24,10 @@ const InputForm = ({formData, setFormData, apiRequest, requiredFields, disabledF
         createdDataDispatch(RequestReducer.setLoading(true))
         let createdData = await apiRequest(formData);
         createdDataDispatch(RequestReducer.setData(createdData))
-        onSucessfulSubmission && onSucessfulSubmission();
+        onSucessfulSubmission && onSucessfulSubmission(createdData);
     } catch (error) {
         createdDataDispatch(RequestReducer.setError(error));
-        onFailedSubmission && onFailedSubmission();
+        onFailedSubmission && onFailedSubmission(error);
     }   
   }
 

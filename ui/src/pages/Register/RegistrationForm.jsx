@@ -6,7 +6,7 @@ import AuthContext from "../../context/AuthContext/AuthContext";
 import InputForm from "../../components/InputForm";
 
 const RegistrationForm = () => {
-   const { user } = useContext(AuthContext)
+   const { user, login } = useContext(AuthContext)
 
   useEffect(() => {
     if (user) {
@@ -26,6 +26,12 @@ const RegistrationForm = () => {
 
   const navigate = useNavigate();
 
+  const onSucessfulSubmission = (createdData) => {
+    const newUser = {...user, username: createdData.username, id: createdData._id};
+    login(newUser)
+    navigate('/resume')
+  }
+
   return (
     <>
       <Typography variant="h5">Create an Account</Typography>
@@ -33,7 +39,7 @@ const RegistrationForm = () => {
         formData={formData} 
         setFormData={setFormData} 
         apiRequest={ApiController.createUser}
-        onSucessfulSubmission = {() => navigate('/resume')}
+        onSucessfulSubmission = {onSucessfulSubmission}
         disabledFields={new Set(['email'])}
         requiredFields={new Set(Object.keys(formData))}
       />

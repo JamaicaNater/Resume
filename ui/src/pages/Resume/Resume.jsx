@@ -15,6 +15,7 @@ import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
 import DelayedComponent from "../../components/DelayedComponent";
+import AuthContext from "../../context/AuthContext/AuthContext";
 
 export default function Resume() {
     const { resumeCreator } = useParams();
@@ -38,6 +39,8 @@ export default function Resume() {
     })
    
     const { resumeContextData } = useContext(ResumeContext);
+
+    const {user} = useContext(AuthContext);
 
     const [selectedFilterOption, setSelectedFilterOption] = useState('skill');
 
@@ -70,14 +73,14 @@ export default function Resume() {
                 ApiController.getJobs()
                 .then(data => jobDispatch(RequestReducer.setData(data)))
                 .catch(error => jobDispatch(RequestReducer.setError(error)))
-    }, []);
+    }, [user]);
 
     const fetchResumeData = async () => {
         try {
-            const params = resumeCreator ? {username: resumeCreator} : undefined;
+            const params = resumeCreator ? {username: resumeCreator} : {username: user.username};
             
             const userResponse = await ApiController.getUsers(params);
-            const user = plainToClass(User, userResponse[0]);
+            const userData = plainToClass(User, userResponse[0]);
 
             const educationResponse = await ApiController.getEducation(params);
             const education = educationResponse.map((education) => plainToClass(Education, education));
@@ -91,7 +94,7 @@ export default function Resume() {
             const projectResponse = await ApiController.getProjects(params);
             const projects = projectResponse.map((project) => plainToClass(Project, project));
 
-            const resumeTemplate = new ResumeTemplate(education, projects, user, references, experience)
+            const resumeTemplate = new ResumeTemplate(education, projects, userData, references, experience)
             return resumeTemplate
         } catch (error) {
             console.error(error);
