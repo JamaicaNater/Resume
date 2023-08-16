@@ -1,12 +1,24 @@
 import PropTypes from 'prop-types';
+import EditIcon from '@mui/icons-material/Edit';
 import { Typography } from '@mui/material';
 import './Details.css'
 import TagsDisplay from './TagsDisplay';
 import DetailsDisplay from './DetailsDisplay';
+import EditDialog from '../../../components/EditDialog';
+import { useState } from 'react';
+import InputForm from '../../../components/InputForm';
 
 const UserDetails = ({ user }) => {   
+    const [editOpen, setEditOpen] = useState(false);
+
+    const [editedUser, setEditedUser] = useState(user)
+
     return(
         <>
+            <EditIcon className='edit-icon' fontSize='small' onClick={()=>{setEditOpen(true)}} />
+            <EditDialog open={editOpen} setOpen={setEditOpen} >
+                <InputForm formData={editedUser} setFormData={setEditedUser} ignoredFields={new Set(['username', '__v', '_id'])}></InputForm>
+            </EditDialog>
             <Typography variant='body1'>
             {
                 user.phoneNumber && (
