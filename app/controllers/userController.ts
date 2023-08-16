@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import User from '../models/user';
-import handleError from './helpers';
+import { handleError } from './helpers';
 
 const UserController = {
     getMe: async (req: Request, res: Response) => {
@@ -15,10 +15,10 @@ const UserController = {
     getUsers: async (req: Request, res: Response) => {
         try {
             const user = await User.find();
-            res.json(user);
+            return res.json(user);
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'An error occurred while geting user object.' });
+            return res.status(500).json({ error: 'An error occurred while geting user object.' });
         }
     },
     postUser: async (req: Request, res: Response) => {

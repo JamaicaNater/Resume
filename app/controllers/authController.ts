@@ -88,20 +88,19 @@ const AuthController = {
             
             req.session.user = user;
             console.log(`welcome ${user.name}`)
-            res.status(account ? 200 : 404).json(user)
+            return res.status(account ? 200 : 404).json(user)
         } catch (error) {
             console.error(error)
-            res.status(500).json("Failed to autheticate")
+            return res.status(500).json("Failed to autheticate")
         }
     },
     logout: (req: Request, res: Response) => {
         req.session.destroy((error) => {
             if (error) {
                 console.error('Error destroying session:', error);
-                res.status(500).json({ message: 'Failed to log out' });
-            } else {
-                res.status(200).json({ message: 'Logged out successfully' });
+                return res.status(500).json({ message: 'Failed to log out' });
             }
+            return res.status(200).json({ message: 'Logged out successfully' });
         });
     }
 }

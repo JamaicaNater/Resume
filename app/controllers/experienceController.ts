@@ -5,10 +5,10 @@ const ExperienceController = {
     getAllExperience: async (req: Request, res: Response) => {
         try {
             const experince = await Experience.find();
-            res.json(experince);
+            return res.json(experince);
         } catch(error) {
             console.error(error)
-            res.status(500).json({ error: 'An error occurred while fetching projects.' });
+            return res.status(500).json({ error: 'An error occurred while fetching projects.' });
         }
     },
 
@@ -17,10 +17,10 @@ const ExperienceController = {
             const { name, logoLink, position, details, tags, from, to, priority } = req.body
             const experience = new Experience({ name, logoLink, position, details, tags, from, to, priority });
             const resJson = await experience.save();
-            res.json(resJson);
+            return res.json(resJson);
         } catch(error) {
             console.error(error)
-            res.status(500).json({ error: 'An error occurred while creating project.' });
+            return res.status(500).json({ error: 'An error occurred while creating project.' });
         }
     }
 };

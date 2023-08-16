@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 
 const HomepageController = {
     displayHomepage: (req: Request, res: Response) => {
-        res.send('Welcome to my Smart-Resume!');
+        return res.send('Welcome to my Smart-Resume!');
     }
 };
 
