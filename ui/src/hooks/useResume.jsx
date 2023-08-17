@@ -1,8 +1,7 @@
-import { useContext, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { ApiController } from '../utils/api';
 import { RequestReducer } from '../utils/requestReducer';
-import { useParams } from 'react-router-dom';
-import AuthContext from '../context/AuthContext/AuthContext';
+import useResumeParams from './useResumeParams';
 
 export function useResume() {
   const [userState, userDispatch] = useReducer(RequestReducer.reducer, {
@@ -35,13 +34,10 @@ export function useResume() {
     error: null,
   });
 
-  const { resumeCreator } = useParams();
-  const { user } = useContext(AuthContext);
+  const params = useResumeParams();
 
   const fetchResumeData = async () => {
     try {
-      const params = resumeCreator ? { username: resumeCreator } : { username: user.username };
-
       const userResponse = await ApiController.getUsers(params);
       userDispatch(RequestReducer.setData(userResponse[0]));
 
@@ -69,14 +65,14 @@ export function useResume() {
     referenceDispatch(RequestReducer.setLoading(true));
     experienceDispatch(RequestReducer.setLoading(true));
 
-    if (user && user.username) {
+    if (params.username) {
         fetchResumeData();
     } else {
       console.warn("Username is not set")
     }
-
-}, [resumeCreator, user && user.username]);
+  }, []);
   return {
+    params,
     userState,
     educationState,
     projectState,
