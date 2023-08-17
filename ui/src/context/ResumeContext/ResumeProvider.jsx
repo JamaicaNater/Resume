@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const ResumeProvider = ({ children }) => {
-    const [resumeContextData, setResumeContextData] = useState(initialState);
+    const [tagFilterData, setTagFilterData] = useState(initialState);
     const { 
             userState, 
             educationState, 
@@ -26,8 +26,8 @@ const ResumeProvider = ({ children }) => {
     return (
         <ResumeContext.Provider 
         value={{ 
-                resumeContextData, 
-                setResumeContextData,
+                tagFilterData, 
+                setTagFilterData,
                 userState, 
                 educationState, 
                 projectState, 

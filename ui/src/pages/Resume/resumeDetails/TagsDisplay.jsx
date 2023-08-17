@@ -5,7 +5,7 @@ import ResumeContext from "../../../context/ResumeContext/ResumeContext"
 
 
 const TagsDisplay = ({ skills }) => {
-    const { resumeContextData, setResumeContextData } = useContext(ResumeContext);
+    const { tagFilterData, setTagFilterData } = useContext(ResumeContext);
 
     const formatTag = (input) => {
         const wordsArray = input.split(/-/);
@@ -16,20 +16,20 @@ const TagsDisplay = ({ skills }) => {
     }
 
     const tagSelected = (tag) => {
-        return resumeContextData.tagFilters.includes(tag)
+        return tagFilterData.tagFilters.includes(tag)
     }
 
     const addTagToFilter = (tag) => {
-        const newTagFilters = [...resumeContextData.tagFilters, tag];
-        setResumeContextData((prevData) => ({
+        const newTagFilters = [...tagFilterData.tagFilters, tag];
+        setTagFilterData((prevData) => ({
             ...prevData,
             tagFilters: newTagFilters,
         }));
     }
 
     const removeTagFromFilter = (removed_tag) => {
-        const newTagFilters = resumeContextData.tagFilters.filter((tag) => tag !== removed_tag);
-        setResumeContextData((prevData) => ({
+        const newTagFilters = tagFilterData.tagFilters.filter((tag) => tag !== removed_tag);
+        setTagFilterData((prevData) => ({
           ...prevData,
           tagFilters: newTagFilters,
         }));

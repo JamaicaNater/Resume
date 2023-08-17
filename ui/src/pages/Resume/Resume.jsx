@@ -11,7 +11,6 @@ import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Sel
 import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
-import AuthContext from "../../context/AuthContext/AuthContext";
 
 export default function Resume() {
 
@@ -27,9 +26,7 @@ export default function Resume() {
         error: null,
     })
    
-    const { resumeContextData, userState, educationState, projectState, referenceState, experienceState } = useContext(ResumeContext);
-
-    const {user} = useContext(AuthContext);
+    const { tagFilterData, userState, educationState, projectState, referenceState, experienceState } = useContext(ResumeContext);
 
     const [selectedFilterOption, setSelectedFilterOption] = useState('skill');
 
@@ -56,7 +53,8 @@ export default function Resume() {
                 ApiController.getJobs()
                 .then(data => jobDispatch(RequestReducer.setData(data)))
                 .catch(error => jobDispatch(RequestReducer.setError(error)))
-    }, [user, userState, educationState, projectState, referenceState, experienceState ]);
+    }, []);
+
     return (
         <>
         {
@@ -117,7 +115,7 @@ export default function Resume() {
                 <CollapsibleCard className="card" title="Experience" style={{animationDelay: getAnimationDelay()}}> 
                     {
                     experienceState.data
-                    .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
+                    .filter(project => tagFilterData.tagFilters.every(filter => project.tags.includes(filter)))
                     .map((experience, index, arr) => (     
                         <>                   
                             <ExperienceDetails key={index} experience={experience}/>
@@ -139,7 +137,7 @@ export default function Resume() {
                 <CollapsibleCard className="card" title="Projects" style={{animationDelay: getAnimationDelay()}}> 
                 {
                     projectState.data
-                    .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
+                    .filter(project => tagFilterData.tagFilters.every(filter => project.tags.includes(filter)))
                     .map((project, index, arr) => (
                         <>
                             <ProjectDetails key={index} project={project}/>
