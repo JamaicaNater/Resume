@@ -195,6 +195,7 @@ async function addResumeData() {
 
     const referenceData = [
       {
+        userId: userId,
         firstName: "John",
         lastName: "Doe",
         phoneNumber: "876-432-1234",

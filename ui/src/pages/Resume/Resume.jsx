@@ -12,7 +12,6 @@ import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
 import AuthContext from "../../context/AuthContext/AuthContext";
-import useResume from "../../hooks/useResume";
 
 export default function Resume() {
 
@@ -27,10 +26,8 @@ export default function Resume() {
         data: null,
         error: null,
     })
-
-    const { userState, educationState, projectState, referenceState, experienceState } = useResume();
    
-    const { resumeContextData } = useContext(ResumeContext);
+    const { resumeContextData, userState, educationState, projectState, referenceState, experienceState } = useContext(ResumeContext);
 
     const {user} = useContext(AuthContext);
 
