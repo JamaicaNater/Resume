@@ -17,6 +17,10 @@ export const ApiController = {
     getExperience: async (queryParams) => {
         return genericGet('experience', queryParams);
     },
+
+    createExperience: async (experience, queryParams) => {
+        return genericPost('experience', experience, queryParams);
+    },
     
     getEducation: async (queryParams) => {
         return genericGet('education', queryParams);
@@ -29,9 +33,17 @@ export const ApiController = {
     getProjects: async (queryParams) => {
         return genericGet('projects', queryParams);
     },
+
+    createProject: async (project, queryParams) => {
+        return genericPost('projects', project, queryParams);
+    },
     
     getReferences: async (queryParams) => {
         return genericGet('references', queryParams);
+    },
+
+    createReference: async (reference, queryParams) => {
+        return genericPost('references', reference, queryParams);
     },
     
     getMe: async (queryParams) => {
