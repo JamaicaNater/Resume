@@ -1,8 +1,31 @@
 import PropTypes from 'prop-types';
-import { Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import IconButton from '@mui/material/IconButton';
+import { Divider, Typography } from '@mui/material';
 import DetailsDisplay from './DetailsDisplay';
+import { useState } from 'react';
+import { ApiController } from '../../../utils/api';
+import EditDialog from '../../../components/EditDialog';
 
-const EducationDetails = ({ education }) => {   
+const EducationDetails = ({ education }) => {
+    const editAddMenuInitialState = {
+        isOpen: false,
+        apiRequest: () => {}
+    }
+
+    const [addEditMenu, setAddEditMenu] = useState(editAddMenuInitialState);
+
+    const openAddMenu = () => {
+        setAddEditMenu({
+            isOpen: true,
+            apiRequest: ApiController.createEducation
+        })
+    }
+
+    const closeEditAddMenu = () => {
+        setAddEditMenu(editAddMenuInitialState)
+    }
+
     return(
         <>
             <Typography variant="body1">
@@ -27,6 +50,13 @@ const EducationDetails = ({ education }) => {
             { education.details &&
                 <DetailsDisplay details={education.details} />
             }
+            <EditDialog open={addEditMenu.isOpen} setClose={closeEditAddMenu} >
+                {/* <InputForm formData={editedUser} setFormData={setEditedUser} ignoredFields={new Set(['username', '__v', '_id'])}></InputForm> */}
+            </EditDialog>
+            <IconButton onClick={openAddMenu}>
+                <Typography>Add More</Typography>
+                <AddIcon />
+            </IconButton>
         </>
     );
 }

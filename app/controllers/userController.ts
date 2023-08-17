@@ -32,7 +32,7 @@ const UserController = {
             console.error(error);
             return ErrorHandler.post(res, error, "User"); 
         }
-    }
+    },
 };
 
 export default UserController;

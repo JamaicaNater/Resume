@@ -16,7 +16,7 @@ const UserDetails = ({ user }) => {
     return(
         <>
             <EditIcon className='edit-icon' fontSize='small' onClick={()=>{setEditOpen(true)}} />
-            <EditDialog open={editOpen} setOpen={setEditOpen} >
+            <EditDialog open={editOpen} setClose={() => {setEditOpen(false)}} >
                 <InputForm formData={editedUser} setFormData={setEditedUser} ignoredFields={new Set(['username', '__v', '_id'])}></InputForm>
             </EditDialog>
             <Typography variant='body1'>

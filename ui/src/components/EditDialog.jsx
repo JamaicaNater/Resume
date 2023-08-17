@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 
-const EditDialog = ({ open, setOpen, children }) => {
+const EditDialog = ({ open, setClose, children }) => {
     const handleClose = () => {
-        setOpen(false);
+        setClose();
     };
 
     return (
@@ -25,7 +25,7 @@ const EditDialog = ({ open, setOpen, children }) => {
 
 EditDialog.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  setClose: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 

@@ -21,6 +21,10 @@ export const ApiController = {
     getEducation: async (queryParams) => {
         return genericGet('education', queryParams);
     },
+
+    createEducation: async (education, queryParams) => {
+        return genericPost('education', education, queryParams);
+    },
     
     getProjects: async (queryParams) => {
         return genericGet('projects', queryParams);
