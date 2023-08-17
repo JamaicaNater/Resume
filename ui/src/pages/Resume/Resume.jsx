@@ -11,6 +11,7 @@ import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Sel
 import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
+import AddEducation from "./resumeDetails/AddEducation";
 
 export default function Resume() {
 
@@ -106,6 +107,7 @@ export default function Resume() {
                         </>
                     ))
                     }
+                    <AddEducation/>
                 </CollapsibleCard>
             </div>
         }

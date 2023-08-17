@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import type { GoogleUser } from '../entity/user'
 import axios from 'axios';
 import User from '../models/user';
+import { ErrorHandler } from './helpers';
 
 
 async function authenticate(authCode: string, redirectUri: string) {
@@ -102,7 +103,22 @@ const AuthController = {
             }
             return res.status(200).json({ message: 'Logged out successfully' });
         });
-    }
+    },
+    register: async (req: Request, res: Response) => {
+        try {
+            const { firstName, lastName, username, phoneNumber, email, skills, details } = req.body;
+            const user = new User({ firstName, lastName, username, phoneNumber, email, skills, details });
+            const resJson = await user.save();
+            if (req.session.user) {
+                req.session.user.id = resJson._id.toString();
+                req.session.user.username = resJson.username;
+            }
+            res.json(resJson);
+        } catch (error) {
+            console.error(error);
+            return ErrorHandler.post(res, error, "User"); 
+        }
+    },
 }
 
 export default AuthController;

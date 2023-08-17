@@ -42,8 +42,8 @@ export const ApiController = {
         return genericGet('users', queryParams);
     },
     
-    createUser: async (user, queryParams) => {
-        return genericPost('users', user, queryParams);
+    register: async (user, queryParams) => {
+        return genericPost('auth/register', user, queryParams);
     },
     
     getTags: async (queryParams) => {

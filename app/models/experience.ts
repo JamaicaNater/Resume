@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const experienceSchema = new mongoose.Schema({
     // TODO: Support native images
     name: { type: String, required: true },
+    userId: {type: String, required: true},
     logoLink: {type: String, required: false},
     position: {type: String, required: true},
     details: { type: [String], required: true },

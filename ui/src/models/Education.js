@@ -1,16 +1,16 @@
 export default class Education {
     constructor(
-        name,
-        degreeType,
-        major,
-        minor,
-        gpa,
-        details,
-        enrollmentDate,
-        graduationDate,
-        city,
-        state,
-        country
+        name = '',
+        degreeType = '',
+        major = '',
+        minor = '',
+        gpa = 0.0,
+        details = [],
+        enrollmentDate = '',
+        graduationDate = '',
+        city = '',
+        state = '',
+        country = ''
     ) {
         this.name = name;
         this.degreeType = degreeType;

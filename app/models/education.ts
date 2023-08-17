@@ -2,11 +2,12 @@ import mongoose from 'mongoose';
 
 const EducationSchema = new mongoose.Schema({
     name: {type: String, required: true},
+    userId: {type: String, required: true},
     degreeType: {type: String, required: true},
     major: {type: String, required: true},
     minor: {type: String, required: true},
     gpa: {type: Number, required: false},
-    details: {type: String, required: false},
+    details: {type: [String], required: false},
     enrollmentDate: {type: String, required: false},
     graduationDate: {type: String, required: false},
     city: {type: String, required: false},

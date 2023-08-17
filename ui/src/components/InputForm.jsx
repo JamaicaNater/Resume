@@ -1,13 +1,13 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField, Button, Typography, CircularProgress } from "@mui/material"; // Using Material-UI components
 import { camelCaseToCapitalizedWords } from "../utils/formatting";
 import { PropTypes } from "prop-types";
 
 const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredFields, loading, error}) => {
   const [newFormData, setNewFormData] = useState(formData);
-  
+
   useEffect(() => {
-    console.log(formData)
+    console.log('formdata',formData)
   },[formData])
 
   const handleChange = (e) => {

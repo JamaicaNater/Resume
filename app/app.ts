@@ -21,6 +21,7 @@ import userRoutes from './routes/user';
 import jobRoutes from './routes/job';
 import tagRoutes from './routes/tag';
 import authRoutes from './routes/auth';
+import requireId from './middleware/requireId';
 
 //Middleware
 // Todo throw error
@@ -44,6 +45,14 @@ app.use(requireAuth.unless({
     '/auth/'
   ],
   method: ['OPTIONS']
+}));
+
+app.use(requireId.unless({
+  path : [
+    '/auth/register',
+    '/auth/register/'
+  ],
+  method: ['GET','OPTIONS']
 }));
 
 app.use(express.json());

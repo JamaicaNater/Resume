@@ -23,7 +23,7 @@ const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    email: "",
+    email: user.email,
     username: "",
   });
 
@@ -31,7 +31,7 @@ const RegistrationForm = () => {
 
   const createUser = async (data) => {
     createUserDispath(RequestReducer.setLoading(true));
-    ApiController.createUser(data)
+    ApiController.register(data)
     .then((response) => {
       const newUser = {...user, username: response.username, id: response._id};
       createUserDispath(RequestReducer.setData(newUser));
@@ -50,7 +50,6 @@ const RegistrationForm = () => {
       <Typography variant="h5">Create an Account</Typography>
       <InputForm 
         formData={formData} 
-        setFormData={setFormData}
         onSubmit={createUser}
         loading={createUserState.loading}
         error={createUserState.error}
