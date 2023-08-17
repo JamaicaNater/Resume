@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TextField, Button, Typography, CircularProgress } from "@mui/material"; // Using Material-UI components
+import { TextField, Button, Typography, CircularProgress, TextareaAutosize } from "@mui/material"; // Using Material-UI components
 import { camelCaseToCapitalizedWords } from "../utils/formatting";
 import { PropTypes } from "prop-types";
 
@@ -35,8 +35,27 @@ const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredF
             return null;
           }
 
+          if (key === 'details') {
+            return (
+              <TextareaAutosize
+                key={index}
+                //TODO: chnage when dark mode
+                style={{backgroundColor: 'white', color: 'gray'}}
+                sx={{ marginBottom: '.5rem', width: '40vh'}}
+                minRows={3}
+                placeholder="Enter details..."
+                name={key}
+                value={newFormData[key]}
+                onChange={handleChange}
+                required={requiredFields && requiredFields.has(key)}
+                disabled={disabledFields && disabledFields.has(key)}
+              />
+            )
+          }
+
           return (
             <TextField 
+              sx={{ marginBottom: '.5rem', width: '40vh' }}
               key={index}
               label={camelCaseToCapitalizedWords(key)}
               name={key}

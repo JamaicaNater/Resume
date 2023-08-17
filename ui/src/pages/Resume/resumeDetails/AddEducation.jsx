@@ -54,7 +54,13 @@ const AddEducation = () => {
         <AddIcon />
       </IconButton>
       <EditDialog open={open} setClose={closeDialog} >
-        <InputForm formData={new Education()} onSubmit={createEducation} ignoredFields={new Set(['__v', '_id'])} loading={createEducationState.loading} error={createEducationState.error}></InputForm>
+        <InputForm 
+          formData={new Education()} 
+          onSubmit={createEducation} 
+          ignoredFields={new Set(['__v', '_id'])} 
+          loading={createEducationState.loading} 
+          error={createEducationState.error}
+        />
       </EditDialog>
     </>
   )

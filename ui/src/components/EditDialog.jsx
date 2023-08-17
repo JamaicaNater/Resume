@@ -10,7 +10,7 @@ const EditDialog = ({ open, setClose, children }) => {
         <>
             <Dialog open={open} onClose={handleClose} maxWidth="md">
                 <DialogTitle>Edit</DialogTitle>
-                <DialogContent >
+                <DialogContent>
                     {children}
                 </DialogContent>
                 <DialogActions>
