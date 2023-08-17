@@ -69,10 +69,13 @@ export function useResume() {
     referenceDispatch(RequestReducer.setLoading(true));
     experienceDispatch(RequestReducer.setLoading(true));
 
-    fetchResumeData();
+    if (user && user.username) {
+        fetchResumeData();
+    } else {
+      console.warn("Username is not set")
+    }
 
-  }, [resumeCreator, user.username]);
-
+}, [resumeCreator, user && user.username]);
   return {
     userState,
     educationState,

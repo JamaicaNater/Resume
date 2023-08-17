@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { Typography } from "@mui/material"; // Using Material-UI components
 import { ApiController } from "../../utils/api";
@@ -26,20 +26,26 @@ const RegistrationForm = () => {
 
   const navigate = useNavigate();
 
-  const onSucessfulSubmission = (createdData) => {
-    const newUser = {...user, username: createdData.username, id: createdData._id};
-    login(newUser)
-    navigate('/resume')
-  }
+  const createUser = async (data) => {
+    ApiController.createUser(data)
+    .then((response) =>{
+      const newUser = {...user, username: response.username, id: response._id};
+      login(newUser)
+      navigate('/resume')
+    } )
+    .catch((error) => {
+      console.log(error)
+    })
+  };
+
 
   return (
     <>
       <Typography variant="h5">Create an Account</Typography>
       <InputForm 
         formData={formData} 
-        setFormData={setFormData} 
-        apiRequest={ApiController.createUser}
-        onSucessfulSubmission = {onSucessfulSubmission}
+        setFormData={setFormData}
+        onSubmit={createUser}
         disabledFields={new Set(['email'])}
         requiredFields={new Set(Object.keys(formData))}
       />

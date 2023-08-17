@@ -1,40 +1,27 @@
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { TextField, Button, Typography, CircularProgress } from "@mui/material"; // Using Material-UI components
-import { RequestReducer } from "../utils/requestReducer";
 import { camelCaseToCapitalizedWords } from "../utils/formatting";
 import { PropTypes } from "prop-types";
 
-const InputForm = ({formData, setFormData, apiRequest, requiredFields, disabledFields, ignoredFields, onSucessfulSubmission, onFailedSubmission}) => {
-  const [createdDataState, createdDataDispatch] = useReducer(RequestReducer.reducer, {
-    data: null,
-    loading: null,
-    error: null
-  })
+const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredFields, loading, error}) => {
+  const [newFormData, setNewFormData] = useState(formData);
+  
+  useEffect(() => {
+    console.log(formData)
+  },[formData])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setNewFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const createData = async () => {
-    try {
-        createdDataDispatch(RequestReducer.setLoading(true))
-        let createdData = await apiRequest(formData);
-        createdDataDispatch(RequestReducer.setData(createdData))
-        onSucessfulSubmission && onSucessfulSubmission(createdData);
-    } catch (error) {
-        createdDataDispatch(RequestReducer.setError(error));
-        onFailedSubmission && onFailedSubmission(error);
-    }   
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      createData()
+      onSubmit(newFormData)
     } catch (error) {
       console.error(error)
     }
@@ -53,7 +40,7 @@ const InputForm = ({formData, setFormData, apiRequest, requiredFields, disabledF
               key={index}
               label={camelCaseToCapitalizedWords(key)}
               name={key}
-              value={formData[key]}
+              value={newFormData[key]}
               onChange={handleChange}
               required={requiredFields && requiredFields.has(key)}
               disabled={disabledFields && disabledFields.has(key)}
@@ -62,15 +49,15 @@ const InputForm = ({formData, setFormData, apiRequest, requiredFields, disabledF
         })
       }
       {
-        createdDataState.loading && <CircularProgress/> ||
+        loading && <CircularProgress/> ||
         <Button type="submit" variant="contained" color="primary" sx={{marginTop: '1rem'}}>
           Submit
         </Button>
       }
       {
-        createdDataState.error && 
+        error && 
         <>
-          <Typography color={'red'}>Error: {createdDataState.error?.response?.data?.error}</Typography>
+          <Typography color={'red'}>Error: {error?.response?.data?.error}</Typography>
         </>
       }
     </form>
@@ -79,13 +66,12 @@ const InputForm = ({formData, setFormData, apiRequest, requiredFields, disabledF
 
 InputForm.propTypes = {
   formData: PropTypes.object.isRequired,
-  setFormData: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   requiredFields: PropTypes.instanceOf(Set),
   disabledFields: PropTypes.instanceOf(Set),
   ignoredFields: PropTypes.instanceOf(Set),
-  apiRequest: PropTypes.func.isRequired,
-  onSucessfulSubmission: PropTypes.func.isRequired,
-  onFailedSubmission: PropTypes.func.isRequired,
+  loading: PropTypes.boolean,
+  error: PropTypes.node,
 };
 
 export default InputForm;
