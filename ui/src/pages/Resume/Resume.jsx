@@ -1,8 +1,5 @@
-import { ResumeTemplate, Education, Project, Experience, Reference, User } from "../../models";
-import { useParams } from 'react-router-dom'
 import CollapsibleCard from "../../components/CollapsibleCard"
 import EducationDetails from "./resumeDetails/EducationDetails";
-import { plainToClass } from 'class-transformer';
 import { ApiController } from "../../utils/api";
 import { useContext, useEffect, useReducer, useState } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
@@ -14,11 +11,10 @@ import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Sel
 import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
-import DelayedComponent from "../../components/DelayedComponent";
 import AuthContext from "../../context/AuthContext/AuthContext";
+import useResume from "../../hooks/useResume";
 
 export default function Resume() {
-    const { resumeCreator } = useParams();
 
     const [tagState, tagsDispatch] = useReducer(RequestReducer.reducer, {
         loading: true,
@@ -32,11 +28,7 @@ export default function Resume() {
         error: null,
     })
 
-    const [resumeState, resumeDispatch] = useReducer(RequestReducer.reducer, {
-        loading: true,
-        data: null,
-        error: null,
-    })
+    const { userState, educationState, projectState, referenceState, experienceState } = useResume();
    
     const { resumeContextData } = useContext(ResumeContext);
 
@@ -59,12 +51,6 @@ export default function Resume() {
     }
  
     useEffect(() => {
-        resumeDispatch(RequestReducer.setLoading(true))
-        fetchResumeData()
-            .then(data => resumeDispatch(RequestReducer.setData(data)))
-            .catch(error => console.error(error))
-        
-            tagsDispatch(RequestReducer.setLoading(true))
         ApiController.getTags()
             .then(data => tagsDispatch(RequestReducer.setData(data)))
             .catch(error => tagsDispatch(RequestReducer.setError(error)))
@@ -73,43 +59,8 @@ export default function Resume() {
                 ApiController.getJobs()
                 .then(data => jobDispatch(RequestReducer.setData(data)))
                 .catch(error => jobDispatch(RequestReducer.setError(error)))
-    }, [user]);
-
-    const fetchResumeData = async () => {
-        try {
-            const params = resumeCreator ? {username: resumeCreator} : {username: user.username};
-            
-            const userResponse = await ApiController.getUsers(params);
-            const userData = plainToClass(User, userResponse[0]);
-
-            const educationResponse = await ApiController.getEducation(params);
-            const education = educationResponse.map((education) => plainToClass(Education, education));
-
-            const experienceResponse = await ApiController.getExperience(params);
-            const experience = experienceResponse.map((experience) => plainToClass(Experience, experience));
-
-            const referenceResponse = await ApiController.getReferences(params);
-            const references = referenceResponse.map((reference) => plainToClass(Reference, reference));
-
-            const projectResponse = await ApiController.getProjects(params);
-            const projects = projectResponse.map((project) => plainToClass(Project, project));
-
-            const resumeTemplate = new ResumeTemplate(education, projects, userData, references, experience)
-            return resumeTemplate
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
+    }, [user, userState, educationState, projectState, referenceState, experienceState ]);
     return (
-        resumeState.loading && 
-        <>
-            <DelayedComponent>
-                <Typography>Loading resume</Typography> 
-                <CircularProgress/>
-            </DelayedComponent>
-        </> ||
-        resumeState && resumeState.data &&
         <>
         {
             tagState.data &&
@@ -136,19 +87,19 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeState.data.user && 
+            userState.data && 
             <div className="card-container">
-                <CollapsibleCard className="card" title={`${resumeState.data.user.firstName} ${resumeState.data.user.lastName}`} defaultExpandedState={true} style={{animationDelay: getAnimationDelay()}}> 
-                    <UserDetails user={resumeState.data.user}/>
+                <CollapsibleCard className="card" title={`${userState.data.firstName} ${userState.data.lastName}`} defaultExpandedState={true} style={{animationDelay: getAnimationDelay()}}> 
+                    <UserDetails user={userState.data}/>
                 </CollapsibleCard>
             </div>
         }
         {   
-            resumeState.data.education && 
+            educationState.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="Education" defaultExpandedState={false} style={{animationDelay: getAnimationDelay()}}> 
                     {
-                    resumeState.data.education.map((education, index, arr) => (    
+                    educationState.data.map((education, index, arr) => (    
                         <>                    
                             <EducationDetails key={index} education={education}/>
                         {
@@ -164,11 +115,11 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeState.data.experience && 
+            experienceState.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="Experience" style={{animationDelay: getAnimationDelay()}}> 
                     {
-                    resumeState.data.experience
+                    experienceState.data
                     .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
                     .map((experience, index, arr) => (     
                         <>                   
@@ -186,11 +137,11 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeState.data.projects && 
+            projectState.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="Projects" style={{animationDelay: getAnimationDelay()}}> 
                 {
-                    resumeState.data.projects
+                    projectState.data
                     .filter(project => resumeContextData.tagFilters.every(filter => project.tags.includes(filter)))
                     .map((project, index, arr) => (
                         <>
@@ -209,11 +160,11 @@ export default function Resume() {
             </div>
         }
         {   
-            resumeState.data.references && 
+            referenceState.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="References" defaultExpandedState={true} style={{animationDelay: getAnimationDelay()}}> 
                 {
-                    resumeState.data.references.map((reference, index, arr) => (
+                    referenceState.data.map((reference, index, arr) => (
                         <>
                             <ReferenceDetails key={index} reference={reference}/>
                         {
