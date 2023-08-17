@@ -17,7 +17,7 @@ const ExperienceController = {
     createExperience: async (req: Request, res: Response) => {
         try {
             const { name, logoLink, position, details, tags, from, to, priority } = req.body
-            const experience = new Experience({ name, logoLink, position, details, tags, from, to, priority });
+            const experience = new Experience({ name, logoLink, position, details, tags, from, to, priority, userId: req.session.user?.id });
             const resJson = await experience.save();
             return res.json(resJson);
         } catch(error) {

@@ -7,10 +7,12 @@ const useResumeParams = () => {
   let { resumeCreator } = useParams();
   const params = resumeCreator ? { username: resumeCreator } : { username: user?.username };
 
+  const canEdit = params.username == user?.username
+
   useEffect(()=>{
   }, [user?.username])
 
-  return params
+  return {params, canEdit}
 }
 
 export default useResumeParams;

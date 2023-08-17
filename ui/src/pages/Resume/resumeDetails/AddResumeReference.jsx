@@ -5,17 +5,17 @@ import { ApiController } from '../../../utils/api';
 import EditDialog from '../../../components/EditDialog';
 import InputForm from '../../../components/InputForm';
 import { useContext, useReducer, useState } from 'react';
-import Education from '../../../models/Education';
+import Reference from '../../../models/Reference';
 import { RequestReducer } from '../../../utils/requestReducer';
 import ResumeContext from '../../../context/ResumeContext/ResumeContext';
 import useResumeParams from '../../../hooks/useResumeParams';
 
-const AddEducation = () => {
+const AddResumeReference = () => {
   const [ open, setOpen ] = useState(false);
 
-  const [createEducationState, createEducationDispath] = useReducer(RequestReducer.reducer, RequestReducer.defaultState)
+  const [createReferenceState, createReferenceDispath] = useReducer(RequestReducer.reducer, RequestReducer.defaultState)
 
-  const { educationDispatch } = useContext(ResumeContext);
+  const { referenceDispatch } = useContext(ResumeContext);
 
   const {params} = useResumeParams();
 
@@ -27,22 +27,22 @@ const AddEducation = () => {
     setOpen(false);
   };
 
-  const createEducation = async (data) => {
-    createEducationDispath(RequestReducer.setLoading(true));
-    ApiController.createEducation(data)
+  const createReference = async (data) => {
+    createReferenceDispath(RequestReducer.setLoading(true));
+    ApiController.createReference(data)
       .then((response) => {
         console.log(response);
-        createEducationDispath(RequestReducer.setData(response));
+        createReferenceDispath(RequestReducer.setData(response));
 
-        educationDispatch(RequestReducer.setLoading(true));
-        ApiController.getEducation(params)
-          .then((education) => educationDispatch(RequestReducer.setData(education)))
-          .catch((error) => educationDispatch(RequestReducer.setError(error)))
+        referenceDispatch(RequestReducer.setLoading(true));
+        ApiController.getReferences(params)
+          .then((Reference) => referenceDispatch(RequestReducer.setData(Reference)))
+          .catch((error) => referenceDispatch(RequestReducer.setError(error)))
         closeDialog();
       })
       .catch((error) => {
         console.log(error)
-        createEducationDispath(RequestReducer.setError(error));
+        createReferenceDispath(RequestReducer.setError(error));
       })
   };
 
@@ -55,15 +55,15 @@ const AddEducation = () => {
       </IconButton>
       <EditDialog open={open} setClose={closeDialog} >
         <InputForm 
-          formData={new Education()} 
-          onSubmit={createEducation} 
+          formData={new Reference()} 
+          onSubmit={createReference} 
           ignoredFields={new Set(['__v', '_id'])} 
-          loading={createEducationState.loading} 
-          error={createEducationState.error}
+          loading={createReferenceState.loading} 
+          error={createReferenceState.error}
         />
       </EditDialog>
     </>
   )
 }
 
-export default AddEducation;
+export default AddResumeReference;

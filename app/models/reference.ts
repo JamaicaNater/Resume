@@ -8,8 +8,8 @@ const ReferenceSchema = new mongoose.Schema({
     relationship: {type: String, required: false }
 })
 
-// No duplicate first AND last name
-ReferenceSchema.index({ firstName: 1, lastName: 1 }, { unique: true });
+// No duplicate first AND last name AND user
+ReferenceSchema.index({ firstName: 1, lastName: 1, userId: 1 }, { unique: true });
 
 const Reference = mongoose.model('Reference', ReferenceSchema);
 

@@ -12,6 +12,10 @@ import TagsDisplay from "./resumeDetails/TagsDisplay";
 import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
 import AddEducation from "./resumeDetails/AddEducation";
+import AddExperience from "./resumeDetails/AddExperience";
+import useResumeParams from "../../hooks/useResumeParams";
+import AddProject from "./resumeDetails/AddProject";
+import AddResumeReference from "./resumeDetails/AddResumeReference";
 
 export default function Resume() {
 
@@ -44,6 +48,8 @@ export default function Resume() {
 
         return `${prev * 0.2}s`
     }
+
+    const {canEdit} = useResumeParams();
  
     useEffect(() => {
         ApiController.getTags()
@@ -94,7 +100,7 @@ export default function Resume() {
             educationState.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="Education" defaultExpandedState={false} style={{animationDelay: getAnimationDelay()}}> 
-                    {
+                {
                     educationState.data.map((education, index, arr) => (    
                         <>                    
                             <EducationDetails key={index} education={education}/>
@@ -106,8 +112,12 @@ export default function Resume() {
                         }
                         </>
                     ))
-                    }
-                    <AddEducation/>
+                }
+                {                    
+                    canEdit && <div>
+                        <AddEducation/>
+                    </div>
+                }
                 </CollapsibleCard>
             </div>
         }
@@ -115,7 +125,7 @@ export default function Resume() {
             experienceState.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="Experience" style={{animationDelay: getAnimationDelay()}}> 
-                    {
+                {
                     experienceState.data
                     .filter(project => tagFilterData.tagFilters.every(filter => project.tags.includes(filter)))
                     .map((experience, index, arr) => (     
@@ -129,7 +139,12 @@ export default function Resume() {
                         }
                         </>
                     ))
-                    }
+                }
+                {
+                    canEdit && <div>
+                        <AddExperience/>
+                    </div>
+                }
                 </CollapsibleCard>
             </div>
         }
@@ -150,8 +165,12 @@ export default function Resume() {
                             </div>
                         }
                         </>                        
-                        
                     ))
+                }
+                {
+                    canEdit && <div>
+                        <AddProject/>
+                    </div>
                 }
                 </CollapsibleCard>
             </div>
@@ -172,6 +191,11 @@ export default function Resume() {
                         }
                         </>
                     ))
+                }
+                {
+                    canEdit && <div>
+                        <AddResumeReference/>
+                    </div>
                 }
                 </CollapsibleCard>
             </div>

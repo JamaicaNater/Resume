@@ -5,17 +5,17 @@ import { ApiController } from '../../../utils/api';
 import EditDialog from '../../../components/EditDialog';
 import InputForm from '../../../components/InputForm';
 import { useContext, useReducer, useState } from 'react';
-import Education from '../../../models/Education';
+import Experience from '../../../models/Experience';
 import { RequestReducer } from '../../../utils/requestReducer';
 import ResumeContext from '../../../context/ResumeContext/ResumeContext';
 import useResumeParams from '../../../hooks/useResumeParams';
 
-const AddEducation = () => {
+const AddExperience = () => {
   const [ open, setOpen ] = useState(false);
 
-  const [createEducationState, createEducationDispath] = useReducer(RequestReducer.reducer, RequestReducer.defaultState)
+  const [createExperienceState, createExperienceDispath] = useReducer(RequestReducer.reducer, RequestReducer.defaultState)
 
-  const { educationDispatch } = useContext(ResumeContext);
+  const { experienceDispatch } = useContext(ResumeContext);
 
   const {params} = useResumeParams();
 
@@ -27,22 +27,22 @@ const AddEducation = () => {
     setOpen(false);
   };
 
-  const createEducation = async (data) => {
-    createEducationDispath(RequestReducer.setLoading(true));
-    ApiController.createEducation(data)
+  const createExperience = async (data) => {
+    createExperienceDispath(RequestReducer.setLoading(true));
+    ApiController.createExperience(data)
       .then((response) => {
         console.log(response);
-        createEducationDispath(RequestReducer.setData(response));
+        createExperienceDispath(RequestReducer.setData(response));
 
-        educationDispatch(RequestReducer.setLoading(true));
-        ApiController.getEducation(params)
-          .then((education) => educationDispatch(RequestReducer.setData(education)))
-          .catch((error) => educationDispatch(RequestReducer.setError(error)))
+        experienceDispatch(RequestReducer.setLoading(true));
+        ApiController.getExperience(params)
+          .then((experience) => experienceDispatch(RequestReducer.setData(experience)))
+          .catch((error) => experienceDispatch(RequestReducer.setError(error)))
         closeDialog();
       })
       .catch((error) => {
         console.log(error)
-        createEducationDispath(RequestReducer.setError(error));
+        createExperienceDispath(RequestReducer.setError(error));
       })
   };
 
@@ -55,15 +55,15 @@ const AddEducation = () => {
       </IconButton>
       <EditDialog open={open} setClose={closeDialog} >
         <InputForm 
-          formData={new Education()} 
-          onSubmit={createEducation} 
+          formData={new Experience()} 
+          onSubmit={createExperience} 
           ignoredFields={new Set(['__v', '_id'])} 
-          loading={createEducationState.loading} 
-          error={createEducationState.error}
+          loading={createExperienceState.loading} 
+          error={createExperienceState.error}
         />
       </EditDialog>
     </>
   )
 }
 
-export default AddEducation;
+export default AddExperience;

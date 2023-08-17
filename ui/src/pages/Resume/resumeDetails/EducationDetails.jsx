@@ -21,6 +21,7 @@ const EducationDetails = ({ education }) => {
     return(
         <>
             <Typography variant="body1">
+                <Typography variant="h5">{education.name}</Typography>
                 {`
                 Major: ${education.major} 
                 ${education.minor ? `- Minor: ${education.minor}` : ''} 

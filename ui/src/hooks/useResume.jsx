@@ -34,7 +34,7 @@ export function useResume() {
     error: null,
   });
 
-  const params = useResumeParams();
+const {params} = useResumeParams();
 
   const fetchResumeData = async () => {
     try {
