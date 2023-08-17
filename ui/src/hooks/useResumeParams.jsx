@@ -8,7 +8,6 @@ const useResumeParams = () => {
   const params = resumeCreator ? { username: resumeCreator } : { username: user?.username };
 
   useEffect(()=>{
-
   }, [user?.username])
 
   return params

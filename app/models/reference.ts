@@ -4,7 +4,7 @@ import { peopleFields } from './peopleFields';
 
 const ReferenceSchema = new mongoose.Schema({
     ...peopleFields,
-    userId: {type: String, required: true},
+    userId: { type: mongoose.Schema.Types.ObjectId, required: true },
     relationship: {type: String, required: false }
 })
 

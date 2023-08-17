@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const EducationSchema = new mongoose.Schema({
     name: {type: String, required: true},
-    userId: {type: String, required: true},
+    userId: { type: mongoose.Schema.Types.ObjectId, required: true },
     degreeType: {type: String, required: true},
     major: {type: String, required: true},
     minor: {type: String, required: true},

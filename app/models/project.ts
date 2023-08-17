@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const projectSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
-    userId: {type: String, required: true},
+    userId: { type: mongoose.Schema.Types.ObjectId, required: true },
     link: {type: String, required: true},
     details: { type: [String], required: true },
     tags: {type: [String], required: true},

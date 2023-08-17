@@ -24,7 +24,8 @@ export const ErrorHandler = {
 }
 
 export const mongoQueryFromQueryParams = async (query: Request['query']) => {
-    let mongoQuery: any = {...query, username: undefined};
+    let mongoQuery: any = {...query};
+    delete mongoQuery.username;
     if (query.username) {
         const username = query.username;
         const user = await User.findOne({username: username});
