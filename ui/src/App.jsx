@@ -10,25 +10,30 @@ import { AuthContextProvider } from './context/AuthContext/AuthContextProvider';
 import AuthRoutes from './components/AuthenticatedRoutes';
 import Profile from './pages/Profile/Profile';
 import Register from './pages/Register/Register';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <>
       <AuthContextProvider>
-        <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<HomePage/>} />
-              <Route path="/login" element={<Login/>} />
-              <Route path="/register" element={<Register/>} />
-              <Route Component={MiniDrawer}> 
-                <Route element={<AuthRoutes/>}>
-                  <Route path="/resume/:resumeCreator?" element={<ResumeProvider><Resume /></ResumeProvider>} />
-                  <Route path="/profile" element={<Profile/>} />
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<HomePage/>} />
+                <Route path="/login" element={<Login/>} />
+                <Route path="/register" element={<Register/>} />
+                <Route Component={MiniDrawer}> 
+                  <Route element={<AuthRoutes/>}>
+                    <Route path="/resume/:resumeCreator?" element={<ResumeProvider><Resume /></ResumeProvider>} />
+                    <Route path="/profile" element={<Profile/>} />
+                  </Route>
                 </Route>
-              </Route>
-            </Routes>
-            <Footer/>
-          </BrowserRouter>
+              </Routes>
+              <Footer/>
+            </BrowserRouter>
+          </QueryClientProvider>
       </AuthContextProvider>
     </>
   )

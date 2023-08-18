@@ -1,9 +1,19 @@
 import { useEffect, useReducer } from 'react';
+import { useQuery } from 'react-query'
 import { ApiController } from '../utils/api';
 import { RequestReducer } from '../utils/requestReducer';
 import useResumeParams from './useResumeParams';
 
 export function useResume() {
+  const { params } = useResumeParams();
+  const user = useQuery('user', ()=>ApiController.getUsers(params))
+  const education = useQuery('education', ()=>ApiController.getEducation(params))
+  const projects = useQuery('projects', ()=>ApiController.getProjects(params))
+  const references = useQuery('references', ()=>ApiController.getReferences(params))
+  const experience = useQuery('experience', ()=>ApiController.getExperience(params))
+  const tags = useQuery('tags', ()=>ApiController.getTags())
+  const jobs = useQuery('jobs', ()=>ApiController.getJobs())
+
   const [userState, userDispatch] = useReducer(RequestReducer.reducer, {
     data: null,
     loading: null,
@@ -33,8 +43,6 @@ export function useResume() {
     loading: null,
     error: null,
   });
-
-const {params} = useResumeParams();
 
   const fetchResumeData = async () => {
     try {
@@ -73,6 +81,13 @@ const {params} = useResumeParams();
   }, []);
   return {
     params,
+    user,
+    education,
+    projects,
+    references,
+    experience,
+    tags,
+    jobs,
     userState,
     educationState,
     projectState,

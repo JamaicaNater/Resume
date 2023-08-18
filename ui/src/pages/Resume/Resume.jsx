@@ -18,20 +18,8 @@ import AddProject from "./resumeDetails/AddProject";
 import AddResumeReference from "./resumeDetails/AddResumeReference";
 
 export default function Resume() {
-
-    const [tagState, tagsDispatch] = useReducer(RequestReducer.reducer, {
-        loading: true,
-        data: null,
-        error: null,
-    })
-
-    const [jobState, jobDispatch] = useReducer(RequestReducer.reducer, {
-        loading: true,
-        data: null,
-        error: null,
-    })
    
-    const { tagFilterData, userState, educationState, projectState, referenceState, experienceState } = useContext(ResumeContext);
+    const { tagFilterData, tags, jobs, user, education, projects, references, experience } = useContext(ResumeContext);
 
     const [selectedFilterOption, setSelectedFilterOption] = useState('skill');
 
@@ -51,21 +39,10 @@ export default function Resume() {
 
     const {canEdit} = useResumeParams();
  
-    useEffect(() => {
-        ApiController.getTags()
-            .then(data => tagsDispatch(RequestReducer.setData(data)))
-            .catch(error => tagsDispatch(RequestReducer.setError(error)))
-        
-        jobDispatch(RequestReducer.setLoading(true))
-                ApiController.getJobs()
-                .then(data => jobDispatch(RequestReducer.setData(data)))
-                .catch(error => jobDispatch(RequestReducer.setError(error)))
-    }, []);
-
     return (
         <>
         {
-            tagState.data &&
+            tags.data && jobs.data &&
             <div className="card-container">
                 <Card className="card" style={{animationDelay: getAnimationDelay()}}>
                     <FormControl fullWidth >
@@ -82,26 +59,26 @@ export default function Resume() {
                         </Select>
                     </FormControl>
                     {
-                        selectedFilterOption == 'skill' && (tagState.data && <TagsDisplay skills={tagState.data.map(tag => tag.name)}/> || <Typography>Failed to get tag data</Typography>) ||
-                        selectedFilterOption == 'job' && (jobState.data && <TagsDisplay skills={jobState.data.map(tag => tag.name)}/> || <Typography>Failed to get job data</Typography>)
+                        selectedFilterOption == 'skill' && (tags.data && <TagsDisplay skills={tags.data.map(tag => tag.name)}/> || <Typography>Failed to get tag data</Typography>) ||
+                        selectedFilterOption == 'job' && (jobs.data && <TagsDisplay skills={jobs.data.map(tag => tag.name)}/> || <Typography>Failed to get job data</Typography>)
                     }
                 </Card>
             </div>
         }
         {   
-            userState.data && 
+            user && user.data && user.data[0] &&
             <div className="card-container">
-                <CollapsibleCard className="card" title={`${userState.data.firstName} ${userState.data.lastName}`} defaultExpandedState={true} style={{animationDelay: getAnimationDelay()}}> 
-                    <UserDetails user={userState.data}/>
+                <CollapsibleCard className="card" title={`${user.data[0].firstName} ${user.data[0].lastName}`} defaultExpandedState={true} style={{animationDelay: getAnimationDelay()}}> 
+                    <UserDetails user={user.data[0]}/>
                 </CollapsibleCard>
             </div>
         }
         {   
-            educationState.data && 
+            education && education.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="Education" defaultExpandedState={false} style={{animationDelay: getAnimationDelay()}}> 
                 {
-                    educationState.data.map((education, index, arr) => (    
+                    education.data.map((education, index, arr) => (    
                         <>                    
                             <EducationDetails key={index} education={education}/>
                         {
@@ -122,11 +99,11 @@ export default function Resume() {
             </div>
         }
         {   
-            experienceState.data && 
+            experience && experience.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="Experience" style={{animationDelay: getAnimationDelay()}}> 
                 {
-                    experienceState.data
+                    experience.data
                     .filter(project => tagFilterData.tagFilters.every(filter => project.tags.includes(filter)))
                     .map((experience, index, arr) => (     
                         <>                   
@@ -149,11 +126,11 @@ export default function Resume() {
             </div>
         }
         {   
-            projectState.data && 
+            projects && projects.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="Projects" style={{animationDelay: getAnimationDelay()}}> 
                 {
-                    projectState.data
+                    projects.data
                     .filter(project => tagFilterData.tagFilters.every(filter => project.tags.includes(filter)))
                     .map((project, index, arr) => (
                         <>
@@ -176,11 +153,11 @@ export default function Resume() {
             </div>
         }
         {   
-            referenceState.data && 
+            references && references.data && 
             <div className="card-container">
                 <CollapsibleCard className="card" title="References" defaultExpandedState={true} style={{animationDelay: getAnimationDelay()}}> 
                 {
-                    referenceState.data.map((reference, index, arr) => (
+                    references.data.map((reference, index, arr) => (
                         <>
                             <ReferenceDetails key={index} reference={reference}/>
                         {

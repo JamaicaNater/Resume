@@ -20,7 +20,14 @@ const ResumeProvider = ({ children }) => {
             educationDispatch, 
             projectDispatch, 
             referenceDispatch, 
-            experienceDispatch 
+            experienceDispatch,
+            user,
+            projects,
+            education,
+            experience,
+            references,
+            tags,
+            jobs,
         } = useResume();
 
     return (
@@ -37,7 +44,14 @@ const ResumeProvider = ({ children }) => {
                 educationDispatch, 
                 projectDispatch, 
                 referenceDispatch, 
-                experienceDispatch 
+                experienceDispatch,
+                user,
+                projects,
+                education,
+                experience,
+                references,
+                tags,
+                jobs,
         }}>
             {children}
         </ResumeContext.Provider>
