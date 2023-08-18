@@ -5,7 +5,7 @@ const EducationSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
     degreeType: {type: String, required: true},
     major: {type: String, required: true},
-    minor: {type: String, required: true},
+    minor: {type: String, required: false},
     gpa: {type: Number, required: false},
     details: {type: [String], required: false},
     enrollmentDate: {type: String, required: false},

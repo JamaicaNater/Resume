@@ -1,7 +1,6 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query'
 import { ApiController } from '../utils/api';
-import { RequestReducer } from '../utils/requestReducer';
 import useResumeParams from './useResumeParams';
 
 export function useResume() {
@@ -28,7 +27,7 @@ export function useResume() {
       console.warn("Username is not set")
     }
   }, [params.username]);
-  
+
   return {
     params,
     user,

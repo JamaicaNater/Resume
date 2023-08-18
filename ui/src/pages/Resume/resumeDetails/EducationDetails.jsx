@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
-import { Divider, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import DetailsDisplay from './DetailsDisplay';
 import { useState } from 'react';
-import { ApiController } from '../../../utils/api';
 import EditDialog from '../../../components/EditDialog';
-import InputForm from '../../../components/InputForm';
 
 const EducationDetails = ({ education }) => {
     const editAddMenuInitialState = {

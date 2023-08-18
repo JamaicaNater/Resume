@@ -5,10 +5,10 @@ import EditDialog from '../../../components/EditDialog';
 import InputForm from '../../../components/InputForm';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
+import { PropTypes } from 'prop-types';
 
 
 const PushResumeData = ({queryKey, data, apiCall}) => {
-  console.log(queryKey);
   const { mutate, isLoading, isError } = useMutation({ 
       queryKey: queryKey,
       mutationFn: apiCall,
@@ -52,6 +52,12 @@ const PushResumeData = ({queryKey, data, apiCall}) => {
       </EditDialog>
     </>
   )
+}
+
+PushResumeData.propTypes = {
+  queryKey: PropTypes.array.isRequired,
+  data: PropTypes.node.isRequired,
+  apiCall: PropTypes.func.isRequired,
 }
 
 export default PushResumeData;
