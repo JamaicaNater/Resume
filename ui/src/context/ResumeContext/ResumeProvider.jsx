@@ -11,16 +11,6 @@ const initialState = {
 const ResumeProvider = ({ children }) => {
     const [tagFilterData, setTagFilterData] = useState(initialState);
     const { 
-            userState, 
-            educationState, 
-            projectState, 
-            referenceState, 
-            experienceState, 
-            userDispatch,
-            educationDispatch, 
-            projectDispatch, 
-            referenceDispatch, 
-            experienceDispatch,
             user,
             projects,
             education,
@@ -35,16 +25,6 @@ const ResumeProvider = ({ children }) => {
         value={{ 
                 tagFilterData, 
                 setTagFilterData,
-                userState, 
-                educationState, 
-                projectState, 
-                referenceState, 
-                experienceState, 
-                userDispatch,
-                educationDispatch, 
-                projectDispatch, 
-                referenceDispatch, 
-                experienceDispatch,
                 user,
                 projects,
                 education,

@@ -1,7 +1,7 @@
 import CollapsibleCard from "../../components/CollapsibleCard"
 import EducationDetails from "./resumeDetails/EducationDetails";
 import { ApiController } from "../../utils/api";
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useContext, useState } from "react";
 import ExperienceDetails from "./resumeDetails/ExperienceDetails";
 import ProjectDetails from "./resumeDetails/ProjectDetails";
 import './Resume.css';
@@ -9,13 +9,13 @@ import UserDetails from "./resumeDetails/UserDetails";
 import ReferenceDetails from "./resumeDetails/ReferenceDetails";
 import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import TagsDisplay from "./resumeDetails/TagsDisplay";
-import { RequestReducer } from "../../utils/requestReducer";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
-import AddEducation from "./resumeDetails/AddEducation";
-import AddExperience from "./resumeDetails/AddExperience";
 import useResumeParams from "../../hooks/useResumeParams";
-import AddProject from "./resumeDetails/AddProject";
-import AddResumeReference from "./resumeDetails/AddResumeReference";
+import PushResumeData from "./resumeDetails/PushResumeData";
+import Education from "../../models/Education";
+import Experience from "../../models/Experience";
+import Project from "../../models/Project";
+import Reference from "../../models/Reference";
 
 export default function Resume() {
    
@@ -92,7 +92,7 @@ export default function Resume() {
                 }
                 {                    
                     canEdit && <div>
-                        <AddEducation/>
+                        <PushResumeData queryKey={['education']} data={new Education()} apiCall={ApiController.createEducation}/>
                     </div>
                 }
                 </CollapsibleCard>
@@ -119,7 +119,7 @@ export default function Resume() {
                 }
                 {
                     canEdit && <div>
-                        <AddExperience/>
+                        <PushResumeData queryKey={['experience']} data={new Experience()} apiCall={ApiController.createExperience}/>
                     </div>
                 }
                 </CollapsibleCard>
@@ -146,7 +146,7 @@ export default function Resume() {
                 }
                 {
                     canEdit && <div>
-                        <AddProject/>
+                        <PushResumeData queryKey={['projects']} data={new Project()} apiCall={ApiController.createProject}/>
                     </div>
                 }
                 </CollapsibleCard>
@@ -171,7 +171,7 @@ export default function Resume() {
                 }
                 {
                     canEdit && <div>
-                        <AddResumeReference/>
+                        <PushResumeData queryKey={['references']} data={new Reference()} apiCall={ApiController.createReference}/>
                     </div>
                 }
                 </CollapsibleCard>
