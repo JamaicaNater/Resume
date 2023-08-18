@@ -56,7 +56,7 @@ const PushResumeData = ({queryKey, data, apiCall}) => {
 
 PushResumeData.propTypes = {
   queryKey: PropTypes.array.isRequired,
-  data: PropTypes.node.isRequired,
+  data: PropTypes.any.isRequired,
   apiCall: PropTypes.func.isRequired,
 }
 

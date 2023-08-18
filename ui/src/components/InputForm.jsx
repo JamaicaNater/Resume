@@ -89,7 +89,7 @@ InputForm.propTypes = {
   requiredFields: PropTypes.instanceOf(Set),
   disabledFields: PropTypes.instanceOf(Set),
   ignoredFields: PropTypes.instanceOf(Set),
-  loading: PropTypes.boolean,
+  loading: PropTypes.bool,
   error: PropTypes.node,
 };
 
