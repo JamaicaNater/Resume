@@ -13,6 +13,22 @@ const ReferenceController = {
             return res.status(500).json({ error: 'An error occurred while fetching references.' });
         }
     },
+    updateReference: async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const newData = req.body;
+      
+        try {
+          const updatedReference = await Reference.findOneAndUpdate({ _id: id, userId: req.session.user?.id }, newData, { new: true });
+      
+          if (updatedReference) {
+            res.json(updatedReference);
+          } else {
+            res.status(404).json({ message: 'Reference record not found' });
+          }
+        } catch (error) {
+          res.status(500).json({ message: 'Error updating reference record' });
+        }
+    },
     createReference: async (req: Request, res: Response) => {
         try {
             let { firstName, lastName, phoneNumber, email, relationship } = req.body;

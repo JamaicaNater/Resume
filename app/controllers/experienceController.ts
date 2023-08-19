@@ -13,7 +13,22 @@ const ExperienceController = {
             return res.status(500).json({ error: 'An error occurred while fetching projects.' });
         }
     },
+    updateExperience: async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const newData = req.body;
 
+        try {
+          const updatedExperience = await Experience.findOneAndUpdate({ _id: id, userId: req.session.user?.id }, newData, { new: true });
+      
+          if (updatedExperience) {
+            res.json(updatedExperience);
+          } else {
+            res.status(404).json({ message: 'Experience record not found' });
+          }
+        } catch (error) {
+          res.status(500).json({ message: 'Error updating experience record' });
+        }
+    },
     createExperience: async (req: Request, res: Response) => {
         try {
             const { name, logoLink, position, details, tags, from, to, priority } = req.body

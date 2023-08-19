@@ -1,4 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import EditDialog from '../../../components/EditDialog';
@@ -8,7 +9,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { PropTypes } from 'prop-types';
 
 
-const PushResumeData = ({queryKey, data, apiCall}) => {
+const PushResumeData = ({queryKey, data, apiCall, edit}) => {
   const { mutate, isLoading, isError } = useMutation({ 
       queryKey: queryKey,
       mutationFn: apiCall,
@@ -38,14 +39,21 @@ const PushResumeData = ({queryKey, data, apiCall}) => {
   return (
     <>
       <IconButton onClick={openDialog}>
-        <Typography>Add More</Typography>
-        <AddIcon />
+        { 
+          edit && 
+          <EditIcon />
+          || 
+          <>
+            <Typography>Add More</Typography>
+            <AddIcon />
+          </>
+        }
       </IconButton>
       <EditDialog open={open} setClose={closeDialog} >
         <InputForm 
           formData={data} 
           onSubmit={createData} 
-          ignoredFields={new Set(['__v', '_id'])} 
+          ignoredFields={new Set(['__v', '_id', 'userId'])} 
           loading={isLoading} 
           error={isError}
         />
@@ -58,6 +66,7 @@ PushResumeData.propTypes = {
   queryKey: PropTypes.array.isRequired,
   data: PropTypes.any.isRequired,
   apiCall: PropTypes.func.isRequired,
+  edit: PropTypes.bool
 }
 
 export default PushResumeData;

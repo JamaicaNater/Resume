@@ -22,6 +22,37 @@ const UserController = {
             return res.status(500).json({ error: 'An error occurred while getting user objects.' });
         }
     },
+    updateMe: async (req: Request, res: Response) => {
+        const newData = req.body;
+      
+        try {
+          const updatedUser = await User.findByIdAndUpdate(req.session.user?.id, newData, { new: true });
+      
+          if (updatedUser) {
+            res.json(updatedUser);
+          } else {
+            res.status(404).json({ message: 'User record not found' });
+          }
+        } catch (error) {
+          res.status(500).json({ message: 'Error updating user record' });
+        }
+    },
+    updateUser: async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const newData = req.body;
+      
+        try {
+          const updatedUser = await User.findByIdAndUpdate(id, newData, { new: true });
+      
+          if (updatedUser) {
+            res.json(updatedUser);
+          } else {
+            res.status(404).json({ message: 'User record not found' });
+          }
+        } catch (error) {
+          res.status(500).json({ message: 'Error updating user record' });
+        }
+    },
     postUser: async (req: Request, res: Response) => {
         try {
             const { firstName, lastName, username, phoneNumber, email, skills, details } = req.body;

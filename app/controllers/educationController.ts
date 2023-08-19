@@ -13,6 +13,22 @@ const EducationController = {
             return res.status(500).json({ error: 'An error occurred while fetching education.' });
         }
     },
+    updateEducation: async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const newData = req.body;
+      
+        try {
+          const updatedEducation = await Education.findOneAndUpdate({ _id: id, userId: req.session.user?.id }, newData, { new: true });
+      
+          if (updatedEducation) {
+            res.json(updatedEducation);
+          } else {
+            res.status(404).json({ message: 'Education record not found' });
+          }
+        } catch (error) {
+          res.status(500).json({ message: 'Error updating education record' });
+        }
+    },
     createEducation: async (req: Request, res: Response) => {
         try {
             const { name, degreeType, major, minor, gpa, details, enrollmentDate, graduationDate, city, state, country } = req.body;
