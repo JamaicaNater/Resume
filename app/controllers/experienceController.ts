@@ -26,7 +26,8 @@ const ExperienceController = {
             return res.status(404).json({ message: 'Experience record not found' });
           }
         } catch (error) {
-          return ErrorHandler.post(res, error, "Expereince");
+          console.error(error)
+          return ErrorHandler.post(res, error, "Experience");
         }
     },
     createExperience: async (req: Request, res: Response) => {
@@ -37,7 +38,7 @@ const ExperienceController = {
             return res.json(resJson);
         } catch(error) {
             console.error(error)
-            return ErrorHandler.post(res, error, "Expereince");
+            return ErrorHandler.post(res, error, "Experience");
         }
     }
 };

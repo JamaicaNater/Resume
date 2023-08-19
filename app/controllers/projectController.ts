@@ -26,7 +26,8 @@ export const ProjectController = {
           res.status(404).json({ message: 'Project record not found' });
         }
       } catch (error) {
-        res.status(500).json({ message: 'Error updating project record' });
+        console.error(error)
+        return ErrorHandler.post(res, error, "Project");
       }
   },
   createProject: async (req: Request, res: Response) => {

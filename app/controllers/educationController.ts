@@ -26,7 +26,8 @@ const EducationController = {
             res.status(404).json({ message: 'Education record not found' });
           }
         } catch (error) {
-          res.status(500).json({ message: 'Error updating education record' });
+          console.error(error);
+          return ErrorHandler.post(res, error, "Education");
         }
     },
     createEducation: async (req: Request, res: Response) => {

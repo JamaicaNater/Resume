@@ -1,25 +1,22 @@
 import PropTypes from 'prop-types';
-import EditIcon from '@mui/icons-material/Edit';
 import { Typography } from '@mui/material';
 import './Details.css'
 import TagsDisplay from './TagsDisplay';
 import DetailsDisplay from './DetailsDisplay';
-import EditDialog from '../../../components/EditDialog';
-import { useState } from 'react';
-import InputForm from '../../../components/InputForm';
+import PushResumeData from './PushResumeData';
+import { ApiController } from '../../../utils/api';
 
 const UserDetails = ({ user }) => {   
-    const [editOpen, setEditOpen] = useState(false);
-
-    const [editedUser, setEditedUser] = useState(user)
-
+    const updateSelf = async (user) => {
+        await ApiController.updateMe(user)
+    }
     return(
-        <>
-            {/* <EditIcon className='edit-icon' fontSize='small' onClick={()=>{setEditOpen(true)}} />
-            <EditDialog open={editOpen} setClose={() => {setEditOpen(false)}} >
-                <InputForm formData={editedUser} setFormData={setEditedUser} onSubmit={()=>{}} ignoredFields={new Set(['username', '__v', '_id'])}></InputForm>
-            </EditDialog> */}
-            <Typography variant='body1'>
+        <div className='resume-section-div'>
+            <div className='resume-section-icon-div'>
+                <PushResumeData queryKey={['user']} data={user} apiCall={updateSelf} edit />
+            </div>
+            <div className='resume-section-content-div'>
+                <Typography variant='body1'>
             {
                 user.phoneNumber && (
                 <Typography>
@@ -34,15 +31,10 @@ const UserDetails = ({ user }) => {
             )}
             </Typography>
 
-            { 
-                user.details &&
-                <DetailsDisplay details={user.details} />
-            }
-            {
-                user.skills && 
-                <TagsDisplay skills={user.skills} ></TagsDisplay>
-            }
-        </>
+            { user.details && <DetailsDisplay details={user.details} />}
+            { user.skills && <TagsDisplay skills={user.skills} ></TagsDisplay>}
+            </div>
+        </div>
     );
 }
 

@@ -26,7 +26,8 @@ const ReferenceController = {
             res.status(404).json({ message: 'Reference record not found' });
           }
         } catch (error) {
-          res.status(500).json({ message: 'Error updating reference record' });
+          console.error(error);
+          return ErrorHandler.post(res, error, "Reference");
         }
     },
     createReference: async (req: Request, res: Response) => {

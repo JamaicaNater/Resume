@@ -67,7 +67,8 @@ export const ApiController = {
     },
 
     updateMe: async (user, queryParams) => {
-        return genericPut('users/me', user, queryParams);
+        console.log(user);
+        return genericPut('users/me', '', user, queryParams);
     },
     
     getUsers: async (queryParams) => {

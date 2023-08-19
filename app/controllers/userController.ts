@@ -34,7 +34,8 @@ const UserController = {
             res.status(404).json({ message: 'User record not found' });
           }
         } catch (error) {
-          res.status(500).json({ message: 'Error updating user record' });
+          console.error(error);
+          return ErrorHandler.post(res, error, "User"); 
         }
     },
     updateUser: async (req: Request, res: Response) => {
@@ -50,7 +51,8 @@ const UserController = {
             res.status(404).json({ message: 'User record not found' });
           }
         } catch (error) {
-          res.status(500).json({ message: 'Error updating user record' });
+          console.error(error);
+          return ErrorHandler.post(res, error, "User"); 
         }
     },
     postUser: async (req: Request, res: Response) => {

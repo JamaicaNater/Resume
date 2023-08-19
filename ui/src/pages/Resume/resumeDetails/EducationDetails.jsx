@@ -1,55 +1,52 @@
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import DetailsDisplay from './DetailsDisplay';
-import { useState } from 'react';
-import EditDialog from '../../../components/EditDialog';
+import { ApiController } from '../../../utils/api';
+import PushResumeData from './PushResumeData';
 
 const EducationDetails = ({ education }) => {
-    const editAddMenuInitialState = {
-        isOpen: false,
-        apiRequest: () => {}
+    const updateEducation = async (newData) => {
+        await ApiController.updateEducatione(newData, education._id)
     }
 
-    const [addEditMenu, setAddEditMenu] = useState(editAddMenuInitialState);
-
-    const closeEditAddMenu = () => {
-        setAddEditMenu(editAddMenuInitialState)
-    }
 
     return(
-        <>
-            <Typography variant="body1">
+        <div className='resume-section-div'>
+            <div className='resume-section-icon-div'>
+                <PushResumeData queryKey={['education']} data={education} apiCall={updateEducation} edit />
+            </div>
+            <div className='resume-section-content-div'>
+                <Typography variant="body1">
                 <Typography variant="h5">{education.name}</Typography>
-                {`
+            {`
                 Major: ${education.major} 
                 ${education.minor ? `- Minor: ${education.minor}` : ''} 
                 - ${education.degreeType}
                 ${education.gpa ? `- GPA: ${education.gpa}` : ''}
-                `}
+            `}
                 <br />
-                {`
+            {`
                 ${education.enrollmentDate}
                 ${education.graduationDate ? ` - ${education.graduationDate}` : ' - Present'}
-                `}
+            `}
                 <br />
-                {`
+            {`
                 ${education.city ? education.city: ''}
                 ${education.state ? education.state: ''}
                 ${education.country ? education.country: ''}
-                `}
-            </Typography>
+            `}
+                </Typography>
             { education.details &&
                 <DetailsDisplay details={education.details} />
             }
-            <EditDialog open={addEditMenu.isOpen} setClose={closeEditAddMenu} >
-                {/* <InputForm formData={editedUser} setFormData={setEditedUser} ignoredFields={new Set(['username', '__v', '_id'])}></InputForm> */}
-            </EditDialog>
-        </>
+            </div>
+        </div>
     );
 }
 
 EducationDetails.propTypes = {
     education: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired, 
         details: PropTypes.array,
         major: PropTypes.string.isRequired,

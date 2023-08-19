@@ -12,20 +12,20 @@ const ExperienceDetails = ({ experience }) => {
     }
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={{ alignSelf: 'flex-end', marginTop: '-1rem' }}>
-            <PushResumeData queryKey={['experience']} data={experience} apiCall={updateExperience} edit />
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '-1.5rem' }}>
-            <Typography variant='h5' gutterBottom>
-              {experience.name}
-              {experience.position && (
-                <Typography sx={{ fontStyle: 'italic' }}>{experience.position}</Typography>
-              )}
-            </Typography>
-            {experience.details && <DetailsDisplay details={experience.details} />}
-            {experience.tags && <TagsDisplay skills={experience.tags} />}
-          </div>
+        <div className='resume-section-div'>
+            <div className='resume-section-icon-div'>
+                <PushResumeData queryKey={['experience']} data={experience} apiCall={updateExperience} edit />
+            </div>
+            <div className='resume-section-content-div'>
+                <Typography variant='h5' gutterBottom>
+                {experience.name}
+                {experience.position && (
+                    <Typography sx={{ fontStyle: 'italic' }}>{experience.position}</Typography>
+                )}
+                </Typography>
+                {experience.details && <DetailsDisplay details={experience.details} />}
+                {experience.tags && <TagsDisplay skills={experience.tags} />}
+            </div>
         </div>
       );
     };
