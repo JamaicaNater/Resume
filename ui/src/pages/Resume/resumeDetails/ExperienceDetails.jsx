@@ -5,16 +5,22 @@ import TagsDisplay from './TagsDisplay';
 import DetailsDisplay from './DetailsDisplay';
 import PushResumeData from './PushResumeData';
 import { ApiController } from '../../../utils/api';
+import DeleteResumeData from './DeleteResumeData';
 
 const ExperienceDetails = ({ experience }) => {
     const updateExperience = async (newData) => {
         await ApiController.updateExperience(newData, experience._id)
     }
 
+    const deleteExperience = async () => {
+        await ApiController.deleteExperience(experience._id);
+    }
+
     return (
         <div className='resume-section-div'>
             <div className='resume-section-icon-div'>
                 <PushResumeData queryKey={['experience']} data={experience} apiCall={updateExperience} edit />
+                <DeleteResumeData queryKey={['experience']} apiCall={deleteExperience}/>
             </div>
             <div className='resume-section-content-div'>
                 <Typography variant='h5' gutterBottom>

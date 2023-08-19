@@ -25,6 +25,10 @@ export const ApiController = {
     updateExperience: async (experience, id, queryParams) => {
         return genericPut('experience', id, experience, queryParams);
     },
+
+    deleteExperience: async (id, queryParams) => {
+        return genericDelete('experience', id, queryParams);
+    },
     
     getEducation: async (queryParams) => {
         return genericGet('education', queryParams);
@@ -32,6 +36,10 @@ export const ApiController = {
 
     updateEducatione: async (education, id, queryParams) => {
         return genericPut('education', id, education, queryParams);
+    },
+
+    deleteEducation: async (id, queryParams) => {
+        return genericDelete('education', id, queryParams);
     },
 
     createEducation: async (education, queryParams) => {
@@ -46,12 +54,20 @@ export const ApiController = {
         return genericPut('projects', id, project, queryParams);
     },
 
+    deleteProject: async (id, queryParams) => {
+        return genericDelete('projects', id, queryParams);
+    },
+
     createProject: async (project, queryParams) => {
         return genericPost('projects', project, queryParams);
     },
     
     getReferences: async (queryParams) => {
         return genericGet('references', queryParams);
+    },
+
+    deleteReference: async (id, queryParams) => {
+        return genericDelete('references', id, queryParams);
     },
 
     updateReference: async (reference, id, queryParams) => {
@@ -149,6 +165,24 @@ async function genericPut(endpoint, id, payload, queryParams) {
         };
 
         const response = await instance.put(`/${endpoint}/${id}${params ?? ''}`, payload, config);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+async function genericDelete(endpoint, id, queryParams) {
+    try {
+        let params = '';
+        if (queryParams) {
+            const paramStrings = Object.keys(queryParams).map((param) => {
+                return `${param}=${queryParams[param]}`;
+            });
+            params = '?' + paramStrings.join('&');
+        }
+
+        const response = await instance.delete(`/${endpoint}/${id}${params ?? ''}`);
         return response.data;
     } catch (error) {
         console.error(error);

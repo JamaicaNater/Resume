@@ -30,6 +30,22 @@ const EducationController = {
           return ErrorHandler.post(res, error, "Education");
         }
     },
+    deleteEducation: async (req: Request, res: Response) => {
+      const { id } = req.params;
+    
+      try {
+        const deletedEducation = await Education.findOneAndDelete({ _id: id, userId: req.session.user?.id });
+    
+        if (deletedEducation) {
+          res.json(deletedEducation);
+        } else {
+          res.status(404).json({ message: 'Education record not found' });
+        }
+      } catch (error) {
+        console.error(error);
+        return ErrorHandler.post(res, error, "Education");
+      }
+  },
     createEducation: async (req: Request, res: Response) => {
         try {
             const { name, degreeType, major, minor, gpa, details, enrollmentDate, graduationDate, city, state, country } = req.body;

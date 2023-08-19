@@ -3,10 +3,15 @@ import { Typography } from '@mui/material';
 import DetailsDisplay from './DetailsDisplay';
 import { ApiController } from '../../../utils/api';
 import PushResumeData from './PushResumeData';
+import DeleteResumeData from './DeleteResumeData';
 
 const EducationDetails = ({ education }) => {
     const updateEducation = async (newData) => {
         await ApiController.updateEducatione(newData, education._id)
+    }
+
+    const deleteEducation = async () => {
+        await ApiController.deleteEducation(education._id);
     }
 
 
@@ -14,6 +19,7 @@ const EducationDetails = ({ education }) => {
         <div className='resume-section-div'>
             <div className='resume-section-icon-div'>
                 <PushResumeData queryKey={['education']} data={education} apiCall={updateEducation} edit />
+                <DeleteResumeData queryKey={['education']} apiCall={deleteEducation}/>
             </div>
             <div className='resume-section-content-div'>
                 <Typography variant="body1">

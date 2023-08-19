@@ -30,6 +30,22 @@ const ExperienceController = {
           return ErrorHandler.post(res, error, "Experience");
         }
     },
+    deleteExperience: async (req: Request, res: Response) => {
+      const { id } = req.params;
+
+      try {
+        const deletedExperience = await Experience.findOneAndDelete({ _id: id, userId: req.session.user?.id });
+    
+        if (deletedExperience) {
+          return res.json(deletedExperience);
+        } else {
+          return res.status(404).json({ message: 'Experience record not found' });
+        }
+      } catch (error) {
+        console.error(error)
+        return ErrorHandler.post(res, error, "Experience");
+      }
+    },
     createExperience: async (req: Request, res: Response) => {
         try {
             const { name, logoLink, position, details, tags, from, to, priority } = req.body
