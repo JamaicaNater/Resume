@@ -5,16 +5,22 @@ import TagsDisplay from './TagsDisplay';
 import DetailsDisplay from './DetailsDisplay';
 import PushResumeData from './PushResumeData';
 import { ApiController } from '../../../utils/api';
+import DeleteResumeData from './DeleteResumeData';
 
 const ProjectDetails = ({ project }) => { 
     const updateProject = async (newData) => {
         await ApiController.updateProject(newData, project._id)
     }
 
+    const deleteProject = async () => {
+        await ApiController.deleteProject(project._id);
+    }
+
     return(
         <div className='resume-section-div'>
             <div className='resume-section-icon-div'>
                 <PushResumeData queryKey={['projects']} data={project} apiCall={updateProject} edit />
+                <DeleteResumeData queryKey={['projects']} apiCall={deleteProject}/>
             </div>
             <div className='resume-section-content-div'>
                 <Typography variant='h5'>

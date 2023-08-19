@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material"
+import { CircularProgress, IconButton } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useMutation, useQueryClient } from "react-query";
 import { PropTypes } from 'prop-types';
@@ -6,7 +6,7 @@ import { PropTypes } from 'prop-types';
 const DeleteResumeData = ({queryKey, apiCall}) => {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({ 
+  const { mutate, isLoading } = useMutation({ 
     queryKey: queryKey,
     mutationFn: apiCall,
   });
@@ -21,7 +21,10 @@ const DeleteResumeData = ({queryKey, apiCall}) => {
 
   return (
     <IconButton onClick={deleteData}>
-      <DeleteIcon sx={{fontSize: '1rem'}} />
+      {
+        isLoading && <CircularProgress size="1rem"/> ||
+        <DeleteIcon sx={{fontSize: '1rem'}} />
+      }
     </IconButton>
   )
 }

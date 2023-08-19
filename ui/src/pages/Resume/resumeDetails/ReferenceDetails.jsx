@@ -2,10 +2,15 @@ import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import { ApiController } from '../../../utils/api';
 import PushResumeData from './PushResumeData';
+import DeleteResumeData from './DeleteResumeData';
 
 const ReferenceDetails = ({ reference }) => {
     const updateReference = async (newData) => {
         await ApiController.updateReference(newData, reference._id)
+    }
+
+    const deleteReference = async () => {
+        await ApiController.deleteReference(reference._id);
     }
 
 
@@ -13,6 +18,7 @@ const ReferenceDetails = ({ reference }) => {
         <div className='resume-section-div'>
             <div className='resume-section-icon-div'>
                 <PushResumeData queryKey={['references']} data={reference} apiCall={updateReference} edit />
+                <DeleteResumeData queryKey={['references']} apiCall={deleteReference}/>
             </div>
             <div className='resume-section-content-div'>
                 <Typography variant="body1">
