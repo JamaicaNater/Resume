@@ -21,12 +21,12 @@ const ExperienceController = {
           const updatedExperience = await Experience.findOneAndUpdate({ _id: id, userId: req.session.user?.id }, newData, { new: true });
       
           if (updatedExperience) {
-            res.json(updatedExperience);
+            return res.json(updatedExperience);
           } else {
-            res.status(404).json({ message: 'Experience record not found' });
+            return res.status(404).json({ message: 'Experience record not found' });
           }
         } catch (error) {
-          res.status(500).json({ message: 'Error updating experience record' });
+          return ErrorHandler.post(res, error, "Expereince");
         }
     },
     createExperience: async (req: Request, res: Response) => {

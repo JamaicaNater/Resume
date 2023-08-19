@@ -7,8 +7,8 @@ import PushResumeData from './PushResumeData';
 import { ApiController } from '../../../utils/api';
 
 const ExperienceDetails = ({ experience }) => {
-    const updateExperience = (newData) => {
-        ApiController.updateExperience(newData, experience._id)
+    const updateExperience = async (newData) => {
+        await ApiController.updateExperience(newData, experience._id)
     }
 
     return (

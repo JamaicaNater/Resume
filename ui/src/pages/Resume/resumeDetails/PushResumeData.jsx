@@ -10,7 +10,7 @@ import { PropTypes } from 'prop-types';
 
 
 const PushResumeData = ({queryKey, data, apiCall, edit}) => {
-  const { mutate, isLoading, isError } = useMutation({ 
+  const { mutate, isLoading, error } = useMutation({ 
       queryKey: queryKey,
       mutationFn: apiCall,
     });
@@ -32,7 +32,7 @@ const PushResumeData = ({queryKey, data, apiCall, edit}) => {
       onSuccess: () => {
         queryClient.invalidateQueries(queryKey)
         closeDialog();
-      }
+      },
     })
   };
 
@@ -55,7 +55,7 @@ const PushResumeData = ({queryKey, data, apiCall, edit}) => {
           onSubmit={createData} 
           ignoredFields={new Set(['__v', '_id', 'userId'])} 
           loading={isLoading} 
-          error={isError}
+          error={error}
         />
       </EditDialog>
     </>

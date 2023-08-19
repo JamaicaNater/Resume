@@ -74,7 +74,7 @@ const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredF
         </Button>
       }
       {
-        error && 
+        error &&
         <>
           <Typography color={'red'}>Error: {error?.response?.data?.error}</Typography>
         </>
