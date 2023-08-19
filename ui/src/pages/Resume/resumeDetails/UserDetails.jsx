@@ -15,10 +15,10 @@ const UserDetails = ({ user }) => {
 
     return(
         <>
-            <EditIcon className='edit-icon' fontSize='small' onClick={()=>{setEditOpen(true)}} />
+            {/* <EditIcon className='edit-icon' fontSize='small' onClick={()=>{setEditOpen(true)}} />
             <EditDialog open={editOpen} setClose={() => {setEditOpen(false)}} >
                 <InputForm formData={editedUser} setFormData={setEditedUser} onSubmit={()=>{}} ignoredFields={new Set(['username', '__v', '_id'])}></InputForm>
-            </EditDialog>
+            </EditDialog> */}
             <Typography variant='body1'>
             {
                 user.phoneNumber && (

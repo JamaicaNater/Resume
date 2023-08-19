@@ -41,7 +41,7 @@ const PushResumeData = ({queryKey, data, apiCall, edit}) => {
       <IconButton onClick={openDialog}>
         { 
           edit && 
-          <EditIcon />
+          <EditIcon sx={{fontSize: '1rem'}} />
           || 
           <>
             <Typography>Add More</Typography>
