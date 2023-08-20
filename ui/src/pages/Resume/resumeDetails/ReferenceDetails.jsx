@@ -3,8 +3,11 @@ import { Typography } from '@mui/material';
 import { ApiController } from '../../../utils/api';
 import PushResumeData from './PushResumeData';
 import DeleteResumeData from './DeleteResumeData';
+import useResumeParams from '../../../hooks/useResumeParams';
 
 const ReferenceDetails = ({ reference }) => {
+    const { canEdit } = useResumeParams();
+    
     const updateReference = async (newData) => {
         await ApiController.updateReference(newData, reference._id)
     }
@@ -15,12 +18,16 @@ const ReferenceDetails = ({ reference }) => {
 
 
     return(
-        <div className='resume-section-div'>
-            <div className='resume-section-icon-div'>
+        <div className={canEdit ? 'resume-section-div' : ''}>
+            <div className={canEdit ? 'resume-section-icon-div' : ''}>
+            {
+            canEdit && <>
                 <PushResumeData queryKey={['references']} data={reference} apiCall={updateReference} edit />
                 <DeleteResumeData queryKey={['references']} apiCall={deleteReference}/>
+            </>    
+            }
             </div>
-            <div className='resume-section-content-div'>
+            <div className={canEdit ? 'resume-section-content-div' : ''}>
                 <Typography variant="body1">
                 {reference.firstName} {reference.lastName}
                 {reference.email && <Typography>Email: {reference.email}</Typography>}

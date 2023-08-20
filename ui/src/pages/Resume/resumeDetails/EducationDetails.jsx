@@ -4,8 +4,11 @@ import DetailsDisplay from './DetailsDisplay';
 import { ApiController } from '../../../utils/api';
 import PushResumeData from './PushResumeData';
 import DeleteResumeData from './DeleteResumeData';
+import useResumeParams from '../../../hooks/useResumeParams';
 
 const EducationDetails = ({ education }) => {
+    const { canEdit } = useResumeParams();
+
     const updateEducation = async (newData) => {
         await ApiController.updateEducatione(newData, education._id)
     }
@@ -16,12 +19,16 @@ const EducationDetails = ({ education }) => {
 
 
     return(
-        <div className='resume-section-div'>
-            <div className='resume-section-icon-div'>
-                <PushResumeData queryKey={['education']} data={education} apiCall={updateEducation} edit />
-                <DeleteResumeData queryKey={['education']} apiCall={deleteEducation}/>
+        <div className={canEdit ? 'resume-section-div' : '' }>
+            <div className={canEdit ? 'resume-section-icon-div' : ''}>
+                {  canEdit &&              
+                <>
+                    <PushResumeData queryKey={['education']} data={education} apiCall={updateEducation} edit />
+                    <DeleteResumeData queryKey={['education']} apiCall={deleteEducation}/>
+                </>
+                }
             </div>
-            <div className='resume-section-content-div'>
+            <div className={canEdit ? 'resume-section-content-div': ''}>
                 <Typography variant="body1">
                 <Typography variant="h5">{education.name}</Typography>
             {`

@@ -6,8 +6,11 @@ import DetailsDisplay from './DetailsDisplay';
 import PushResumeData from './PushResumeData';
 import { ApiController } from '../../../utils/api';
 import DeleteResumeData from './DeleteResumeData';
+import useResumeParams from '../../../hooks/useResumeParams';
 
 const ProjectDetails = ({ project }) => { 
+    const { canEdit } = useResumeParams();
+
     const updateProject = async (newData) => {
         await ApiController.updateProject(newData, project._id)
     }
@@ -17,12 +20,16 @@ const ProjectDetails = ({ project }) => {
     }
 
     return(
-        <div className='resume-section-div'>
-            <div className='resume-section-icon-div'>
-                <PushResumeData queryKey={['projects']} data={project} apiCall={updateProject} edit />
-                <DeleteResumeData queryKey={['projects']} apiCall={deleteProject}/>
+        <div className={canEdit ? 'resume-section-div': ''}>
+            <div className={canEdit ? 'resume-section-icon-div' : ''}>
+                {
+                canEdit && <>
+                    <PushResumeData queryKey={['projects']} data={project} apiCall={updateProject} edit />
+                    <DeleteResumeData queryKey={['projects']} apiCall={deleteProject}/>
+                </>
+                }
             </div>
-            <div className='resume-section-content-div'>
+            <div className={canEdit ? 'resume-section-content-div' : ''}>
                 <Typography variant='h5'>
             {
                 project.link ? (
