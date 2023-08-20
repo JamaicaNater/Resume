@@ -25,8 +25,9 @@ function App() {
                 <Route path="/login" element={<Login/>} />
                 <Route path="/register" element={<Register/>} />
                 <Route Component={MiniDrawer}> 
+                  <Route path="/resume/:resumeCreator" element={<ResumeProvider><Resume /></ResumeProvider>} />
                   <Route element={<AuthRoutes/>}>
-                    <Route path="/resume/:resumeCreator?" element={<ResumeProvider><Resume /></ResumeProvider>} />
+                    <Route path="/resume" element={<ResumeProvider><Resume /></ResumeProvider>} />
                     <Route path="/profile" element={<Profile/>} />
                   </Route>
                 </Route>

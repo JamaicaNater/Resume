@@ -19,7 +19,7 @@ const ProfileMenu = () => {
         setAnchorElUser(null);
     };
 
-    const settingsMap = {
+    const settingsMap = user ? {
         'Profile': () => {
           navigate('/profile')
           handleCloseUserMenu();
@@ -34,7 +34,14 @@ const ProfileMenu = () => {
           logout();
           handleCloseUserMenu();
         }
-    };
+    } :
+    {
+      'Login / Register': () => {
+        navigate('/login')
+        handleCloseUserMenu();
+      }, 
+    }
+    ;
 
     return(
         <>

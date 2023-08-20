@@ -114,7 +114,13 @@ const Login = () => {
             <div className="centered-container">
                 <Card sx={{padding: '1.5rem'}}>
                     <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-                        <Typography variant="h6">You must login to continue</Typography>
+                        <CardMedia
+                            component="img"
+                            height="50"
+                            image={'/logo/DynamicResumeLogoWithWords.png'}
+                            alt="Logo"
+                        />
+                        <Typography variant="h6">Login</Typography>
                         <Button 
                             variant="contained" 
                             component={Link} 
@@ -123,7 +129,7 @@ const Login = () => {
                                 'redirect_uri=https://localhost:443/login&response_type=code&' +
                                 'scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline&prompt=consent'} 
                             >
-                            Login
+                            Login / Register
                         </Button>
                     </CardContent>
                 </Card>

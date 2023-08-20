@@ -44,7 +44,8 @@ app.use(requireAuth.unless({
     '/auth',
     '/auth/'
   ],
-  method: ['OPTIONS']
+  // TODO: MAKE MORE RESTRICTIVE
+  method: ['OPTIONS', 'GET']
 }));
 
 app.use(requireId.unless({
