@@ -1,12 +1,7 @@
 import { Chip } from "@mui/material"
 import { PropTypes } from "prop-types"
-import { useContext } from "react"
-import ResumeContext from "../../../context/ResumeContext/ResumeContext"
 
-
-const TagsDisplay = ({ skills }) => {
-    const { tagFilters: tagsSelected, setTagFilters: setTagsSelected, filterTag, unfilterTag } = useContext(ResumeContext)
-
+const TagsDisplay = ({ skills, tagsSelected, setTagsSelected }) => { 
     const formatTag = (input) => {
         const wordsArray = input.split(/-/);
     

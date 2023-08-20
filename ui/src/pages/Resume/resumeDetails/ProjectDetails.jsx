@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import './Details.css'
-import TagsDisplay from './TagsDisplay';
 import DetailsDisplay from './DetailsDisplay';
 import PushResumeData from './PushResumeData';
 import { ApiController } from '../../../utils/api';
 import DeleteResumeData from './DeleteResumeData';
 import useResumeParams from '../../../hooks/useResumeParams';
+import TagsFilter from './TagsFilter';
 
 const ProjectDetails = ({ project }) => { 
     const { canEdit } = useResumeParams();
-    
+
     const updateProject = async (newData) => {
         await ApiController.updateProject(newData, project._id)
     }
@@ -41,7 +41,7 @@ const ProjectDetails = ({ project }) => {
             )}
             </Typography>
             { project.details && <DetailsDisplay details={project.details} /> }
-            { project.tags && <TagsDisplay skills={project.tags} /> }
+            { project.tags && <TagsFilter skills={project.tags} /> }
             </div>
         </div>
     );

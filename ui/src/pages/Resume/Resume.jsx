@@ -8,7 +8,6 @@ import './Resume.css';
 import UserDetails from "./resumeDetails/UserDetails";
 import ReferenceDetails from "./resumeDetails/ReferenceDetails";
 import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
-import TagsDisplay from "./resumeDetails/TagsDisplay";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
 import useResumeParams from "../../hooks/useResumeParams";
 import PushResumeData from "./resumeDetails/PushResumeData";
@@ -16,6 +15,7 @@ import Education from "../../models/Education";
 import Experience from "../../models/Experience";
 import Project from "../../models/Project";
 import Reference from "../../models/Reference";
+import TagsFilter from "./resumeDetails/TagsFilter";
 
 export default function Resume() {
    
@@ -59,8 +59,8 @@ export default function Resume() {
                         </Select>
                     </FormControl>
                     {
-                        selectedFilterOption == 'skill' && (tags.data && <TagsDisplay skills={tags.data.map(tag => tag.name)}/> || <Typography>Failed to get tag data</Typography>) ||
-                        selectedFilterOption == 'job' && (jobs.data && <TagsDisplay skills={jobs.data.map(tag => tag.name)}/> || <Typography>Failed to get job data</Typography>)
+                        selectedFilterOption == 'skill' && (tags.data && <TagsFilter skills={tags.data.map(tag => tag.name)}/> || <Typography>Failed to get tag data</Typography>) ||
+                        selectedFilterOption == 'job' && (jobs.data && <TagsFilter skills={jobs.data.map(tag => tag.name)}/> || <Typography>Failed to get job data</Typography>)
                     }
                 </Card>
             </div>

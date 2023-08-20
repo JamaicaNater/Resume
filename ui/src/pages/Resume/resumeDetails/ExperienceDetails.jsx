@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import './Details.css'
-import TagsDisplay from './TagsDisplay';
 import DetailsDisplay from './DetailsDisplay';
 import PushResumeData from './PushResumeData';
 import { ApiController } from '../../../utils/api';
 import DeleteResumeData from './DeleteResumeData';
 import useResumeParams from '../../../hooks/useResumeParams';
+import TagsFilter from './TagsFilter';
 
 const ExperienceDetails = ({ experience }) => {
     const { canEdit } = useResumeParams();
@@ -38,7 +38,7 @@ const ExperienceDetails = ({ experience }) => {
                 )}
                 </Typography>
                 {experience.details && <DetailsDisplay details={experience.details} />}
-                {experience.tags && <TagsDisplay skills={experience.tags} />}
+                {experience.tags && <TagsFilter skills={experience.tags} />}
             </div>
         </div>
       );

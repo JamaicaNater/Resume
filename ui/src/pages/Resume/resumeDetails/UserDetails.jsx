@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import './Details.css'
-import TagsDisplay from './TagsDisplay';
 import DetailsDisplay from './DetailsDisplay';
 import PushResumeData from './PushResumeData';
 import { ApiController } from '../../../utils/api';
+import TagsFilter from './TagsFilter';
 
 const UserDetails = ({ user }) => {   
     const updateSelf = async (user) => {
@@ -32,7 +32,7 @@ const UserDetails = ({ user }) => {
             </Typography>
 
             { user.details && <DetailsDisplay details={user.details} />}
-            { user.skills && <TagsDisplay skills={user.skills} ></TagsDisplay>}
+            { user.skills && <TagsFilter skills={user.skills} />}
             </div>
         </div>
     );
