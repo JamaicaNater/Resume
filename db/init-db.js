@@ -25,7 +25,7 @@ const userData = [{
     [
       'I am a young professional with a passion for back-end applications, however, I love all kinds of software development.'
     ],
-  skills: ['sql', 'java', 'node.js', 'react.js', 'kubernetes', 'docker', 'c', 'c++', 'rust', 'spring']
+  tags: ['sql', 'java', 'node.js', 'react.js', 'kubernetes', 'docker', 'c', 'c++', 'rust', 'spring']
 }];
 
 
@@ -33,7 +33,6 @@ async function addResumeData() {
   try {
     db.createCollection('users');
     const result = await db.users.insertMany(userData);
-    console.log(result)
     const userId = result.insertedIds[0];
 
     const experienceData = [
@@ -185,8 +184,8 @@ async function addResumeData() {
         minor: "Mathermatics",
         gpa: 3.73,
         details: null,
-        enrollmentDate: "2019-8",
-        graduationDate: "2022-5",
+        startDate: "2019-8",
+        endDate: "2022-5",
         city: "San Marcos",
         state: "TX",
         country: "United States"
