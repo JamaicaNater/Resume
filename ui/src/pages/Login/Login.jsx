@@ -45,7 +45,7 @@ const Login = () => {
                     console.log('Error:', error.message);
                 }
             })
-        } 
+        }
     }, [])
 
     const authenticate = async () => {
@@ -116,11 +116,10 @@ const Login = () => {
                     <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                         <CardMedia
                             component="img"
-                            height="50"
                             image={'/logo/DynamicResumeLogoWithWords.png'}
                             alt="Logo"
                         />
-                        <Typography variant="h6">Login</Typography>
+                        <Typography variant="h3">Welcome to Dynamic Resume</Typography>
                         <Button 
                             variant="contained" 
                             component={Link} 
@@ -129,7 +128,7 @@ const Login = () => {
                                 'redirect_uri=https://localhost:443/login&response_type=code&' +
                                 'scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline&prompt=consent'} 
                             >
-                            Login / Register
+                            Continue with Google
                         </Button>
                     </CardContent>
                 </Card>

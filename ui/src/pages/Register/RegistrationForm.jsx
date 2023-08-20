@@ -1,10 +1,11 @@
 import { useContext, useEffect, useReducer, useState } from "react";
 import { useNavigate } from 'react-router-dom'
-import { Typography } from "@mui/material"; // Using Material-UI components
+import { Button, CircularProgress, TextField, Typography } from "@mui/material"; // Using Material-UI components
 import { ApiController } from "../../utils/api";
 import { RequestReducer } from "../../utils/requestReducer"
 import AuthContext from "../../context/AuthContext/AuthContext";
 import InputForm from "../../components/InputForm";
+import { camelCaseToCapitalizedWords } from "../../utils/formatting";
 
 const RegistrationForm = () => {
    const { user, login } = useContext(AuthContext)
@@ -44,18 +45,50 @@ const RegistrationForm = () => {
     })
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
 
   return (
     <>
       <Typography variant="h5">Create an Account</Typography>
-      <InputForm 
-        formData={formData} 
-        onSubmit={createUser}
-        loading={createUserState.loading}
-        error={createUserState.error}
-        disabledFields={new Set(['email'])}
-        requiredFields={new Set(Object.keys(formData))}
-      />
+      <form onSubmit={createUser} style={{ display: "flex", flexDirection: "column" }}>
+      {
+        Object.keys(formData).map((key, index) => 
+            <TextField 
+              sx={{ marginBottom: '.5rem'}}
+              key={index}
+              label={camelCaseToCapitalizedWords(key)}
+              name={key}
+              value={formData[key]}
+              onChange={handleChange}
+              disabled={['email'].includes(key)}
+            />
+          )
+      }
+      {
+        createUserState.loading ? (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50px' }}>
+            <CircularProgress />
+          </div>
+        ) : (
+          <Button type="submit" variant="contained" color="primary" sx={{ marginTop: '1rem' }}>
+            Submit
+          </Button>
+        )
+      }
+      {
+        createUserState.error &&
+        <>
+          <Typography color={'red'}>Error: {createUserState.error?.response?.data?.error}</Typography>
+        </>
+      }
+      </form>
     </>
   );
 };
