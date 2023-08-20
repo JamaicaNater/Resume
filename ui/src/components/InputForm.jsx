@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
-import { TextField, Button, Typography, CircularProgress, TextareaAutosize } from "@mui/material"; // Using Material-UI components
+import { useContext, useEffect, useState } from "react";
+import { TextField, Button, Typography, CircularProgress, TextareaAutosize, Container } from "@mui/material"; // Using Material-UI components
 import { camelCaseToCapitalizedWords } from "../utils/formatting";
 import { PropTypes } from "prop-types";
+import TagsDisplay from "../pages/Resume/resumeDetails/TagsDisplay";
+import ResumeContext from "../context/ResumeContext/ResumeContext";
 
 const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredFields, loading, error}) => {
   const [newFormData, setNewFormData] = useState(formData);
+
+  const { tags } = useContext(ResumeContext)
 
   useEffect(() => {
     console.log('formdata',formData)
@@ -25,6 +29,13 @@ const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredF
     } catch (error) {
       console.error(error)
     }
+  };
+
+  const setTags = (newTags) => {
+    setNewFormData({
+      ...newFormData,
+      tags: newTags,
+    });
   };
 
   return (
@@ -53,9 +64,17 @@ const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredF
             )
           }
 
+          if (key === 'tags') {
+            return (
+              <Container key={index}>
+                <TagsDisplay key={index} tags={tags.data.map(tag => tag.name)} tagsSelected={newFormData.tags ?? []} setTagsSelected={setTags}/>
+              </Container>
+            )
+          }
+
           return (
             <TextField 
-              sx={{ marginBottom: '.5rem', width: '40vh' }}
+              sx={{ marginBottom: '.5rem'}}
               key={index}
               label={camelCaseToCapitalizedWords(key)}
               name={key}

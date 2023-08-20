@@ -37,16 +37,15 @@ const TagsDisplay = ({ tags, tagsSelected, setTagsSelected }) => {
         {
             tags.map((skill, index) => (
                 <Chip 
-                        className='chip' 
-                        key={index} 
-                        label={formatTag(skill)} 
-                        variant={ tagSelected(skill) ? "filled": "outlined" } 
-                        onClick={() => handleClipClick(skill)} 
-                        sx={{
-                            marginTop: '1rem',
-                            marginBottom: '1rem',
-                            marginRight: '.5rem'
-                        }}
+                    key={index} 
+                    label={formatTag(skill)} 
+                    variant={ tagSelected(skill) ? "filled": "outlined" } 
+                    onClick={() => handleClipClick(skill)} 
+                    sx={{
+                        marginTop: '1rem',
+                        marginBottom: '1rem',
+                        marginRight: '.5rem'
+                    }}
                 />
             ))
         }

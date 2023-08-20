@@ -60,7 +60,7 @@ export default function Resume() {
                     </FormControl>
                     {
                         selectedFilterOption == 'skill' && (tags.data && <TagsFilter tags={tags.data.map(tag => tag.name)}/> || <Typography>Failed to get tag data</Typography>) ||
-                        selectedFilterOption == 'job' && (jobs.data && <TagsFilter tags={jobs.data.map(tag => tag.name)}/> || <Typography>Failed to get job data</Typography>)
+                        selectedFilterOption == 'job' && (jobs.data && <TagsFilter tags={jobs.data.map(job => job.name)}/> || <Typography>Failed to get job data</Typography>)
                     }
                 </Card>
             </div>
