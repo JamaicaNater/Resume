@@ -38,7 +38,7 @@ const ExperienceDetails = ({ experience }) => {
                 )}
                 </Typography>
                 {experience.details && <DetailsDisplay details={experience.details} />}
-                {experience.tags && <TagsFilter skills={experience.tags} />}
+                {experience.tags && <TagsFilter tags={experience.tags} />}
             </div>
         </div>
       );

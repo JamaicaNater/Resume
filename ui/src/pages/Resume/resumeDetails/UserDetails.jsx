@@ -32,7 +32,7 @@ const UserDetails = ({ user }) => {
             </Typography>
 
             { user.details && <DetailsDisplay details={user.details} />}
-            { user.skills && <TagsFilter skills={user.skills} />}
+            { user.skills && <TagsFilter tags={user.skills} />}
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ import ProjectDetails from "./resumeDetails/ProjectDetails";
 import './Resume.css';
 import UserDetails from "./resumeDetails/UserDetails";
 import ReferenceDetails from "./resumeDetails/ReferenceDetails";
-import { Card, CircularProgress, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { Card, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import ResumeContext from "../../context/ResumeContext/ResumeContext";
 import useResumeParams from "../../hooks/useResumeParams";
 import PushResumeData from "./resumeDetails/PushResumeData";
@@ -59,8 +59,8 @@ export default function Resume() {
                         </Select>
                     </FormControl>
                     {
-                        selectedFilterOption == 'skill' && (tags.data && <TagsFilter skills={tags.data.map(tag => tag.name)}/> || <Typography>Failed to get tag data</Typography>) ||
-                        selectedFilterOption == 'job' && (jobs.data && <TagsFilter skills={jobs.data.map(tag => tag.name)}/> || <Typography>Failed to get job data</Typography>)
+                        selectedFilterOption == 'skill' && (tags.data && <TagsFilter tags={tags.data.map(tag => tag.name)}/> || <Typography>Failed to get tag data</Typography>) ||
+                        selectedFilterOption == 'job' && (jobs.data && <TagsFilter tags={jobs.data.map(tag => tag.name)}/> || <Typography>Failed to get job data</Typography>)
                     }
                 </Card>
             </div>

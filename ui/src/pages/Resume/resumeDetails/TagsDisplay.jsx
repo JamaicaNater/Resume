@@ -1,7 +1,7 @@
 import { Chip } from "@mui/material"
 import { PropTypes } from "prop-types"
 
-const TagsDisplay = ({ skills, tagsSelected, setTagsSelected }) => { 
+const TagsDisplay = ({ tags, tagsSelected, setTagsSelected }) => { 
     const formatTag = (input) => {
         const wordsArray = input.split(/-/);
     
@@ -35,7 +35,7 @@ const TagsDisplay = ({ skills, tagsSelected, setTagsSelected }) => {
     return (
         <>
         {
-            skills.map((skill, index) => (
+            tags.map((skill, index) => (
                 <Chip 
                         className='chip' 
                         key={index} 
@@ -55,7 +55,7 @@ const TagsDisplay = ({ skills, tagsSelected, setTagsSelected }) => {
 }
 
 TagsDisplay.propTypes = {
-    skills: PropTypes.arrayOf(PropTypes.string).isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     tagsSelected: PropTypes.arrayOf(PropTypes.string).isRequired,
     setTagsSelected: PropTypes.func.isRequired
 }

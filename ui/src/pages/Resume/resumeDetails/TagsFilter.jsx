@@ -4,16 +4,16 @@ import ResumeContext from "../../../context/ResumeContext/ResumeContext"
 import TagsDisplay from "./TagsDisplay"
 
 
-const TagsFilter = ({ skills }) => {
+const TagsFilter = ({ tags }) => {
     const { tagFilters, setTagFilters } = useContext(ResumeContext)
 
     return (
-        <TagsDisplay skills={skills} tagsSelected={tagFilters} setTagsSelected={setTagFilters}/>
+        <TagsDisplay tags={tags} tagsSelected={tagFilters} setTagsSelected={setTagFilters}/>
     );
 }
 
 TagsFilter.propTypes = {
-    skills: PropTypes.arrayOf(PropTypes.string).isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default TagsFilter

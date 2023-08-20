@@ -41,7 +41,7 @@ const ProjectDetails = ({ project }) => {
             )}
             </Typography>
             { project.details && <DetailsDisplay details={project.details} /> }
-            { project.tags && <TagsFilter skills={project.tags} /> }
+            { project.tags && <TagsFilter tags={project.tags} /> }
             </div>
         </div>
     );
