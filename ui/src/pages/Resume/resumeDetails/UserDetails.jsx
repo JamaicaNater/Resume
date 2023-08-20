@@ -10,6 +10,7 @@ const UserDetails = ({ user }) => {
     const updateSelf = async (user) => {
         await ApiController.updateMe(user)
     }
+    
     return(
         <div className='resume-section-div'>
             <div className='resume-section-icon-div'>
