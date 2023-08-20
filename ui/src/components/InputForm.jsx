@@ -52,7 +52,7 @@ const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredF
                 key={index}
                 //TODO: chnage when dark mode
                 style={{backgroundColor: 'white', color: 'gray'}}
-                sx={{ marginBottom: '.5rem', width: '40vh'}}
+                sx={{ marginBottom: '.5rem'}}
                 minRows={3}
                 placeholder="Enter details..."
                 name={key}
@@ -67,7 +67,7 @@ const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredF
           if (key === 'tags') {
             return (
               <Container key={index}>
-                <TagsDisplay key={index} tags={tags.data.map(tag => tag.name)} tagsSelected={newFormData.tags ?? []} setTagsSelected={setTags}/>
+                <TagsDisplay tags={tags.data.map(tag => tag.name)} tagsSelected={newFormData.tags ?? []} setTagsSelected={setTags}/>
               </Container>
             )
           }
@@ -87,10 +87,15 @@ const InputForm = ({formData, onSubmit, requiredFields, disabledFields, ignoredF
         })
       }
       {
-        loading && <CircularProgress/> ||
-        <Button type="submit" variant="contained" color="primary" sx={{marginTop: '1rem'}}>
-          Submit
-        </Button>
+        loading ? (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50px' }}>
+            <CircularProgress />
+          </div>
+        ) : (
+          <Button type="submit" variant="contained" color="primary" sx={{ marginTop: '1rem' }}>
+            Submit
+          </Button>
+        )
       }
       {
         error &&
