@@ -19,7 +19,7 @@ import Reference from "../../models/Reference";
 
 export default function Resume() {
    
-    const { tagFilterData, tags, jobs, user, education, projects, references, experience } = useContext(ResumeContext);
+    const { tagFilters, tags, jobs, user, education, projects, references, experience } = useContext(ResumeContext);
 
     const [selectedFilterOption, setSelectedFilterOption] = useState('skill');
 
@@ -104,7 +104,7 @@ export default function Resume() {
                 <CollapsibleCard className="card" title="Experience" style={{animationDelay: getAnimationDelay()}}> 
                 {
                     experience.data
-                    .filter(project => tagFilterData.tagFilters.every(filter => project.tags.includes(filter)))
+                    .filter(project => tagFilters.every(filter => project.tags.includes(filter)))
                     .map((experience, index, arr) => (     
                         <>                   
                             <ExperienceDetails key={index} experience={experience}/>
@@ -131,7 +131,7 @@ export default function Resume() {
                 <CollapsibleCard className="card" title="Projects" style={{animationDelay: getAnimationDelay()}}> 
                 {
                     projects.data
-                    .filter(project => tagFilterData.tagFilters.every(filter => project.tags.includes(filter)))
+                    .filter(project => tagFilters.every(filter => project.tags.includes(filter)))
                     .map((project, index, arr) => (
                         <>
                             <ProjectDetails key={index} project={project}/>

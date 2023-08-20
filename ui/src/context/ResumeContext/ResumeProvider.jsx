@@ -3,13 +3,9 @@ import ResumeContext from './ResumeContext';
 import PropTypes from 'prop-types';
 import useResume from '../../hooks/useResume';
 
-const initialState = {
-    tagFilters: [],
-    mustConatainAllTags: true,
-};
-
 const ResumeProvider = ({ children }) => {
-    const [tagFilterData, setTagFilterData] = useState(initialState);
+    const [tagFilters, setTagFilters] = useState([]);
+
     const { 
             user,
             projects,
@@ -23,8 +19,8 @@ const ResumeProvider = ({ children }) => {
     return (
         <ResumeContext.Provider 
         value={{ 
-                tagFilterData, 
-                setTagFilterData,
+                tagFilters, 
+                setTagFilters,
                 user,
                 projects,
                 education,

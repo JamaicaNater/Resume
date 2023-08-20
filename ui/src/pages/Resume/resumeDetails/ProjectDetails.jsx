@@ -10,7 +10,7 @@ import useResumeParams from '../../../hooks/useResumeParams';
 
 const ProjectDetails = ({ project }) => { 
     const { canEdit } = useResumeParams();
-
+    
     const updateProject = async (newData) => {
         await ApiController.updateProject(newData, project._id)
     }

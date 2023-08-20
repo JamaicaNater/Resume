@@ -5,7 +5,7 @@ import ResumeContext from "../../../context/ResumeContext/ResumeContext"
 
 
 const TagsDisplay = ({ skills }) => {
-    const { tagFilterData, setTagFilterData } = useContext(ResumeContext);
+    const { tagFilters: tagsSelected, setTagFilters: setTagsSelected, filterTag, unfilterTag } = useContext(ResumeContext)
 
     const formatTag = (input) => {
         const wordsArray = input.split(/-/);
@@ -16,30 +16,24 @@ const TagsDisplay = ({ skills }) => {
     }
 
     const tagSelected = (tag) => {
-        return tagFilterData.tagFilters.includes(tag)
+        return tagsSelected.includes(tag)
     }
 
-    const addTagToFilter = (tag) => {
-        const newTagFilters = [...tagFilterData.tagFilters, tag];
-        setTagFilterData((prevData) => ({
-            ...prevData,
-            tagFilters: newTagFilters,
-        }));
+    const selectTag = (tag) => {
+        console.log('here')
+        setTagsSelected([...tagsSelected, tag])
     }
 
-    const removeTagFromFilter = (removed_tag) => {
-        const newTagFilters = tagFilterData.tagFilters.filter((tag) => tag !== removed_tag);
-        setTagFilterData((prevData) => ({
-          ...prevData,
-          tagFilters: newTagFilters,
-        }));
+    const unselectTag = (removed_tag) => {
+        const newTagFilters = tagsSelected.filter((tag) => tag !== removed_tag);
+        setTagsSelected(newTagFilters);
     };
 
     const handleClipClick = (tag) => {
         if (tagSelected(tag)) {
-            removeTagFromFilter(tag)
+            unselectTag(tag)
         } else {
-            addTagToFilter(tag);
+            selectTag(tag);
         }
     }
 
@@ -66,7 +60,9 @@ const TagsDisplay = ({ skills }) => {
 }
 
 TagsDisplay.propTypes = {
-    skills: PropTypes.arrayOf(PropTypes.string).isRequired
+    skills: PropTypes.arrayOf(PropTypes.string).isRequired,
+    tagsSelected: PropTypes.arrayOf(PropTypes.string).isRequired,
+    setTagsSelected: PropTypes.func.isRequired
 }
 
 export default TagsDisplay
