@@ -8,8 +8,8 @@ const experienceSchema = new mongoose.Schema({
     position: {type: String, required: true},
     details: { type: [String], required: false },
     tags: {type: [String], required: false},
-    from: {type: Date, require: false},
-    to: {type: Date, require: false},
+    startDate: {type: Date, require: false},
+    endDate: {type: Date, require: false},
     priority: {type: Number, require: false},
 });
 

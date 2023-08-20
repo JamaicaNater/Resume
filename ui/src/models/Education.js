@@ -6,8 +6,8 @@ export default class Education {
         minor = '',
         gpa = 0.0,
         details = [],
-        enrollmentDate = '',
-        graduationDate = '',
+        startDate = '',
+        endDate = '',
         city = '',
         state = '',
         country = ''
@@ -18,8 +18,8 @@ export default class Education {
         this.minor = minor;
         this.gpa = gpa;
         this.details = details;
-        this.enrollmentDate = enrollmentDate;
-        this.graduationDate = graduationDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.city = city;
         this.state = state;
         this.country = country;

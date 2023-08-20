@@ -39,8 +39,8 @@ const EducationDetails = ({ education }) => {
             `}
                 <br />
             {`
-                ${education.enrollmentDate}
-                ${education.graduationDate ? ` - ${education.graduationDate}` : ' - Present'}
+                ${education.startDate}
+                ${education.endDate ? ` - ${education.endDate}` : ' - Present'}
             `}
                 <br />
             {`
@@ -66,8 +66,8 @@ EducationDetails.propTypes = {
         degreeType: PropTypes.string.isRequired,
         minor: PropTypes.string,
         gpa: PropTypes.number,
-        enrollmentDate: PropTypes.string.isRequired,
-        graduationDate: PropTypes.string,
+        startDate: PropTypes.instanceOf(Date).isRequired,
+        endDate: PropTypes.instanceOf(Date),
         city: PropTypes.string,
         state: PropTypes.string,
         country: PropTypes.string,

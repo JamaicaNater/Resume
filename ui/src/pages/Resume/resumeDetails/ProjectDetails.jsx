@@ -51,9 +51,11 @@ ProjectDetails.propTypes = {
     project: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired, 
+        startDate: PropTypes.instanceOf(Date).isRequired,
+        endDate: PropTypes.instanceOf(Date),
         link: PropTypes.string,
-        details: PropTypes.arrayOf(PropTypes.string).isRequired, 
-        tags: PropTypes.arrayOf(PropTypes.string).isRequired, 
+        details: PropTypes.arrayOf(PropTypes.string), 
+        tags: PropTypes.arrayOf(PropTypes.string), 
     }).isRequired,
 };
   

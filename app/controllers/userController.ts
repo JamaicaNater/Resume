@@ -57,8 +57,8 @@ const UserController = {
     },
     postUser: async (req: Request, res: Response) => {
         try {
-            const { firstName, lastName, username, phoneNumber, email, skills, details } = req.body;
-            const user = new User({ firstName, lastName, username, phoneNumber, email, skills, details });
+            const { firstName, lastName, username, phoneNumber, email, tags, details } = req.body;
+            const user = new User({ firstName, lastName, username, phoneNumber, email, tags, details });
             const resJson = await user.save();
             res.json(resJson);
         } catch (error) {

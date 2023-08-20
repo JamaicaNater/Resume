@@ -5,7 +5,7 @@ import { peopleFields, IPeopleFields } from './peopleFields';
 // Todo make for all types
 interface IUser extends Document, IPeopleFields {
     username: string,
-    skills?: string[];
+    tags?: string[];
     details?: string;
 }
 
@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
     ...peopleFields,
     email: { type: String, required: true, unique: true, immutable: true },
     username: {type: String, required: true, unique: true, immutable: true },
-    skills: {type: [String], required: false },
+    tags: {type: [String], required: false },
     details: {type: String, required: false }
 })
 

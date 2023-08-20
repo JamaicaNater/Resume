@@ -48,8 +48,8 @@ export const ProjectController = {
   },
   createProject: async (req: Request, res: Response) => {
   try {
-      const { name, link, details, tags, from, to, priority } = req.body;
-      const project = new Project({ name, link, details, tags, from, to, priority, userId: req.session.user?.id });
+      const { name, link, details, tags, startDate, endDate, priority } = req.body;
+      const project = new Project({ name, link, details, tags, startDate, endDate, priority, userId: req.session.user?.id });
       const resJson = await project.save();
       return res.json(resJson);
   } catch (error) {

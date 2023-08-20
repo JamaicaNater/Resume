@@ -1,11 +1,11 @@
 export default class Project {
-    constructor(name, link, details, tags, from, to, priority) {
+    constructor(name, link, details, tags, startDate, endDate, priority) {
         this.name = name;
         this.link = link;
         this.details = details;
         this.tags = tags;
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.priority = priority;
     }
 }

@@ -49,8 +49,10 @@ ExperienceDetails.propTypes = {
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired, 
         position: PropTypes.string.isRequired,
-        details: PropTypes.arrayOf(PropTypes.string).isRequired,
-        tags: PropTypes.arrayOf(PropTypes.string).isRequired, 
+        startDate: PropTypes.instanceOf(Date).isRequired,
+        endDate: PropTypes.instanceOf(Date),
+        details: PropTypes.arrayOf(PropTypes.string),
+        tags: PropTypes.arrayOf(PropTypes.string), 
     }).isRequired,
 };
   
