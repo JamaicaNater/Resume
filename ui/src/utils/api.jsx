@@ -6,8 +6,8 @@ const instance = axios.create({
 });
 
 export const ApiController = {
-    authenticate: async (code, redirect_uri) => {
-        return genericGet('auth', {code: code, redirect_uri: redirect_uri});
+    authenticate: async (code) => {
+        return genericGet('auth', {code: code});
     },
     
     logout: async (queryParams) => {

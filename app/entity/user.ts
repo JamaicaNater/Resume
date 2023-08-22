@@ -1,9 +1,6 @@
-export interface GoogleUser {
-    id?: string;
-    username?: string;
-    sub: string;
-    name: string;
-    picture: string;
-    email: string;
-    emailVerified: boolean;
+import { TokenPayload } from 'google-auth-library';
+
+export interface GoogleUser extends TokenPayload {
+    username: string;
+    id: string;
 }
