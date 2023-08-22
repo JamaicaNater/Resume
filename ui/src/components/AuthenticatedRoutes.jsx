@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { CircularProgress } from '@mui/material';
+import { Card, CardContent, CircularProgress, Container, Typography } from '@mui/material';
 import { PropTypes } from 'prop-types';
 import useLoginRedirect from '../hooks/auth/useLoginRedirect';
 
@@ -9,7 +9,15 @@ const AuthRoutes = ({ children }) => {
   return (
     <>
     {
-        redirecting && <CircularProgress/>
+        redirecting && 
+        <Card sx={{padding: '1.5rem'}}>
+            <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+                <Container>
+                    <Typography variant="h6">Redirecting to login</Typography>
+                    <CircularProgress/>
+                </Container>
+            </CardContent>
+        </Card>
     }
     {
         !redirecting && (children ?? <Outlet />)

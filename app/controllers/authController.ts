@@ -16,20 +16,21 @@ const AuthController = {
                 res.status(400).json("Code is required");
                 return;
             }
-
+    
             console.log('Authenticating request')
-            let user = await verifyToken(token)
+            const user = await verifyToken(token);
             if (!user) {
-                throw Error("Failed to verify token")
+                throw Error("Failed to verify token");
             }
     
             const account = await User.findOne({ email: user.email });
             if (!account) {
-                return res.status(404).json(user)
+                req.session.user = user;
+                return res.status(404).json(user);
             }
-            
+    
             req.session.user = { ...user, id: account._id.toString(), username: account.username };
-            return res.status(account ? 200 : 404).json(req.session.user)
+            return res.status(200).json(req.session.user);
         } catch (error) {
             console.error(error)
             return res.status(500).json("Failed to autheticate")

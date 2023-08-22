@@ -5,18 +5,24 @@ import DetailsDisplay from './DetailsDisplay';
 import PushResumeData from './PushResumeData';
 import { ApiController } from '../../../utils/api';
 import TagsFilter from './TagsFilter';
+import useResumeParams from '../../../hooks/useResumeParams';
 
-const UserDetails = ({ user }) => {   
+const UserDetails = ({ user }) => {
+    const { canEdit } = useResumeParams();
+
     const updateSelf = async (user) => {
         await ApiController.updateMe(user)
     }
     
     return(
-        <div className='resume-section-div'>
-            <div className='resume-section-icon-div'>
-                <PushResumeData queryKey={['user']} data={user} apiCall={updateSelf} edit />
+        <div className={canEdit ? 'resume-section-div' : ''}>
+            <div className={canEdit ? 'resume-section-icon-div' : ''}>
+                {
+                    canEdit &&
+                    <PushResumeData queryKey={['user']} data={user} apiCall={updateSelf} edit />
+                }
             </div>
-            <div className='resume-section-content-div'>
+            <div className={canEdit ? 'resume-section-content-div' : ''}>
                 <Typography variant='body1'>
             {
                 user.phoneNumber && (

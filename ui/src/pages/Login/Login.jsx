@@ -5,9 +5,12 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import useRedirectFromLogin from "../../hooks/auth/useRedirectFromLogin";
 import { GoogleLogin } from '@react-oauth/google';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const redirecting = useRedirectFromLogin('/resume');
+
+    const navigate = useNavigate()
 
     const { user, login } = useContext(AuthContext);
 
@@ -51,8 +54,12 @@ const Login = () => {
                         <GoogleLogin
                             onSuccess={credentialResponse => {
                                 try {
-                                    ApiController.authenticate(credentialResponse.credential).then((user) => {
-                                        login(user)
+                                    ApiController.authenticate(credentialResponse.credential).then((user) => login(user))
+                                    .catch(error => {
+                                        if (error.response.status === 404) {
+                                            login(error.response.data)
+                                            navigate('/register')
+                                        }
                                     })
                                 } catch (error) {
                                     console.error("Error decoding JWT:", error);

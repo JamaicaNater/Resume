@@ -10,7 +10,7 @@ const EducationDetails = ({ education }) => {
     const { canEdit } = useResumeParams();
 
     const updateEducation = async (newData) => {
-        await ApiController.updateEducatione(newData, education._id)
+        await ApiController.updateEducation(newData, education._id)
     }
 
     const deleteEducation = async () => {

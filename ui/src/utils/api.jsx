@@ -2,6 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: 'http://localhost:3000',
+    timeout: 10000,
     withCredentials: true, // Include cookies in the request
 });
 
@@ -34,7 +35,7 @@ export const ApiController = {
         return genericGet('education', queryParams);
     },
 
-    updateEducatione: async (education, id, queryParams) => {
+    updateEducation: async (education, id, queryParams) => {
         return genericPut('education', id, education, queryParams);
     },
 
